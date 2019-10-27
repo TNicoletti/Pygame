@@ -22,12 +22,10 @@ width  = 40
 height = 60
 vel = 5
 
-gravity = .8
+#gravity = .8
 
 run = True
 
-player    = Player(0, 0, gravity)
-enemies   = []
 platforms = [Platform(-1, 0, 1, 500),
 			 Platform(0, 490, 2000, 20),
 			 Platform(0, 400, 100, 20),
@@ -38,6 +36,9 @@ platforms = [Platform(-1, 0, 1, 500),
 			 Platform(400, 150, 100, 20),
 			 Platform(725, 300, 150, 20),
 			 Platform(950, 200, 100, 20)]
+
+player    = Player(0, 0, platforms)
+enemies   = []
 
 shops = [Shop(0, 420, Gun(50, 2, player), 4000, player),
 Shop(500, 420, Gun(1500, 1 * 60, player), 5000, player),
@@ -64,11 +65,11 @@ while(run):
 			rand = random.randint(0, 2)
 
 			if(rand == 0):
-				enemies.append(Enemy(250 - 500 * tela[0], 250, player, gravity))
+				enemies.append(Enemy(250 - 500 * tela[0], 250, player, platforms))
 			elif(rand == 1):
-				enemies.append(Enemy(1000 - 500 * tela[0], 400, player, gravity))
+				enemies.append(Enemy(1000 - 500 * tela[0], 400, player, platforms))
 			elif(rand == 2):
-				enemies.append(Enemy(1500 - 500 * tela[0], 400, player, gravity))
+				enemies.append(Enemy(1500 - 500 * tela[0], 400, player, platforms))
 	
 	for event in pygame.event.get():
 		if(event.type == pygame.QUIT):
@@ -79,7 +80,6 @@ while(run):
 	for s in shops:
 		s.draw(win)
 
-	player.commitLandded(platforms)
 	player.move()
 	player.draw(win)
 	player.damage(enemies)
@@ -97,7 +97,6 @@ while(run):
 			toRemove.append(e)
 			continue
 
-		e.commitLandded(platforms)
 		e.move()
 		e.draw(win)
 		e.do_attack()
@@ -136,6 +135,34 @@ while(run):
 		player.x += 500
 
 		tela[0] -= 1
+
+	if (player.y > 500):
+		for e in enemies:
+			e.y -= 500
+
+		for p in platforms:
+			p.y -= 500
+
+		for s in shops:
+			s.y -= 500
+
+		player.y -= 500
+
+		tela[1] += 1
+
+	if (player.y < -player.width):
+		for e in enemies:
+			e.y += 500
+
+		for p in platforms:
+			p.y += 500
+
+		for s in shops:
+			s.y += 500
+
+		player.y += 500
+
+		tela[1] -= 1
 	
 	#pygame.draw.rect(win, (255, 0, 0), (x, y, width, height))
 	pygame.display.flip()

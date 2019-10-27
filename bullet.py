@@ -15,8 +15,8 @@ class Bullet(object):
 
         self.vel = vel
 
-        self.xVel = (self.xT - self.x) / 10
-        self.yVel = (self.yT - self.y) / 10
+        #self.xVel = (self.xT - self.x) / 10
+        #self.yVel = (self.yT - self.y) / 10
 
         self.hitbox = (self.x, self.y, self.width, self.height)
 
@@ -25,10 +25,13 @@ class Bullet(object):
 
         self.sen = (auxY) / (math.sqrt(auxX * auxX + auxY * auxY))
         self.cos = math.sqrt(1 - self.sen*self.sen)
-        print("sen:", self.sen)
-        print("cos:", self.cos)
+        #print("sen:", self.sen)
+        #print("cos:", self.cos)
 
-        self.yVel = self.cos * vel
+        if(auxX < 0):
+            self.xVel = -self.cos * vel
+        else:
+            self.xVel = self.cos * vel
         self.yVel = self.sen * vel
 
     def draw(self, win):

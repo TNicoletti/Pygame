@@ -1,7 +1,7 @@
 import pygame
 
 class Enemy(object):
-    def __init__(self, x, y, player, gravity):
+    def __init__(self, x, y, player, platforms):
         self.x = x
         self.y = y
         self.width  = 50
@@ -19,13 +19,13 @@ class Enemy(object):
         self.yVel = 0
         self.landded = False
 
-        self.g = gravity
+        self.platforms = platforms
+
+        #self.g = gravity
 
         #self.hitbox = (self.x, self.y, self.width, self.height)
 
         self.ori = "right"
-
-        self.platforms = []
 
         self.life = 1000
 
@@ -33,21 +33,6 @@ class Enemy(object):
 
     def draw(self, win):
         pygame.draw.rect(win, (68, 117, 72), (self.x, self.y, self.width, self.height))
-
-    def commitLandded(self, platforms):
-        self.platforms = platforms
-        for p in platforms: 
-            if(self.confereMargem(p) == True):
-                if(self.yVel > 0):
-                    self.y = p.y - self.height
-                    self.yVel = 0
-                    self.landded = True
-                elif(self.yVel < 0):
-                    self.y = p.y + p.height
-                    self.yVel = 0
-                return
-        
-        self.landded = False
 
     def move(self):
 
@@ -76,18 +61,20 @@ class Enemy(object):
                         self.jumpped = True
                     break
 
-        if(self.y > self.player.y):
-            if (not self.jumpped):
-                self.yVel += self.jumpForce
-                self.jumpped = True
+        if(self.y < self.player.y):
+            self.y += self.vel
 
-        if(not self.landded): 
-            self.yVel += self.g
-        else:
-            self.yVel = 0
-            self.jumpped = False
+            for p in self.platforms:
+                if (self.confereMargem(p)):
+                    self.y -= self.vel
+                    break
+        elif(self.y > self.player.y):
+            self.y -= self.vel
 
-        self.y += self.yVel
+            for p in self.platforms:
+                if (self.confereMargem(p)):
+                    self.y += self.vel
+                    break
 
         if(normalTime % 1 == 0):
             self.attackCoul += 1

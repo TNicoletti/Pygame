@@ -2,11 +2,11 @@ import pygame
 from bullet import *
 
 class Gun(object):
-    def __init__(self, damage, rateOfFire, player):
+    def __init__(self, damage, rateOfFire, shooter):
         self.damage = damage
         self.rateOfFire = rateOfFire
 
-        self.player = player
+        self.shooter = shooter
 
         self.cont = 0
 
@@ -22,10 +22,7 @@ class Gun(object):
 
         if(self.cont >= self.rateOfFire):
             self.cont = 0
-            if(self.player.ori == "left"):
-                bullets.append(Bullet(self.player.x, self.player.y, x, y, 4, 4, 10, self.damage))
-            elif(self.player.ori == "right"):
-                bullets.append(Bullet(self.player.x + self.player.width, self.player.y, x, y, 4, 4, 10, self.damage))
+            bullets.append(Bullet(self.shooter.x + self.shooter.width/2, self.shooter.y  + self.shooter.height/2, x, y, 4, 4, 10, self.damage))
 
     def cool(self):
         self.tickTime += 1

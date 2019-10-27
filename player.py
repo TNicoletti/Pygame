@@ -3,7 +3,7 @@ from bullet import *
 from gun import *
 
 class Player(object):
-    def __init__(self, x, y, gravity):
+    def __init__(self, x, y, platforms):
         self.x = x
         self.y = y
         self.width  = 50
@@ -11,23 +11,22 @@ class Player(object):
         self.vel = 5
         self.jumpForce = -15
 
+        self.platforms = platforms
+
         self.MAXLIFE = 400
         self.life = self.MAXLIFE
 
         self.points = 0
 
-        self.ori = "left"
         self.jumpped = False
 
         self.gun = Gun(20, 1, self)
 
-        self.g = gravity
+        #self.g = gravity
         self.yVel = 0
 
         self.tickTime = 0
         self.clockTick = 60
-
-        self.landded = False
 
         self.bullets = []
 
@@ -35,7 +34,7 @@ class Player(object):
 
         self.hitbox = (self.x, self.y, self.width, self.height)
 
-        self.platforms = []
+        #self.platforms = []
 
     def draw(self, win):
         pygame.draw.rect(win, (124, 220, 234), (self.x, self.y, self.width, self.height))
@@ -53,28 +52,6 @@ class Player(object):
        	textRect = text.get_rect()
        	textRect.center = (400, 15)
         win.blit(text, textRect)
-
-    def commitLandded(self, platforms):
-        for p in platforms: 
-            if(self.confereMargem(p) == True):
-                '''if (self.xVel < 0):
-                    self.x = p.x + p.width
-                elif(self.xVel > 0):
-                    self.x = p.x - self.width'''
-                if(self.yVel > 0):
-                    self.y = p.y - self.height
-                    self.yVel = 0
-                    self.landded = True
-                elif(self.yVel < 0):
-                    self.y = p.y + p.height
-                    self.yVel = 0
-
-
-                return
-
-        self.platforms = platforms
-        
-        self.landded = False
 
 
     def move(self):
@@ -96,7 +73,6 @@ class Player(object):
 
         if(keys[pygame.K_a]):
             self.x -= self.vel
-            #self.ori = "left"
             for p in self.platforms:
                 if(self.confereMargem(p)):
                     self.x += self.vel
@@ -104,27 +80,24 @@ class Player(object):
 
         if(keys[pygame.K_d]):
             self.x += self.vel
-            #self.ori = "right"
             for p in self.platforms:
                 if (self.confereMargem(p)):
                     self.x -= self.vel
                     break
-        '''if(keys[pygame.K_UP] and self.y > 0):
+        if(keys[pygame.K_w]):
             self.y -= self.vel
-        if(keys[pygame.K_DOWN] and self.y < 500 - self.height):
-            self.y += self.vel'''
+            for p in self.platforms:
+                if (self.confereMargem(p)):
+                    self.y += self.vel
+                    break
+        if(keys[pygame.K_s]):
+            self.y += self.vel
+            for p in self.platforms:
+                if (self.confereMargem(p)):
+                    self.y -= self.vel
+                    break
 
-        if(not self.landded): 
-            self.yVel += self.g
-        else:
-            self.yVel = 0
-            self.jumpped = False
-
-        if(keys[pygame.K_SPACE] and not self.jumpped):
-            self.yVel += self.jumpForce
-            self.jumpped = True
-
-        self.y += self.yVel
+        #self.y += self.yVel
 
         self.hitbox = (self.x, self.y, self.width, self.height)
 
@@ -133,11 +106,6 @@ class Player(object):
 
         if(btn1 == True):
             x, y = pygame.mouse.get_pos()
-
-            if((self.x + self.width/2 - x) > 0):
-            	self.ori = "left"
-            else:
-            	self.ori = "right"
 
             self.gun.shot(self.bullets, x, y)
         else:
