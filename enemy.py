@@ -27,7 +27,7 @@ class Enemy(object):
 
         self.ori = "right"
 
-        self.life = 1000
+        self.life = 200
 
         self.attackCoul = 0
 
@@ -103,5 +103,5 @@ class Enemy(object):
     def do_attack(self):
 
         if(self.confereMargem(self.player) and self.attackCoul >= 1):
-            self.player.takeDamage(50)
+            self.player.takeDamage(1)
             self.attackCoul = 0

@@ -35,7 +35,7 @@ class Bullet(object):
         self.yVel = self.sen * vel
 
     def draw(self, win):
-        if(self.x > 0  and self.y > 0 and self.x <= 500 and self.y <= 500): 
+        if(self.x > 0  and self.y > 0 and self.x <= 800 and self.y <= 800):
             pygame.draw.rect(win, (255, 0, 0), (self.x, self.y, self.width, self.height))
 
 

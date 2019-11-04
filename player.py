@@ -1,6 +1,7 @@
 import pygame
 from bullet import *
 from gun import *
+from math import asin, degrees
 
 class Player(object):
     def __init__(self, x, y, platforms):
@@ -13,14 +14,14 @@ class Player(object):
 
         self.platforms = platforms
 
-        self.MAXLIFE = 400
+        self.MAXLIFE = 20
         self.life = self.MAXLIFE
 
         self.points = 0
 
         self.jumpped = False
 
-        self.gun = Gun(20, 1, self)
+        self.gun = Gun(20, 12, self)
 
         #self.g = gravity
         self.yVel = 0
@@ -30,22 +31,27 @@ class Player(object):
 
         self.bullets = []
 
-        self.healthCoul = 3
+        self.angle = 0
 
         self.hitbox = (self.x, self.y, self.width, self.height)
 
         #self.platforms = []
 
     def draw(self, win):
-        pygame.draw.rect(win, (124, 220, 234), (self.x, self.y, self.width, self.height))
+        image = pygame.image.load('./Images/Bettle.png')
+        image2 = pygame.transform.rotate(image, self.angle)
+
+        win.blit(image2, (self.x, self.y)) 
+
+        #pygame.draw.rect(win, (124, 220, 234), (self.x, self.y, self.width, self.height))
 
         for x in self.bullets:
             x.draw(win)
 
         font = pygame.font.Font('freesansbold.ttf', 32)
-        text = font.render(str(self.life), True, (255, 255, 255), (0, 0, 0))
+        text = font.render(str(self.life) + "/" + str(self.MAXLIFE), True, (255, 255, 255), (0, 0, 0))
         textRect = text.get_rect()
-        textRect.center = (30, 15)
+        textRect.center = (50, 15)
         win.blit(text, textRect)
 
         text = font.render(str(self.points), True, (255, 255, 255), (0, 0, 0))
@@ -58,16 +64,6 @@ class Player(object):
         self.tickTime += 1
 
         normalTime = self.tickTime / self.clockTick
-
-        if(normalTime % 1 == 0):
-            self.healthCoul += 1
-
-            if(self.healthCoul >= 3):
-                if (self.life < self.MAXLIFE):
-                    self.life += 50
-
-                if(self.life > self.MAXLIFE):
-                    self.life = self.MAXLIFE
 
         keys = pygame.key.get_pressed()
 
@@ -104,9 +100,28 @@ class Player(object):
 
         btn1, btn2, btn3 = pygame.mouse.get_pressed()
 
-        if(btn1 == True):
-            x, y = pygame.mouse.get_pos()
+        x, y = pygame.mouse.get_pos()
 
+        xo = self.x + self.width
+        yo = self.y + self.height
+
+        auxX = xo - x
+        auxY = yo - y
+
+        sen = (auxY) / (math.sqrt(auxX * auxX + auxY * auxY))
+
+        #if(auxY < 0):
+        #sen = -sen
+
+        self.angle = degrees(asin(sen))
+
+        if(auxX > 0):
+            self.angle = 180 - self.angle
+
+        #print(self.angle)
+        #print(sen)
+
+        if(btn1 == True):
             self.gun.shot(self.bullets, x, y)
         else:
         	self.gun.cool()
@@ -117,7 +132,7 @@ class Player(object):
         toRemove = []
 
         for x in self.bullets:
-            if(x.x < 0 or x.x > 500 or x.y < 0 or x.y > 500):
+            if(x.x < 0 or x.x > 800 or x.y < 0 or x.y > 800):
                 toRemove.append(x)
                 continue
             for p in self.platforms:

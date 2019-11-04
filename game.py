@@ -12,14 +12,15 @@ pygame.init()
 
 clock = pygame.time.Clock()
 
-win = pygame.display.set_mode((500, 500))
+width = 800
+height = 800
+
+win = pygame.display.set_mode((width, height))
 
 pygame.display.set_caption("GUEIME")
 
 x = 50
 y = 50
-width  = 40
-height = 60
 vel = 5
 
 #gravity = .8
@@ -37,12 +38,12 @@ platforms = [Platform(-1, 0, 1, 500),
 			 Platform(725, 300, 150, 20),
 			 Platform(950, 200, 100, 20)]
 
-player    = Player(0, 0, platforms)
+player    = Player(250, 250, platforms)
 enemies   = []
 
-shops = [Shop(0, 420, Gun(50, 2, player), 4000, player),
-Shop(500, 420, Gun(1500, 1 * 60, player), 5000, player),
-Shop(1000, 130, Gun(33000, 2 * 60, player), 20000, player)]
+shops = [Shop(0, 420, Gun(50, 2, player), 2000, player),
+Shop(500, 420, Gun(1500, 1 * 60, player), 3000, player),
+Shop(1000, 130, Gun(33000, 2 * 60, player), 5000, player)]
 
 tickTime = 0
 normalTime = 0
@@ -65,12 +66,13 @@ while(run):
 			rand = random.randint(0, 2)
 
 			if(rand == 0):
-				enemies.append(Enemy(250 - 500 * tela[0], 250, player, platforms))
+				enemies.append(Enemy(250 - width * tela[0], 250 - height * tela[0], player, platforms))
 			elif(rand == 1):
-				enemies.append(Enemy(1000 - 500 * tela[0], 400, player, platforms))
+				enemies.append(Enemy(1000 - width * tela[0], 400 - height * tela[0], player, platforms))
 			elif(rand == 2):
-				enemies.append(Enemy(1500 - 500 * tela[0], 400, player, platforms))
-	
+				enemies.append(Enemy(1500 - width * tela[0], 400 - height * tela[0], player, platforms))
+				enemies.append(Enemy(1500 - width * tela[0], 400 - height * tela[0], player, platforms))
+
 	for event in pygame.event.get():
 		if(event.type == pygame.QUIT):
 			run = False
@@ -108,59 +110,59 @@ while(run):
 		p.move()
 		p.draw(win)
 
-	if(player.x > 500):
+	if(player.x > width):
 		for e in enemies:
-			e.x -= 500
+			e.x -= width
 
 		for p in platforms:
-			p.x -= 500
+			p.x -= width
 
 		for s in shops:
-			s.x -= 500
+			s.x -= width
 
-		player.x -= 500
+		player.x -= width
 
 		tela[0] += 1
 
 	if(player.x < -player.width):
 		for e in enemies:
-			e.x += 500
+			e.x += width
 
 		for p in platforms:
-			p.x += 500
+			p.x += width
 
 		for s in shops:
-			s.x += 500
+			s.x += width
 
-		player.x += 500
+		player.x += width
 
 		tela[0] -= 1
 
-	if (player.y > 500):
+	if (player.y > height):
 		for e in enemies:
-			e.y -= 500
+			e.y -= height
 
 		for p in platforms:
-			p.y -= 500
+			p.y -= height
 
 		for s in shops:
-			s.y -= 500
+			s.y -= height
 
-		player.y -= 500
+		player.y -= height
 
 		tela[1] += 1
 
-	if (player.y < -player.width):
+	if (player.y < -player.height):
 		for e in enemies:
-			e.y += 500
+			e.y += height
 
 		for p in platforms:
-			p.y += 500
+			p.y += height
 
 		for s in shops:
-			s.y += 500
+			s.y += height
 
-		player.y += 500
+		player.y += height
 
 		tela[1] -= 1
 	
