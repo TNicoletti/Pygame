@@ -41,8 +41,8 @@ platforms = [Platform(-1, 0, 1, 500),
 player    = Player(250, 250, platforms)
 enemies   = []
 
-shops = [Shop(0, 420, Gun(50, 2, player), 2000, player),
-Shop(500, 420, Gun(1500, 1 * 60, player), 3000, player),
+shops = [Shop(0, 420, Gun(50, 2, player), 0, player),
+Shop(500, 420, Gun(1500, 5 * 60, player), 3000, player),
 Shop(1000, 130, Gun(33000, 2 * 60, player), 5000, player)]
 
 tickTime = 0

@@ -35,12 +35,32 @@ class Player(object):
 
         self.hitbox = (self.x, self.y, self.width, self.height)
 
-        #self.platforms = []
+
+        self.shooting = False
+        self.shootCool  = 0
 
     def draw(self, win):
-        image = pygame.image.load('./Images/Bettle.png')
-        image = pygame.transform.scale(image, (self.width, self.height))
-        image = pygame.transform.rotate(image, self.angle)
+
+        image = 0
+
+        if(self.shooting):
+            if (self.angle >= 270 or self.angle <= 90):
+                image = pygame.image.load('./sprites/cat_wizard_11.png')
+            else:
+                image = pygame.image.load('./sprites/cat_wizard_01.png')
+            image = pygame.transform.scale(image, (self.width, self.height))
+
+            if(self.shootCool >= 5):
+                self.shooting = 0
+        else:
+            if(self.angle > 270 or self.angle < 90):
+                image = pygame.image.load('./sprites/cat_wizard_10.png')
+            else:
+                image = pygame.image.load('./sprites/cat_wizard_00.png')
+            image = pygame.transform.scale(image, (self.width, self.height))
+            #image = pygame.transform.rotate(image, self.angle)
+
+
 
         win.blit(image, (self.x, self.y))
 
@@ -123,9 +143,15 @@ class Player(object):
         #print(sen)
 
         if(btn1 == True):
+            self.shootCool += 1
+            if(self.shootCool >= self.gun.rateOfFire):
+                self.shooting = True
+                self.shootCool = 0
+
             self.gun.shot(self.bullets, x, y)
         else:
-        	self.gun.cool()
+            self.gun.cool()
+            self.shootCool += 1
 
         for x in self.bullets:
             x.move()

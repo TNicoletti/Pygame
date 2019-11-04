@@ -36,7 +36,9 @@ class Bullet(object):
 
     def draw(self, win):
         if(self.x > 0  and self.y > 0 and self.x <= 800 and self.y <= 800):
-            pygame.draw.rect(win, (255, 0, 0), (self.x, self.y, self.width, self.height))
+            #pygame.draw.rect(win, (255, 0, 0), (self.x, self.y, self.width, self.height))
+            image = pygame.image.load('./sprites/tiro_0.png')
+            win.blit(image, (self.x, self.y))
 
 
     def move(self):
