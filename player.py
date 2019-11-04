@@ -7,8 +7,8 @@ class Player(object):
     def __init__(self, x, y, platforms):
         self.x = x
         self.y = y
-        self.width  = 50
-        self.height = 50
+        self.width  = 64
+        self.height = 64
         self.vel = 5
         self.jumpForce = -15
 
@@ -39,9 +39,10 @@ class Player(object):
 
     def draw(self, win):
         image = pygame.image.load('./Images/Bettle.png')
-        image2 = pygame.transform.rotate(image, self.angle)
+        image = pygame.transform.scale(image, (self.width, self.height))
+        image = pygame.transform.rotate(image, self.angle)
 
-        win.blit(image2, (self.x, self.y)) 
+        win.blit(image, (self.x, self.y))
 
         #pygame.draw.rect(win, (124, 220, 234), (self.x, self.y, self.width, self.height))
 
