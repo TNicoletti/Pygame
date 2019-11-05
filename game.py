@@ -23,20 +23,16 @@ x = 50
 y = 50
 vel = 5
 
+pygame.mouse.set_cursor(*pygame.cursors.broken_x)
+
 #gravity = .8
 
 run = True
 
-platforms = [Platform(-1, 0, 1, 500),
-			 Platform(0, 490, 2000, 20),
-			 Platform(0, 400, 100, 20),
-			 Platform(400, 450, 100, 50),
-			 Platform(300, 450, 50, 50),
-			 Platform(400, 350, 200, 20),
-			 Platform(400, 250, 100, 20),
-			 Platform(400, 150, 100, 20),
-			 Platform(725, 300, 150, 20),
-			 Platform(950, 200, 100, 20)]
+platforms = [Platform(0, 0, 1, 800),
+			 Platform(0, 800, 800, 1),
+			 Platform(0, 0, 800, 1),
+			 Platform(799, 0, 0, 800)]
 
 player    = Player(250, 250, platforms)
 enemies   = []
