@@ -17,7 +17,7 @@ height = 800
 
 win = pygame.display.set_mode((width, height))
 
-pygame.display.set_caption("GUEIME")
+pygame.display.set_caption("GAYME")
 
 x = 50
 y = 50

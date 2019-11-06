@@ -7,14 +7,14 @@ class Player(object):
     def __init__(self, x, y, platforms):
         self.x = x
         self.y = y
-        self.width  = 64
-        self.height = 64
-        self.vel = 5
-        self.jumpForce = -15
+        self.width  = 64 #TODO dinamic
+        self.height = 64 #TODO dinamic
+        self.vel = 5 #TODO dinamic
+        self.jumpForce = -15 #TODO dinamic
 
         self.platforms = platforms
 
-        self.MAXLIFE = 20
+        self.MAXLIFE = 20 #TODO dinamic
         self.life = self.MAXLIFE
 
         self.points = 0
