@@ -5,6 +5,7 @@ from platform import *
 from bullet import *
 from shop import *
 from gun import *
+from levelGenerator import *
 
 import random
 
@@ -17,7 +18,7 @@ height = 800
 
 win = pygame.display.set_mode((width, height))
 
-pygame.display.set_caption("GUEIME")
+pygame.display.set_caption("GAYME")
 
 x = 50
 y = 50
@@ -29,45 +30,35 @@ pygame.mouse.set_cursor(*pygame.cursors.broken_x)
 
 run = True
 
-platforms = [Platform(0, 0, 1, 800),
-			 Platform(0, 800, 800, 1),
-			 Platform(0, 0, 800, 1),
-			 Platform(799, 0, 0, 800)]
+obstaculo = []
 
-player    = Player(250, 250, platforms)
+player    = Player(250, 250)
 enemies   = []
 
-shops = [Shop(0, 420, Gun(50, 2, player), 0, player),
-Shop(500, 420, Gun(1500, 5 * 60, player), 3000, player),
-Shop(1000, 130, Gun(33000, 2 * 60, player), 5000, player)]
+shops = []
 
-tickTime = 0
-normalTime = 0
 clockTick = 60
-cont = 0
 
-tela = [0 , 0]
+lg = levelGenerator(player)
+enemies = lg.getAtualMap().enemies
+obstaculo = lg.getAtualMap().obstaculos
+player.platforms = obstaculo
+shops = lg.getAtualMap().shops
+
+print(lg.getAtualMap())
+
+def changeSlice(nmap):
+	global enemies
+	global obstaculo
+	global player
+	global shops
+	enemies = nmap.enemies
+	obstaculo = nmap.obstaculos
+	player.platforms = obstaculo
+	shops = nmap.shops
 
 while(run):
-	tickTime += 1
-	normalTime = tickTime/clockTick
 	clock.tick(clockTick)
-
-	if(normalTime % 1 == 0):
-		cont+= 1
-
-		if(cont == 3):
-			cont = 0
-
-			rand = random.randint(0, 2)
-
-			if(rand == 0):
-				enemies.append(Enemy(250 - width * tela[0], 250 - height * tela[0], player, platforms))
-			elif(rand == 1):
-				enemies.append(Enemy(1000 - width * tela[0], 400 - height * tela[0], player, platforms))
-			elif(rand == 2):
-				enemies.append(Enemy(1500 - width * tela[0], 400 - height * tela[0], player, platforms))
-				enemies.append(Enemy(1500 - width * tela[0], 400 - height * tela[0], player, platforms))
 
 	for event in pygame.event.get():
 		if(event.type == pygame.QUIT):
@@ -102,68 +93,27 @@ while(run):
 	for rm in toRemove:
 		enemies.remove(rm)
 
-	for p in platforms:
+	for p in obstaculo:
 		p.move()
 		p.draw(win)
 
 	if(player.x > width):
-		for e in enemies:
-			e.x -= width
-
-		for p in platforms:
-			p.x -= width
-
-		for s in shops:
-			s.x -= width
-
 		player.x -= width
-
-		tela[0] += 1
+		changeSlice(lg.changeSlice("r"))
 
 	if(player.x < -player.width):
-		for e in enemies:
-			e.x += width
-
-		for p in platforms:
-			p.x += width
-
-		for s in shops:
-			s.x += width
-
 		player.x += width
+		changeSlice(lg.changeSlice("l"))
 
-		tela[0] -= 1
 
 	if (player.y > height):
-		for e in enemies:
-			e.y -= height
-
-		for p in platforms:
-			p.y -= height
-
-		for s in shops:
-			s.y -= height
-
 		player.y -= height
-
-		tela[1] += 1
+		changeSlice(lg.changeSlice("d"))
 
 	if (player.y < -player.height):
-		for e in enemies:
-			e.y += height
-
-		for p in platforms:
-			p.y += height
-
-		for s in shops:
-			s.y += height
-
 		player.y += height
+		changeSlice(lg.changeSlice("u"))
 
-		tela[1] -= 1
-	
-	#pygame.draw.rect(win, (255, 0, 0), (x, y, width, height))
 	pygame.display.flip()
 
-#pygame.display.flip()
 pygame.quit()

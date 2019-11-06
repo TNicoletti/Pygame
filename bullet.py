@@ -6,8 +6,8 @@ class Bullet(object):
     def __init__(self, xo, yo, x, y, width, height, vel, damage):
         self.x = xo
         self.y = yo
-        self.xT = x
-        self.yT = y
+        #self.xT = x
+        #self.yT = y
         #self.m = (yo - y)/(xo - x)
         self.width  = width
         self.height = height

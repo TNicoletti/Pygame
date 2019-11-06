@@ -4,17 +4,17 @@ from gun import *
 from math import asin, degrees
 
 class Player(object):
-    def __init__(self, x, y, platforms):
+    def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.width  = 64
-        self.height = 64
-        self.vel = 5
-        self.jumpForce = -15
+        self.width  = 64 #TODO dinamic
+        self.height = 64 #TODO dinamic
+        self.vel = 5 #TODO dinamic
+        self.jumpForce = -15 #TODO dinamic
 
-        self.platforms = platforms
+        self.platforms = []
 
-        self.MAXLIFE = 20
+        self.MAXLIFE = 20 #TODO dinamic
         self.life = self.MAXLIFE
 
         self.points = 0
@@ -72,12 +72,12 @@ class Player(object):
         font = pygame.font.Font('freesansbold.ttf', 32)
         text = font.render(str(self.life) + "/" + str(self.MAXLIFE), True, (255, 255, 255), (0, 0, 0))
         textRect = text.get_rect()
-        textRect.center = (50, 15)
+        textRect.center = (60, 50)
         win.blit(text, textRect)
 
         text = font.render(str(self.points), True, (255, 255, 255), (0, 0, 0))
        	textRect = text.get_rect()
-       	textRect.center = (400, 15)
+       	textRect.center = (400, 50)
         win.blit(text, textRect)
 
 
@@ -123,8 +123,8 @@ class Player(object):
 
         x, y = pygame.mouse.get_pos()
 
-        xo = self.x + self.width
-        yo = self.y + self.height
+        xo = self.x + self.width/2
+        yo = self.y + self.height/2
 
         auxX = xo - x
         auxY = yo - y
