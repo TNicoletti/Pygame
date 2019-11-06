@@ -123,8 +123,8 @@ class Player(object):
 
         x, y = pygame.mouse.get_pos()
 
-        xo = self.x + self.width
-        yo = self.y + self.height
+        xo = self.x + self.width/2
+        yo = self.y + self.height/2
 
         auxX = xo - x
         auxY = yo - y
