@@ -14,6 +14,8 @@ class Player(object):
 
         self.platforms = []
 
+        self.holdShot = False
+
         self.MAXLIFE = 20 #TODO dinamic
         self.life = self.MAXLIFE
 
@@ -114,6 +116,10 @@ class Player(object):
                     self.y -= self.vel
                     break
 
+        if (keys[pygame.K_i]):
+            self.holdShot = not self.holdShot
+            #print(self.holdShot)
+
         #self.y += self.yVel
 
         self.hitbox = (self.x, self.y, self.width, self.height)
@@ -139,10 +145,7 @@ class Player(object):
         if(auxX > 0):
             self.angle = 180 - self.angle
 
-        #print(self.angle)
-        #print(sen)
-
-        if(btn1 == True):
+        if(btn1 == True or self.holdShot):
             self.shootCool += 1
             if(self.shootCool >= self.gun.rateOfFire):
                 self.shooting = True
@@ -209,3 +212,6 @@ class Player(object):
     def takeDamage(self, damage):
         self.life -= damage
         self.healthCoul = 0
+
+    def clearBullets(self):
+        self.bullets = []

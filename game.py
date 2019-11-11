@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import pygame
 from player import *
 from enemy import *
@@ -45,8 +47,6 @@ obstaculo = lg.getAtualMap().obstaculos
 player.platforms = obstaculo
 shops = lg.getAtualMap().shops
 
-print(lg.getAtualMap())
-
 def changeSlice(nmap):
 	global enemies
 	global obstaculo
@@ -72,7 +72,6 @@ while(run):
 	player.move()
 	player.draw(win)
 	player.damage(enemies)
-	#print(player.y)
 
 	toRemove = []
 
@@ -93,25 +92,32 @@ while(run):
 	for rm in toRemove:
 		enemies.remove(rm)
 
+	'''if (len(enemies) == 0):
+		doors.move()'''
+
 	for p in obstaculo:
 		p.move()
 		p.draw(win)
 
 	if(player.x > width):
 		player.x -= width
+		player.clearBullets()
 		changeSlice(lg.changeSlice("r"))
 
 	if(player.x < -player.width):
 		player.x += width
+		player.clearBullets()
 		changeSlice(lg.changeSlice("l"))
 
 
 	if (player.y > height):
 		player.y -= height
+		player.clearBullets()
 		changeSlice(lg.changeSlice("d"))
 
 	if (player.y < -player.height):
 		player.y += height
+		player.clearBullets()
 		changeSlice(lg.changeSlice("u"))
 
 	pygame.display.flip()
