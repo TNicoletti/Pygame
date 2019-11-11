@@ -68,6 +68,11 @@ class levelGenerator():
             #print(coisa)
         salas = aux
 
+        shops = ord(seed[i])-ord('a')
+        i+=1
+        if(i==len(seed)):
+            i=0
+
         for s in salas:
             c = s[1:7].split(", ")
             setup = ['0','0','0','0']
@@ -88,15 +93,14 @@ class levelGenerator():
             if(s==str([25,25])):
                 self.map[25][25] = createInitialRoomFromString(setup)
                 #print("add sala inici")
-            elif(seed[i]=='f' or seed[i]=='g'):
+            elif(shops==0):
                 self.map[int(c[0])][int(c[1])] = createShopRoomFromString(setup,self.player)
                 #print("add shop")
             else:
                 self.map[int(c[0])][int(c[1])] = createRoomFromString(setup,self.player)
                 #print("add sala")
-            i+=1
-            if(i==len(seed)):
-                i=0
+            
+            shops-=1
         
         #self.map[25][25] = createInitialRoom(1, 1, 0, 0)
         #self.map[24][25] = createRoom(0, 1, 0, 0, self.player)
@@ -119,7 +123,19 @@ class levelGenerator():
             self.tela[0] += 1
         elif(where == "l"):
             self.tela[1] -= 1
-        else:
+        elif(where == "r"):
             self.tela[1] += 1
+
+        at = self.getAtualMap().doors
+        if(at[0]=="1"):
+            self.map[self.tela[0]-1][self.tela[1]].visto = True
+        if(at[1]=="1"):
+            self.map[self.tela[0]+1][self.tela[1]].visto = True
+        if(at[2]=="1"):
+            self.map[self.tela[0]][self.tela[1]-1].visto = True
+        if(at[3]=="1"):
+            self.map[self.tela[0]][self.tela[1]+1].visto = True
+
+
 
         return self.map[self.tela[0]][self.tela[1]]

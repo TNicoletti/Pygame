@@ -79,7 +79,7 @@ def putDoors():
 	global enemies
 	doors = []
 
-	if(not len(enemies) == 0):
+	if(not len(enemies) == 0):#AQUI
 		if(lg.map[lg.tela[0] - 1][lg.tela[1]] != 0):
 			doors.append(Door(300, 0, 100, 10, "left"))
 			doors.append(Door(400, 0, 100, 10, "right"))
@@ -95,6 +95,8 @@ def putDoors():
 		if ((lg.map[lg.tela[0]][lg.tela[1] + 1] != 0)):
 			doors.append(Door(790, 300, 10, 100, "up"))
 			doors.append(Door(790, 400, 10, 100, "down"))
+
+lg.changeSlice("y")
 
 while(run):
 	clock.tick(clockTick)
@@ -168,6 +170,18 @@ while(run):
 		player.y += height - correction
 		player.clearBullets()
 		changeSlice(lg.changeSlice("u"))
+
+	for i in range(len(lg.map)):
+		for j in range(len(lg.map[i])):
+			if lg.map[i][j] != None:
+				if i == lg.tela[0] and j == lg.tela[1]:
+					pygame.draw.rect(win, (150, 0, 0), (width-50*5+5*j, height-50*5+5*i, 4, 4))
+				elif lg.map[i][j].visto == 1:
+					if(lg.map[i][j].tipo == 2):
+						pygame.draw.rect(win, (0, 0, 150), (width-50*5+5*j, height-50*5+5*i, 4, 4))
+					else:
+						pygame.draw.rect(win, (0, 150, 0), (width-50*5+5*j, height-50*5+5*i, 4, 4))
+				
 
 	pygame.display.flip()
 

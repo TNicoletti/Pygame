@@ -54,7 +54,7 @@ def createRoom(haveUp, haveDown, haveLeft, haveRight, player):
 
     shops = []
 
-    return mapSlice(enemies, obstaculos, shops)
+    return mapSlice(enemies, obstaculos, shops, 1, str(haveUp)+str(haveDown)+str(haveLeft)+str(haveRight))
 
 def createInitialRoomFromString(r):
     return createInitialRoom(int(r[0]),int(r[1]),int(r[2]),int(r[3]))
@@ -66,7 +66,7 @@ def createInitialRoom(haveUp, haveDown, haveLeft, haveRight):
 
     shops = []
 
-    return mapSlice(enemies, obstaculos, shops)
+    return mapSlice(enemies, obstaculos, shops, 0, str(haveUp)+str(haveDown)+str(haveLeft)+str(haveRight))
 
 def createShopRoomFromString(r,player):
     return createShopRoom(int(r[0]),int(r[1]),int(r[2]),int(r[3]),player)
@@ -79,4 +79,4 @@ def createShopRoom(haveUp, haveDown, haveLeft, haveRight, player):
     shops = [Shop(700, 700, Gun(50, 2, player), 0, player),
              Shop(700, 10, Gun(1500, 5 * 60, player), 3000, player)]
 
-    return mapSlice(enemies, obstaculos, shops)
+    return mapSlice(enemies, obstaculos, shops, 2, str(haveUp)+str(haveDown)+str(haveLeft)+str(haveRight))
