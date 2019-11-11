@@ -12,9 +12,9 @@ from gun import *
 from levelGenerator import *
 
 import random
-
-seed = ''.join(random.choice(string.ascii_lowercase) for i in range(10))
-print(seed)
+#print(string.ascii_lowercase[0:16])
+seed = ''.join(random.choice(string.ascii_lowercase[0:16]) for i in range(10))
+#print(seed)
 
 width = 800
 height = 800
@@ -47,7 +47,7 @@ shops = []
 
 clockTick = 60
 
-lg = levelGenerator(player)
+lg = levelGenerator(player,seed)
 enemies = lg.getAtualMap().enemies
 obstaculo = lg.getAtualMap().obstaculos
 player.platforms = obstaculo
