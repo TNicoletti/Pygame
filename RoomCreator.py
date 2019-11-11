@@ -5,6 +5,9 @@ from mapSlice import *
 from shop import *
 from gun import *
 
+def generateRoomBoundsFromString(r):
+    return generateRoomBounds(int(r[0]),int(r[1]),int(r[2]),int(r[3]))
+
 def generateRoomBounds(haveUp, haveDown, haveLeft, haveRight):
     obstaculos = []
 
@@ -34,6 +37,9 @@ def generateRoomBounds(haveUp, haveDown, haveLeft, haveRight):
 
     return obstaculos
 
+def createRoomFromString(r,player):
+    return createRoom(int(r[0]),int(r[1]),int(r[2]),int(r[3]),player)
+
 def createRoom(haveUp, haveDown, haveLeft, haveRight, player):
     obstaculos = generateRoomBounds(haveUp, haveDown, haveLeft, haveRight)
 
@@ -50,6 +56,9 @@ def createRoom(haveUp, haveDown, haveLeft, haveRight, player):
 
     return mapSlice(enemies, obstaculos, shops)
 
+def createInitialRoomFromString(r):
+    return createInitialRoom(int(r[0]),int(r[1]),int(r[2]),int(r[3]))
+
 def createInitialRoom(haveUp, haveDown, haveLeft, haveRight):
     obstaculos = generateRoomBounds(haveUp, haveDown, haveLeft, haveRight)
 
@@ -58,6 +67,9 @@ def createInitialRoom(haveUp, haveDown, haveLeft, haveRight):
     shops = []
 
     return mapSlice(enemies, obstaculos, shops)
+
+def createShopRoomFromString(r,player):
+    return createShopRoom(int(r[0]),int(r[1]),int(r[2]),int(r[3]),player)
 
 def createShopRoom(haveUp, haveDown, haveLeft, haveRight, player):
     obstaculos = generateRoomBounds(haveUp, haveDown, haveLeft, haveRight)
