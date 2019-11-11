@@ -2,6 +2,8 @@ from enemy import *
 import random
 from platform import *
 from mapSlice import *
+from shop import *
+from gun import *
 
 def generateRoomBounds(haveUp, haveDown, haveLeft, haveRight):
     obstaculos = []
@@ -57,12 +59,12 @@ def createInitialRoom(haveUp, haveDown, haveLeft, haveRight):
 
     return mapSlice(enemies, obstaculos, shops)
 
-def createShopRoom(haveUp, haveDown, haveLeft, haveRight):
+def createShopRoom(haveUp, haveDown, haveLeft, haveRight, player):
     obstaculos = generateRoomBounds(haveUp, haveDown, haveLeft, haveRight)
 
     enemies = []
 
-    shops = [Shop(700, 700, Gun(50, 2, self.player), 0, self.player),
-             Shop(700, 10, Gun(1500, 5 * 60, self.player), 3000, self.player)]
+    shops = [Shop(700, 700, Gun(50, 2, player), 0, player),
+             Shop(700, 10, Gun(1500, 5 * 60, player), 3000, player)]
 
     return mapSlice(enemies, obstaculos, shops)
