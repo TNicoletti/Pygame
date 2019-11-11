@@ -45,14 +45,14 @@ class Player(object):
         self.shootCool  = 0
 
         self.mFrame = 0
-
-	    self.BACK_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_00.png')
+        
+        self.BACK_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_00.png')
         self.BACK_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_01.png')
 
-	    self.RIGHT_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_10.png')
+        self.RIGHT_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_10.png')
         self.RIGHT_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_11.png')
 
-	    self.FRONT_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_20.png')
+        self.FRONT_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_20.png')
         self.FRONT_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_21.png')
 
         self.LEFT_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_30.png')
@@ -62,7 +62,7 @@ class Player(object):
         self.BACK_MAGIC_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_02.png')
         self.BACK_MAGIC_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_03.png')
 
-	    self.RIGHT_MAGIC_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_12.png')
+        self.RIGHT_MAGIC_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_12.png')
         self.RIGHT_MAGIC_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_13.png')
 
         self.FRONT_MAGIC_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_22.png')

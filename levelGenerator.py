@@ -115,6 +115,20 @@ class levelGenerator():
     def getAtualMap(self):
         return self.map[self.tela[0]][self.tela[1]]
 
+    def marcarVisto(self):
+        at = self.getAtualMap()
+        at.visto = 1
+        at = at.doors
+        if(at[0]=="1" and self.map[self.tela[0]-1][self.tela[1]].visto==0):
+            self.map[self.tela[0]-1][self.tela[1]].visto = 2
+        if(at[1]=="1" and self.map[self.tela[0]+1][self.tela[1]].visto==0):
+            self.map[self.tela[0]+1][self.tela[1]].visto = 2
+        if(at[2]=="1" and self.map[self.tela[0]][self.tela[1]-1].visto==0):
+            self.map[self.tela[0]][self.tela[1]-1].visto = 2
+        if(at[3]=="1" and self.map[self.tela[0]][self.tela[1]+1].visto==0):
+            self.map[self.tela[0]][self.tela[1]+1].visto = 2
+        return
+
     def changeSlice(self, where):
 
         if(where == "u"):
@@ -124,18 +138,6 @@ class levelGenerator():
         elif(where == "l"):
             self.tela[1] -= 1
         elif(where == "r"):
-            self.tela[1] += 1
-
-        at = self.getAtualMap().doors
-        if(at[0]=="1"):
-            self.map[self.tela[0]-1][self.tela[1]].visto = True
-        if(at[1]=="1"):
-            self.map[self.tela[0]+1][self.tela[1]].visto = True
-        if(at[2]=="1"):
-            self.map[self.tela[0]][self.tela[1]-1].visto = True
-        if(at[3]=="1"):
-            self.map[self.tela[0]][self.tela[1]+1].visto = True
-
-
+            self.tela[1] += 1        
 
         return self.map[self.tela[0]][self.tela[1]]

@@ -79,7 +79,7 @@ def putDoors():
 	global enemies
 	doors = []
 
-	if(not len(enemies) == 0):#AQUI
+	if(not len(enemies) == 0):
 		if(lg.map[lg.tela[0] - 1][lg.tela[1]] != 0):
 			doors.append(Door(300, 0, 100, 10, "left"))
 			doors.append(Door(400, 0, 100, 10, "right"))
@@ -96,7 +96,8 @@ def putDoors():
 			doors.append(Door(790, 300, 10, 100, "up"))
 			doors.append(Door(790, 400, 10, 100, "down"))
 
-lg.changeSlice("y")
+lg.map[25][25].visto = 1
+lg.marcarVisto()
 
 while(run):
 	clock.tick(clockTick)
@@ -140,6 +141,7 @@ while(run):
 	if (len(enemies) == 0):
 		for p in doors:
 			p.move()
+		lg.marcarVisto()
 
 	for p in obstaculo:
 		p.move()
@@ -181,8 +183,8 @@ while(run):
 						pygame.draw.rect(win, (0, 0, 150), (width-50*5+5*j, height-50*5+5*i, 4, 4))
 					else:
 						pygame.draw.rect(win, (0, 150, 0), (width-50*5+5*j, height-50*5+5*i, 4, 4))
-				
-
+				elif lg.map[i][j].visto == 2:
+					pygame.draw.rect(win, (50, 50, 50), (width-50*5+5*j, height-50*5+5*i, 4, 4))
 	pygame.display.flip()
 
 pygame.quit()
