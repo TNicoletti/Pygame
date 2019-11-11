@@ -13,6 +13,7 @@ class Player(object):
         self.jumpForce = -15 #TODO dinamic
 
         self.platforms = []
+        self.doors = []
 
         self.holdShot = False
 
@@ -97,9 +98,19 @@ class Player(object):
                     self.x += self.vel
                     break
 
+            for p in self.doors:
+                if(self.confereMargem(p)):
+                    self.x += self.vel
+                    break
+
         if(keys[pygame.K_d]):
             self.x += self.vel
             for p in self.platforms:
+                if (self.confereMargem(p)):
+                    self.x -= self.vel
+                    break
+
+            for p in self.doors:
                 if (self.confereMargem(p)):
                     self.x -= self.vel
                     break
@@ -109,9 +120,19 @@ class Player(object):
                 if (self.confereMargem(p)):
                     self.y += self.vel
                     break
+
+            for p in self.doors:
+                if (self.confereMargem(p)):
+                    self.y += self.vel
+                    break
         if(keys[pygame.K_s]):
             self.y += self.vel
             for p in self.platforms:
+                if (self.confereMargem(p)):
+                    self.y -= self.vel
+                    break
+
+            for p in self.doors:
                 if (self.confereMargem(p)):
                     self.y -= self.vel
                     break
