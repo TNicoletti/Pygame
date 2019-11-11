@@ -10,11 +10,12 @@ from bullet import *
 from shop import *
 from gun import *
 from levelGenerator import *
+from Door import *
 
 import random
-
-seed = ''.join(random.choice(string.ascii_lowercase) for i in range(10))
-print(seed)
+#print(string.ascii_lowercase[0:16])
+seed = ''.join(random.choice(string.ascii_lowercase[0:16]) for i in range(10))
+#print(seed)
 
 width = 800
 height = 800
@@ -47,21 +48,53 @@ shops = []
 
 clockTick = 60
 
-lg = levelGenerator(player)
+lg = levelGenerator(player,seed)
 enemies = lg.getAtualMap().enemies
 obstaculo = lg.getAtualMap().obstaculos
 player.platforms = obstaculo
 shops = lg.getAtualMap().shops
+
+doors = [Door(300, 0, 100, 10, "left"), Door(400, 0, 100, 10, "right"),
+		 Door(300, 790, 100, 10, "left"), Door(400, 790, 100, 10, "right"),
+		 Door(0, 300, 10, 100, "up"), Door(0, 400, 10, 100, "down"),
+		 Door(790, 300, 10, 100, "up"), Door(790, 400, 10, 100, "down")]
+player.doors = doors
 
 def changeSlice(nmap):
 	global enemies
 	global obstaculo
 	global player
 	global shops
+	global doors
 	enemies = nmap.enemies
 	obstaculo = nmap.obstaculos
 	player.platforms = obstaculo
 	shops = nmap.shops
+	putDoors()
+	player.doors = doors
+
+def putDoors():
+	global doors
+	global lg
+	global enemies
+	doors = []
+
+	if(not len(enemies) == 0):
+		if(lg.map[lg.tela[0] - 1][lg.tela[1]] != 0):
+			doors.append(Door(300, 0, 100, 10, "left"))
+			doors.append(Door(400, 0, 100, 10, "right"))
+
+		if((lg.map[lg.tela[0] + 1][lg.tela[1] + 1] != 0)):
+			doors.append(Door(300, 790, 100, 10, "left"))
+			doors.append(Door(400, 790, 100, 10, "right"))
+
+		if ((lg.map[lg.tela[0]][lg.tela[1] - 1] != 0)):
+			doors.append(Door(0, 300, 10, 100, "up"))
+			doors.append(Door(0, 400, 10, 100, "down"))
+
+		if ((lg.map[lg.tela[0]][lg.tela[1] + 1] != 0)):
+			doors.append(Door(790, 300, 10, 100, "up"))
+			doors.append(Door(790, 400, 10, 100, "down"))
 
 while(run):
 	clock.tick(clockTick)
@@ -102,31 +135,37 @@ while(run):
 	for rm in toRemove:
 		enemies.remove(rm)
 
-	'''if (len(enemies) == 0):
-		doors.move()'''
+	if (len(enemies) == 0):
+		for p in doors:
+			p.move()
 
 	for p in obstaculo:
 		p.move()
 		p.draw(win)
 
+	for p in doors:
+		p.draw(win)
+
+	correction = 10
+
 	if(player.x > width):
-		player.x -= width
+		player.x -= width - correction
 		player.clearBullets()
 		changeSlice(lg.changeSlice("r"))
 
 	if(player.x < -player.width):
-		player.x += width
+		player.x += width  - correction
 		player.clearBullets()
 		changeSlice(lg.changeSlice("l"))
 
 
 	if (player.y > height):
-		player.y -= height
+		player.y -= height - correction
 		player.clearBullets()
 		changeSlice(lg.changeSlice("d"))
 
 	if (player.y < -player.height):
-		player.y += height
+		player.y += height - correction
 		player.clearBullets()
 		changeSlice(lg.changeSlice("u"))
 
