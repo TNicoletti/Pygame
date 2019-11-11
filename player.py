@@ -81,18 +81,47 @@ class Player(object):
         image = 0
 
         if(self.shooting):
-            if (self.angle >= 270 or self.angle <= 90):
-                image = pygame.image.load('./sprites/cat_wizard_11' + ((self.mFrame>5) if ('0') else ('1')) + '.png')
+
+            if(self.mFrame < 5):
+                if (self.angle >= 315 or self.angle <= 45):
+                    image = self.RIGHT_MAGIC_IMAGE_1
+                elif(self.angle >= 45 and self.angle <= 135):
+                    image = self.BACK_MAGIC_IMAGE_1
+                elif(self.angle >= 135 and self.angle <= 225):
+                    image = self.LEFT_MAGIC_IMAGE_1
+                else:
+                    image = self.FRONT_MAGIC_IMAGE_1
             else:
-                image = pygame.image.load('./sprites/cat_wizard_01.png')
+                if (self.angle >= 315 or self.angle <= 45):
+                    image = self.RIGHT_MAGIC_IMAGE_2
+                elif(self.angle >= 45 and self.angle <= 135):
+                    image = self.BACK_MAGIC_IMAGE_2
+                elif(self.angle >= 135 and self.angle <= 225):
+                    image = self.LEFT_MAGIC_IMAGE_2
+                else:
+                    image = self.FRONT_MAGIC_IMAGE_2
 
             if(self.shootCool >= 5):
                 self.shooting = 0
         else:
-            if(self.angle > 270 or self.angle < 90):
-                image = pygame.image.load('./sprites/cat_wizard_10.png')
+            if (self.mFrame < 5):
+                if (self.angle >= 315 or self.angle <= 45):
+                    image = self.RIGHT_IMAGE_1
+                elif (self.angle >= 45 and self.angle <= 135):
+                    image = self.BACK_IMAGE_1
+                elif (self.angle >= 135 and self.angle <= 225):
+                    image = self.LEFT_IMAGE_1
+                else:
+                    image = self.FRONT_IMAGE_1
             else:
-                image = pygame.image.load('./sprites/cat_wizard_00.png')
+                if (self.angle >= 315 or self.angle <= 45):
+                    image = self.RIGHT_IMAGE_2
+                elif (self.angle >= 45 and self.angle <= 135):
+                    image = self.BACK_IMAGE_2
+                elif (self.angle >= 135 and self.angle <= 225):
+                    image = self.LEFT_IMAGE_2
+                else:
+                    image = self.FRONT_IMAGE_2
 
         #image = pygame.transform.rotate(image, self.angle)
         image = pygame.transform.scale(image, (self.width, self.height))
@@ -200,6 +229,11 @@ class Player(object):
 
         if(auxX > 0):
             self.angle = 180 - self.angle
+
+        if(self.angle < 0):
+            self.angle = 360 + self.angle
+
+        #print(self.angle)
 
         if(btn1 == True or self.holdShot):
             self.shootCool += 1
