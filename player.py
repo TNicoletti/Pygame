@@ -26,6 +26,8 @@ class Player(object):
 
         self.gun = Gun(20, 12, self)
 
+        self.moving = False
+
         #self.g = gravity
         self.yVel = 0
 
@@ -42,16 +44,47 @@ class Player(object):
         self.shooting = False
         self.shootCool  = 0
 
+        self.mFrame = 0
+
+        self.FRONT_MAGIC_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_31.png')
+        self.FRONT_MAGIC_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_31.png')
+
+        self.BACK_MAGIC_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_21.png')
+        self.BACK_MAGIC_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_21.png')
+
+        self.LEFT_MAGIC_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_01.png')
+        self.LEFT_MAGIC_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_01.png')
+
+        self.RIGHT_MAGIC_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_11.png')
+        self.RIGHT_MAGIC_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_11.png')
+
+        self.FRONT_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_30.png')
+        self.FRONT_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_30.png')
+
+        self.BACK_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_20.png')
+        self.BACK_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_20.png')
+
+        self.LEFT_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_00.png')
+        self.LEFT_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_00.png')
+
+        self.RIGHT_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_10.png')
+        self.RIGHT_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_10.png')
+
     def draw(self, win):
+
+        if(self.moving):
+            self.mFrame += 1
+
+            if(self.mFrame > 10):
+                self.mFrame = 0
 
         image = 0
 
         if(self.shooting):
             if (self.angle >= 270 or self.angle <= 90):
-                image = pygame.image.load('./sprites/cat_wizard_11.png')
+                image = pygame.image.load('./sprites/cat_wizard_11' + ((self.mFrame>5) if ('0') else ('1')) + '.png')
             else:
                 image = pygame.image.load('./sprites/cat_wizard_01.png')
-            image = pygame.transform.scale(image, (self.width, self.height))
 
             if(self.shootCool >= 5):
                 self.shooting = 0
@@ -60,11 +93,9 @@ class Player(object):
                 image = pygame.image.load('./sprites/cat_wizard_10.png')
             else:
                 image = pygame.image.load('./sprites/cat_wizard_00.png')
-            image = pygame.transform.scale(image, (self.width, self.height))
-            #image = pygame.transform.rotate(image, self.angle)
 
-
-
+        #image = pygame.transform.rotate(image, self.angle)
+        image = pygame.transform.scale(image, (self.width, self.height))
         win.blit(image, (self.x, self.y))
 
         #pygame.draw.rect(win, (124, 220, 234), (self.x, self.y, self.width, self.height))
@@ -89,7 +120,10 @@ class Player(object):
 
         normalTime = self.tickTime / self.clockTick
 
+        self.moving = False
+
         if(keys[pygame.K_a]):
+            self.moving = True
             self.x -= self.vel
             for p in self.platforms:
                 if(self.confereMargem(p)):
@@ -102,6 +136,7 @@ class Player(object):
                     break
 
         if(keys[pygame.K_d]):
+            self.moving = True
             self.x += self.vel
             for p in self.platforms:
                 if (self.confereMargem(p)):
@@ -113,6 +148,7 @@ class Player(object):
                     self.x -= self.vel
                     break
         if(keys[pygame.K_w]):
+            self.moving = True
             self.y -= self.vel
             for p in self.platforms:
                 if (self.confereMargem(p)):
@@ -124,6 +160,7 @@ class Player(object):
                     self.y += self.vel
                     break
         if(keys[pygame.K_s]):
+            self.moving = True
             self.y += self.vel
             for p in self.platforms:
                 if (self.confereMargem(p)):
