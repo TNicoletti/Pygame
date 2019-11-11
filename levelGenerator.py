@@ -34,8 +34,9 @@ class levelGenerator():
         if(self.level == 2):
             numFloors += 5
 
-        self.map[25][25] = createInitialRoom(1, 0, 0, 0)
+        self.map[25][25] = createInitialRoom(1, 1, 0, 0)
         self.map[24][25] = createRoom(0, 1, 0, 0, self.player)
+        self.map[26][25] = createShopRoom(1, 0, 0, 0, self.player)
 
         '''for i in range(numFloors - 1):
             if(random.randInt(1, numFloors - i >= 4)):
@@ -56,8 +57,5 @@ class levelGenerator():
             self.tela[1] -= 1
         else:
             self.tela[1] += 1
-
-        print(self.tela[0])
-        print(self.tela[1])
 
         return self.map[self.tela[0]][self.tela[1]]
