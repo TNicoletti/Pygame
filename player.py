@@ -46,29 +46,32 @@ class Player(object):
 
         self.mFrame = 0
 
-        self.FRONT_MAGIC_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_31.png')
-        self.FRONT_MAGIC_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_31.png')
+	    self.BACK_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_00.png')
+        self.BACK_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_01.png')
 
-        self.BACK_MAGIC_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_21.png')
-        self.BACK_MAGIC_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_21.png')
+	    self.RIGHT_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_10.png')
+        self.RIGHT_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_11.png')
 
-        self.LEFT_MAGIC_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_01.png')
-        self.LEFT_MAGIC_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_01.png')
+	    self.FRONT_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_20.png')
+        self.FRONT_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_21.png')
 
-        self.RIGHT_MAGIC_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_11.png')
-        self.RIGHT_MAGIC_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_11.png')
+        self.LEFT_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_30.png')
+        self.LEFT_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_31.png')
 
-        self.FRONT_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_30.png')
-        self.FRONT_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_30.png')
 
-        self.BACK_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_20.png')
-        self.BACK_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_20.png')
+        self.BACK_MAGIC_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_02.png')
+        self.BACK_MAGIC_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_03.png')
 
-        self.LEFT_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_00.png')
-        self.LEFT_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_00.png')
+	    self.RIGHT_MAGIC_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_12.png')
+        self.RIGHT_MAGIC_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_13.png')
 
-        self.RIGHT_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_10.png')
-        self.RIGHT_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_10.png')
+        self.FRONT_MAGIC_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_22.png')
+        self.FRONT_MAGIC_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_23.png')
+
+        self.LEFT_MAGIC_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_32.png')
+        self.LEFT_MAGIC_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_33.png')
+
+        
 
     def draw(self, win):
 
