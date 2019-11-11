@@ -81,12 +81,10 @@ class Player(object):
         win.blit(text, textRect)
 
 
-    def move(self):
+    def move(self, keys):
         self.tickTime += 1
 
         normalTime = self.tickTime / self.clockTick
-
-        keys = pygame.key.get_pressed()
 
         if(keys[pygame.K_a]):
             self.x -= self.vel

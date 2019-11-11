@@ -1,4 +1,6 @@
 import pygame
+import random
+import string
 from player import *
 from enemy import *
 from platform import *
@@ -9,20 +11,24 @@ from levelGenerator import *
 
 import random
 
-pygame.init()
-
-clock = pygame.time.Clock()
+seed = ''.join(random.choice(string.ascii_lowercase) for i in range(10))
+print(seed)
 
 width = 800
 height = 800
 
-win = pygame.display.set_mode((width, height))
-
-pygame.display.set_caption("GAYME")
-
 x = 50
 y = 50
 vel = 5
+
+pygame.init()
+
+clock = pygame.time.Clock()
+
+
+win = pygame.display.set_mode((width, height))
+
+pygame.display.set_caption("GAYME")
 
 pygame.mouse.set_cursor(*pygame.cursors.broken_x)
 
@@ -64,23 +70,27 @@ while(run):
 		if(event.type == pygame.QUIT):
 			run = False
 
+	keys = pygame.key.get_pressed()
+
+	if(keys[pygame.K_ESCAPE]):
+		run = False
+
 	win.fill((0, 0, 0))
 
 	for s in shops:
 		s.draw(win)
 
-	player.move()
+	player.move(keys)
 	player.draw(win)
 	player.damage(enemies)
 	#print(player.y)
 
 	toRemove = []
 
-	keys = pygame.key.get_pressed()
-
 	if(keys[pygame.K_f]):
 		for s in shops:
 			s.buy()
+
 	for e in enemies:
 		if (e.life <= 0):
 			toRemove.append(e)
