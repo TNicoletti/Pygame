@@ -45,7 +45,6 @@ class Player(object):
         self.shootCool  = 0
 
         self.mFrame = 0
-
         self.BACK_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_00.png')
         self.BACK_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_01.png')
 
