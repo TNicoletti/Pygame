@@ -5,6 +5,8 @@ from mapSlice import *
 from shop import *
 from gun import *
 
+from patocomarma import *
+
 def generateRoomBoundsFromString(r):
     return generateRoomBounds(int(r[0]),int(r[1]),int(r[2]),int(r[3]))
 

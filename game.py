@@ -11,6 +11,7 @@ from shop import *
 from gun import *
 from levelGenerator import *
 from Door import *
+from patocomarma import *
 
 import random
 #print(string.ascii_lowercase[0:16])
@@ -98,6 +99,8 @@ def putDoors():
 
 lg.map[25][25].visto = 1
 lg.marcarVisto()
+
+enemies.append(Patocomarma(10, 10, player, obstaculo))
 
 while(run):
 	clock.tick(clockTick)
