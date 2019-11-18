@@ -6,7 +6,7 @@ from math import sqrt, degrees, asin
 
 from bullet import *
 
-class Patocomarma(Enemy):
+class Patocomarmaebandana(Enemy):
     def __init__(self, x, y, player, platforms):
         self.x = x
         self.y = y
@@ -43,7 +43,7 @@ class Patocomarma(Enemy):
 
         self.scoreBonus = 60
 
-        self.PATO_IMAGE = pygame.image.load('./sprites/patocomumaarma.png')
+        self.PATO_IMAGE = pygame.image.load('./sprites/patocomumaarmaebandana.png')
         self.PATO_IMAGE = pygame.transform.scale(self.PATO_IMAGE, (self.width, self.height))
 
     def draw(self, win):  # TODO dinamic
@@ -141,7 +141,17 @@ class Patocomarma(Enemy):
     def do_attack(self):
         if(self.tickTime > self.ATTACK_COOL):
             self.bullets.append(
-            BulletPatoComArma(self.x + self.width / 2, self.y + self.height / 2, self.player.x, self.player.y, 15, 15, 10, 1))
+                BulletPatoComArma(self.x + self.width / 2, self.y + self.height / 2, self.player.x, self.player.y, 15,
+                                  15, 5, 1, 0.4))
+
+            self.bullets.append(
+                BulletPatoComArma(self.x + self.width / 2, self.y + self.height / 2, self.player.x, self.player.y, 15,
+                                  15, 5, 1, 0))
+
+            self.bullets.append(
+                BulletPatoComArma(self.x + self.width / 2, self.y + self.height / 2, self.player.x, self.player.y, 15,
+                                  15, 5, 1, -0.4))
+
             self.tickTime = 0
 
         toRemove = []
@@ -155,7 +165,7 @@ class Patocomarma(Enemy):
 
 
 class BulletPatoComArma(Bullet):
-    def __init__(self, xo, yo, x, y, width, height, vel, damage):
+    def __init__(self, xo, yo, x, y, width, height, vel, damage, senUp):
         self.x = xo
         self.y = yo
         # self.xT = x
@@ -176,7 +186,13 @@ class BulletPatoComArma(Bullet):
         auxX = xo - x
         auxY = yo - y
 
-        self.sen = (auxY) / (math.sqrt(auxX * auxX + auxY * auxY))
+        self.sen = (auxY) / (math.sqrt(auxX * auxX + auxY * auxY)) + senUp
+
+        if(self.sen > 1):
+            self.sen -= 1
+        elif (self.sen < -1):
+            self.sen += 1
+
         self.cos = math.sqrt(1 - self.sen * self.sen)
         # print("sen:", self.sen)
         # print("cos:", self.cos)
@@ -194,9 +210,6 @@ class BulletPatoComArma(Bullet):
 
         if (auxX > 0):
             d = 180 - d
-        # d -= 90
-
-        '''if(d > 360):'''
 
         self.image = pygame.transform.rotate(self.image, d)
 

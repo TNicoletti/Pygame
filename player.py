@@ -25,6 +25,7 @@ class Player(object):
         self.jumpped = False
 
         self.gun = Gun(20, 12, self)
+        self.gun = Gun(20, 2, self)
 
         self.moving = False
 
@@ -39,6 +40,8 @@ class Player(object):
         self.angle = 0
 
         self.hitbox = (self.x, self.y, self.width, self.height)
+
+        self.lifeCool = 0
 
 
         self.shooting = False
@@ -148,6 +151,7 @@ class Player(object):
 
     def move(self, keys):
         self.tickTime += 1
+        self.lifeCool -= 1
 
         normalTime = self.tickTime / self.clockTick
 
@@ -275,10 +279,6 @@ class Player(object):
                 if(e.confereMargem(b)):
                     e.takeDamage(b.damage)
                     toRemove.append(b)
-                    if(e.life <= 0):
-                        self.points += 50
-                    else:
-                        self.points += 10
             for rm in toRemove:
                 self.bullets.remove(rm)
 
@@ -302,8 +302,9 @@ class Player(object):
         return False
 
     def takeDamage(self, damage):
-        self.life -= damage
-        self.healthCoul = 0
+        if(self.lifeCool <= 0):
+            self.life -= damage
+            self.lifeCool = 30
 
     def clearBullets(self):
         self.bullets = []

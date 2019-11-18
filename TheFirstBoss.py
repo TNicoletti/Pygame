@@ -1,4 +1,5 @@
 import pygame
+from spritesheet import *
 
 from enemy import *
 
@@ -6,48 +7,33 @@ from math import sqrt, degrees, asin
 
 from bullet import *
 
-class Patocomarma(Enemy):
+
+class TheFirstBoss(Enemy):
     def __init__(self, x, y, player, platforms):
-        self.x = x
-        self.y = y
-        self.width = 50  # TODO dinamic
-        self.height = 50  # TODO dinamic
-        self.xVel = 2  # TODO dinamic
-        self.yVel = 0  # TODO dinamic
+        super().__init__(x, y, player, platforms)
 
-        self.tickTime = 0
-        self.clockTick = 60
+        self.SPRITES = SpriteSheet('./sprites/TheFirstBoss.png')
 
-        self.player = player
+        self.IMAGE_STANDART_LU = self.SPRITES.get_image(0, 0, 32, 32)
+        self.IMAGE_STANDART_LU = pygame.transform.scale(self.IMAGE_STANDART_LU, (self.width, self.height))
 
-        self.jumped = False
-        self.jumpForce = -15  # TODO dinamic
+        self.IMAGE_STANDART_L = self.SPRITES.get_image(0, 0, 32, 32)
+        self.IMAGE_STANDART_L = pygame.transform.scale(self.IMAGE_STANDART_L, (self.width, self.height))
 
-        # self.landded = False
+        self.IMAGE_STANDART_LD = self.SPRITES.get_image(0, 0, 32, 32)
+        self.IMAGE_STANDART_LD = pygame.transform.scale(self.IMAGE_STANDART_LD, (self.width, self.height))
 
-        self.platforms = platforms
+        self.IMAGE_STANDART_RD = self.SPRITES.get_image(0, 0, 32, 32)
+        self.IMAGE_STANDART_RD = pygame.transform.scale(self.IMAGE_STANDART_RD, (self.width, self.height))
 
-        # self.g = gravity
+        self.IMAGE_STANDART_R = self.SPRITES.get_image(0, 0, 32, 32)
+        self.IMAGE_STANDART_R = pygame.transform.scale(self.IMAGE_STANDART_R, (self.width, self.height))
 
-        # self.hitbox = (self.x, self.y, self.width, self.height)
-
-        self.ori = "right"
-
-        self.life = 200
-
-        self.attackCool = 0
-
-        self.bullets = []
-
-        self.ATTACK_COOL = 60
-
-        self.scoreBonus = 60
-
-        self.PATO_IMAGE = pygame.image.load('./sprites/patocomumaarma.png')
-        self.PATO_IMAGE = pygame.transform.scale(self.PATO_IMAGE, (self.width, self.height))
+        self.IMAGE_STANDART_RU = self.SPRITES.get_image(0, 0, 32, 32)
+        self.IMAGE_STANDART_RU = pygame.transform.scale(self.IMAGE_STANDART_RU, (self.width, self.height))
 
     def draw(self, win):  # TODO dinamic
-        image = self.PATO_IMAGE
+        image = self.IMAGE_STANDART_R
 
         auxX = self.player.x - self.x
         auxY = self.player.y - self.y

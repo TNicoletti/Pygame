@@ -12,6 +12,8 @@ from gun import *
 from levelGenerator import *
 from Door import *
 from patocomarma import *
+from patocomarmaebandana import *
+from MagicWarrior1 import *
 
 import random
 #print(string.ascii_lowercase[0:16])
@@ -100,7 +102,11 @@ def putDoors():
 lg.map[25][25].visto = 1
 lg.marcarVisto()
 
-enemies.append(Patocomarma(10, 10, player, obstaculo))
+#enemies.append(MagicWarrior1(10, 10, player, obstaculo))
+#enemies.append(MagicWarrior1(790 - 75, 10, player, obstaculo))
+#enemies.append(Patocomarma(10, 10, player, obstaculo))
+enemies.append(Patocomarmaebandana(10, 10, player, obstaculo))
+#enemies.append(TheFirstBoss(10, 10, player, obstaculo))
 
 while(run):
 	clock.tick(clockTick)
@@ -114,7 +120,7 @@ while(run):
 	if(keys[pygame.K_ESCAPE]):
 		run = False
 
-	win.fill((0, 0, 0))
+	win.fill((122, 48, 72))
 
 	for s in shops:
 		s.draw(win)
