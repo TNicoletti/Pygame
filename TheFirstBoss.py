@@ -12,50 +12,110 @@ class TheFirstBoss(Enemy):
     def __init__(self, x, y, player, platforms):
         super().__init__(x, y, player, platforms)
 
+        self.atualAttackCool = 0
+
+        self.mode = 0
+
+        self.life = 2000
+
         self.SPRITES = SpriteSheet('./sprites/TheFirstBoss.png')
 
         self.IMAGE_STANDART_LU = self.SPRITES.get_image(0, 0, 32, 32)
         self.IMAGE_STANDART_LU = pygame.transform.scale(self.IMAGE_STANDART_LU, (self.width, self.height))
 
-        self.IMAGE_STANDART_L = self.SPRITES.get_image(0, 0, 32, 32)
+        self.IMAGE_STANDART_L = self.SPRITES.get_image(32, 0, 32, 32)
         self.IMAGE_STANDART_L = pygame.transform.scale(self.IMAGE_STANDART_L, (self.width, self.height))
 
-        self.IMAGE_STANDART_LD = self.SPRITES.get_image(0, 0, 32, 32)
+        self.IMAGE_STANDART_LD = self.SPRITES.get_image(64, 0, 32, 32)
         self.IMAGE_STANDART_LD = pygame.transform.scale(self.IMAGE_STANDART_LD, (self.width, self.height))
 
-        self.IMAGE_STANDART_RD = self.SPRITES.get_image(0, 0, 32, 32)
+        self.IMAGE_STANDART_RD = self.SPRITES.get_image(96, 0, 32, 32)
         self.IMAGE_STANDART_RD = pygame.transform.scale(self.IMAGE_STANDART_RD, (self.width, self.height))
 
-        self.IMAGE_STANDART_R = self.SPRITES.get_image(0, 0, 32, 32)
+        self.IMAGE_STANDART_R = self.SPRITES.get_image(0, 32, 32, 32)
         self.IMAGE_STANDART_R = pygame.transform.scale(self.IMAGE_STANDART_R, (self.width, self.height))
 
-        self.IMAGE_STANDART_RU = self.SPRITES.get_image(0, 0, 32, 32)
+        self.IMAGE_STANDART_RU = self.SPRITES.get_image(32, 32, 32, 32)
         self.IMAGE_STANDART_RU = pygame.transform.scale(self.IMAGE_STANDART_RU, (self.width, self.height))
 
+
+
+        self.IMAGE_SHOOTING_LU = self.SPRITES.get_image(64, 32, 32, 32)
+        self.IMAGE_SHOOTING_LU = pygame.transform.scale(self.IMAGE_SHOOTING_LU, (self.width, self.height))
+
+        self.IMAGE_SHOOTING_L = self.SPRITES.get_image(96, 32, 32, 32)
+        self.IMAGE_SHOOTING_L = pygame.transform.scale(self.IMAGE_SHOOTING_L, (self.width, self.height))
+
+        self.IMAGE_SHOOTING_LD = self.SPRITES.get_image(0, 64, 32, 32)
+        self.IMAGE_SHOOTING_LD = pygame.transform.scale(self.IMAGE_SHOOTING_LD, (self.width, self.height))
+
+        self.IMAGE_SHOOTING_RD = self.SPRITES.get_image(32, 64, 32, 32)
+        self.IMAGE_SHOOTING_RD = pygame.transform.scale(self.IMAGE_SHOOTING_RD, (self.width, self.height))
+
+        self.IMAGE_SHOOTING_R = self.SPRITES.get_image(64, 64, 32, 32)
+        self.IMAGE_SHOOTING_R = pygame.transform.scale(self.IMAGE_SHOOTING_R, (self.width, self.height))
+
+        self.IMAGE_SHOOTING_RU = self.SPRITES.get_image(96, 64, 32, 32)
+        self.IMAGE_SHOOTING_RU = pygame.transform.scale(self.IMAGE_SHOOTING_RU, (self.width, self.height))
+
+
+        self.IMAGE_ATTACK_11 = self.SPRITES.get_image(0, 96, 32, 32)
+        self.IMAGE_ATTACK_11 = pygame.transform.scale(self.IMAGE_ATTACK_11, (self.width, self.height))
+
+        self.IMAGE_ATTACK_12 = self.SPRITES.get_image(32, 96, 32, 32)
+        self.IMAGE_ATTACK_12 = pygame.transform.scale(self.IMAGE_ATTACK_11, (self.width, self.height))
+
+
+        self.IMAGE_ATTACK_20 = self.SPRITES.get_image(64, 96, 32, 32)
+        self.IMAGE_ATTACK_20 = pygame.transform.scale(self.IMAGE_ATTACK_20, (self.width, self.height))
+
+        self.IMAGE_ATTACK_21 = self.SPRITES.get_image(96, 96, 32, 32)
+        self.IMAGE_ATTACK_21 = pygame.transform.scale(self.IMAGE_ATTACK_21, (self.width, self.height))
+
+        self.IMAGE_ATTACK_22 = self.SPRITES.get_image(0, 128, 32, 32)
+        self.IMAGE_ATTACK_22 = pygame.transform.scale(self.IMAGE_ATTACK_22, (self.width, self.height))
+
+        self.IMAGE_ATTACK_23 = self.SPRITES.get_image(32, 128, 32, 32)
+        self.IMAGE_ATTACK_23 = pygame.transform.scale(self.IMAGE_ATTACK_23, (self.width, self.height))
+
+        self.IMAGE_ATTACK_24 = self.SPRITES.get_image(64, 128, 32, 32)
+        self.IMAGE_ATTACK_24 = pygame.transform.scale(self.IMAGE_ATTACK_24, (self.width, self.height))
+
+        self.IMAGE_ATTACK_25 = self.SPRITES.get_image(96, 128, 32, 32)
+        self.IMAGE_ATTACK_25 = pygame.transform.scale(self.IMAGE_ATTACK_25, (self.width, self.height))
+
     def draw(self, win):  # TODO dinamic
-        image = self.IMAGE_STANDART_R
+        image = 0
+        if(self.mode == 0):
 
-        auxX = self.player.x - self.x
-        auxY = self.player.y - self.y
+            x = self.player.x
+            y = self.player.y
 
-        sen = 0
-        try:
-            sen = (auxY) / (sqrt(auxX * auxX + auxY * auxY))
-        except:
-            pass
+            xo = self.x + self.width/2
+            yo = self.y + self.height/2
 
-        angle = degrees(asin(sen))
+            auxX = xo - x
+            auxY = yo - y
 
-        if (auxX > 0):
-            angle = 180 - angle
+            sen = (auxY) / (math.sqrt(auxX * auxX + auxY * auxY))
 
-        if (angle < 0):
-            angle = 360 + angle
+            angle = degrees(asin(sen))
 
-        image = pygame.transform.rotate(image, angle)
+            if(auxX > 0):
+                self.angle = 180 - self.angle
 
-        '''if(self.ori == "right"):
-            image = pygame.transform.flip(image, True, False)'''
+            if(self.angle < 0):
+                self.angle = 360 + self.angle
+
+            if(self.angle >= 315 or self.angle <= 45):
+                image = self.IMAGE_STANDART_R
+            elif(self.angle >= 45 and self.angle <= 135):
+                image = self.IMAGE_STANDART_RU
+            elif(self.angle >= 135 and self.angle <= 225):
+                image = self.IMAGE_STANDART_L
+            else:
+                image = self.IMAGE_STANDART_LD
+
 
         win.blit(image, (self.x, self.y))
 
@@ -63,84 +123,36 @@ class TheFirstBoss(Enemy):
             x.draw(win)
 
     def move(self):
-
         self.tickTime += 1
-        normalTime = self.tickTime / self.clockTick
-
-        if (self.x > self.player.x):
-            self.x -= self.xVel
-            self.ori = "left"
-            for p in self.platforms:
-                if (self.confereMargem(p)):
-                    self.x += self.xVel
-                    if (not self.jumped):
-                        self.yVel += self.jumpForce
-                        self.jumped = True
-                    break
-
-        else:
-            self.x += self.xVel
-            self.ori = "right"
-            for p in self.platforms:
-                if (self.confereMargem(p)):
-                    self.x -= self.xVel
-                    if (not self.jumped):
-                        self.yVel += self.jumpForce
-                        self.jumped = True
-                    break
-
-        if (self.y < self.player.y):
-            self.y += self.xVel
-
-            for p in self.platforms:
-                if (self.confereMargem(p)):
-                    self.y -= self.xVel
-                    break
-        elif (self.y > self.player.y):
-            self.y -= self.xVel
-
-            for p in self.platforms:
-                if (self.confereMargem(p)):
-                    self.y += self.xVel
-                    break
-
-        if (normalTime % 1 == 0):
-            self.attackCool += 1
-
-        for x in self.bullets:
-            x.move()
-
-        toRemove = []
-
-        for x in self.bullets:
-            if(x.x < 0 or x.x > 800 or x.y < 0 or x.y > 800):
-                toRemove.append(x)
-                continue
-            for p in self.platforms:
-                if(p.confereMargem(x)):
-                    toRemove.append(x)
-                    break
-
-        for x in toRemove:
-            self.bullets.remove(x)
 
     def do_attack(self):
-        if(self.tickTime > self.ATTACK_COOL):
-            self.bullets.append(
-            BulletPatoComArma(self.x + self.width / 2, self.y + self.height / 2, self.player.x, self.player.y, 15, 15, 10, 1))
-            self.tickTime = 0
+        if(self.tickTime > self.atualAttackCool):
+            self.tickTime = 1
+            rand = random.randint(0, 2)
 
-        toRemove = []
-        for b in self.bullets:
-            if(self.player.confereMargem(b)):
-                self.player.takeDamage(b.damage)
-                toRemove.append(b)
+            if(rand == 0):
+                self.mode = 0
+                self.atualAttackCool = 60 * 5
+            elif(rand == 1):
+                self.mode = 1
+                self.atualAttackCool = 60 * 5
+            elif(rand == 2):
+                self.mode = 2
+                self.atualAttackCool = 60 * 5
 
-        for b in toRemove:
-            self.bullets.remove(b)
+        if(self.mode == 0):
+
+            if(self.tickTime % 60):
+                self.bullets.append(BulletTheFirstBoss(self.x, self.y, self.player.x, self.player.y, 10, 10, 10, 1))
+
+        elif(self.mode == 1):
+            pass
+        elif(self.mode == 2):
+            pass
 
 
-class BulletPatoComArma(Bullet):
+
+class BulletTheFirstBoss(Bullet):
     def __init__(self, xo, yo, x, y, width, height, vel, damage):
         self.x = xo
         self.y = yo

@@ -77,17 +77,19 @@ class Player(object):
 
     def draw(self, win):
 
+        frameChange = 8
+
         if(self.moving):
             self.mFrame += 1
 
-            if(self.mFrame > 10):
+            if(self.mFrame > 2 * frameChange):
                 self.mFrame = 0
 
         image = 0
 
         if(self.shooting):
 
-            if(self.mFrame < 5):
+            if(self.mFrame < frameChange):
                 if (self.angle >= 315 or self.angle <= 45):
                     image = self.RIGHT_MAGIC_IMAGE_1
                 elif(self.angle >= 45 and self.angle <= 135):
@@ -109,7 +111,7 @@ class Player(object):
             if(self.shootCool >= 5):
                 self.shooting = 0
         else:
-            if (self.mFrame < 5):
+            if (self.mFrame < frameChange):
                 if (self.angle >= 315 or self.angle <= 45):
                     image = self.RIGHT_IMAGE_1
                 elif (self.angle >= 45 and self.angle <= 135):

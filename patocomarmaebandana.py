@@ -39,7 +39,7 @@ class Patocomarmaebandana(Enemy):
 
         self.bullets = []
 
-        self.ATTACK_COOL = 60
+        self.ATTACK_COOL = 120
 
         self.scoreBonus = 60
 
@@ -141,16 +141,16 @@ class Patocomarmaebandana(Enemy):
     def do_attack(self):
         if(self.tickTime > self.ATTACK_COOL):
             self.bullets.append(
-                BulletPatoComArma(self.x + self.width / 2, self.y + self.height / 2, self.player.x, self.player.y, 15,
-                                  15, 5, 1, 0.4))
+                BulletPatoComArma(self.x + self.width / 2, self.y + self.height / 2, self.player.x + 50, self.player.y + 50, 15,
+                                  15, 10, 1))
 
             self.bullets.append(
                 BulletPatoComArma(self.x + self.width / 2, self.y + self.height / 2, self.player.x, self.player.y, 15,
-                                  15, 5, 1, 0))
+                                  15, 10, 1))
 
             self.bullets.append(
-                BulletPatoComArma(self.x + self.width / 2, self.y + self.height / 2, self.player.x, self.player.y, 15,
-                                  15, 5, 1, -0.4))
+                BulletPatoComArma(self.x + self.width / 2, self.y + self.height / 2, self.player.x - 50, self.player.y - 50, 15,
+                                  15, 10, 1))
 
             self.tickTime = 0
 
@@ -165,7 +165,7 @@ class Patocomarmaebandana(Enemy):
 
 
 class BulletPatoComArma(Bullet):
-    def __init__(self, xo, yo, x, y, width, height, vel, damage, senUp):
+    def __init__(self, xo, yo, x, y, width, height, vel, damage):
         self.x = xo
         self.y = yo
         # self.xT = x
@@ -186,7 +186,7 @@ class BulletPatoComArma(Bullet):
         auxX = xo - x
         auxY = yo - y
 
-        self.sen = (auxY) / (math.sqrt(auxX * auxX + auxY * auxY)) + senUp
+        self.sen = (auxY) / (math.sqrt(auxX * auxX + auxY * auxY))
 
         if(self.sen > 1):
             self.sen -= 1
