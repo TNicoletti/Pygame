@@ -7,6 +7,7 @@ from math import sqrt, degrees, asin
 
 from bullet import *
 
+import random
 
 class TheFirstBoss(Enemy):
     def __init__(self, x, y, player, platforms):
@@ -17,6 +18,8 @@ class TheFirstBoss(Enemy):
         self.mode = 0
 
         self.life = 2000
+
+        self.bullets = []
 
         self.SPRITES = SpriteSheet('./sprites/TheFirstBoss.png')
 
@@ -102,16 +105,16 @@ class TheFirstBoss(Enemy):
             angle = degrees(asin(sen))
 
             if(auxX > 0):
-                self.angle = 180 - self.angle
+                angle = 180 - angle
 
-            if(self.angle < 0):
-                self.angle = 360 + self.angle
+            if(angle < 0):
+                angle = 360 + angle
 
-            if(self.angle >= 315 or self.angle <= 45):
+            if(angle >= 315 or angle <= 45):
                 image = self.IMAGE_STANDART_R
-            elif(self.angle >= 45 and self.angle <= 135):
+            elif(angle >= 45 and angle <= 135):
                 image = self.IMAGE_STANDART_RU
-            elif(self.angle >= 135 and self.angle <= 225):
+            elif(angle >= 135 and angle <= 225):
                 image = self.IMAGE_STANDART_L
             else:
                 image = self.IMAGE_STANDART_LD

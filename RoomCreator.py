@@ -4,6 +4,8 @@ from platform import *
 from mapSlice import *
 from shop import *
 from gun import *
+from MagicWarrior1 import *
+from TheFirstBoss import *
 
 from patocomarma import *
 
@@ -85,6 +87,6 @@ def createShopRoom(haveUp, haveDown, haveLeft, haveRight, player):
 
 def createBossRoom(r,player):
     obstaculos = generateRoomBounds(r[0]=="1", r[1]=="1", r[2]=="1", r[3]=="1")
-    enemies = []
+    enemies = [TheFirstBoss(50,50,player,obstaculos)]
     shops = []
     return mapSlice(enemies,obstaculos,shops,3,r)

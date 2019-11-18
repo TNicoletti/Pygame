@@ -105,8 +105,8 @@ lg.map[25][25].visto = 1
 #enemies.append(MagicWarrior1(10, 10, player, obstaculo))
 #enemies.append(MagicWarrior1(790 - 75, 10, player, obstaculo))
 #enemies.append(Patocomarma(10, 10, player, obstaculo))
-enemies.append(Patocomarmaebandana(10, 10, player, obstaculo))
-#enemies.append(TheFirstBoss(10, 10, player, obstaculo))
+#enemies.append(Patocomarmaebandana(10, 10, player, obstaculo))
+enemies.append(TheFirstBoss(200, 200, player, obstaculo))
 
 while(run):
 	clock.tick(clockTick)

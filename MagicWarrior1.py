@@ -40,7 +40,7 @@ class MagicWarrior1(Enemy):
 
         self.attackCool = 0
 
-        self.bullets = []
+        bullets = []
 
         self.SPRITES = SpriteSheet('./sprites/MAGIC_WARRIOR_1.png')
 
@@ -106,7 +106,7 @@ class MagicWarrior1(Enemy):
 
         win.blit(image, (self.x, self.y))
 
-        for x in self.bullets:
+        for x in bullets:
             x.draw(win)
 
     def move(self):
@@ -155,12 +155,12 @@ class MagicWarrior1(Enemy):
                         self.y += self.xVel
                         break
 
-        for x in self.bullets:
+        for x in bullets:
             x.move()
 
         toRemove = []
 
-        for x in self.bullets:
+        for x in bullets:
             if(x.x < 0 or x.x > 800 or x.y < 0 or x.y > 800):
                 toRemove.append(x)
                 continue
@@ -170,38 +170,38 @@ class MagicWarrior1(Enemy):
                     break
 
         for x in toRemove:
-            self.bullets.remove(x)
+            bullets.remove(x)
 
     def do_attack(self):
         if(self.mode == "run"):
             if(self.tickTime % 30 == 0):
-                self.bullets.append(
+                bullets.append(
                 BulletMagicWarrior(self.x + self.width / 2, self.y + self.height / 2, self.player.x, self.player.y, 30, 30, 8, 1, "blue"))
                 #self.tickTime = 0
         else:
 
             if(self.tickTime % 60 == 0):
-                self.bullets.append(
+                bullets.append(
                     BulletMagicWarrior2(self.x + self.width/2 - 50, self.y + self.height/2 - 50, self.player.x,
                                        self.player.y, 30, 30, 20, 1, "red"))
-                self.bullets.append(
+                bullets.append(
                     BulletMagicWarrior2(self.x + self.width/2 + 50, self.y + self.height/2 - 50, self.player.x,
                                        self.player.y, 30, 30, 20, 1, "red"))
-                self.bullets.append(
+                bullets.append(
                     BulletMagicWarrior2(self.x + self.width/2 - 50, self.y + self.height/2 + 50, self.player.x,
                                        self.player.y, 30, 30, 20, 1, "red"))
-                self.bullets.append(
+                bullets.append(
                     BulletMagicWarrior2(self.x + self.width/2 + 50, self.y + self.height/2 + 50, self.player.x,
                                        self.player.y, 30, 30, 20, 1, "red"))
 
         toRemove = []
-        for b in self.bullets:
+        for b in bullets:
             if(self.player.confereMargem(b)):
                 self.player.takeDamage(b.damage)
                 toRemove.append(b)
 
         for b in toRemove:
-            self.bullets.remove(b)
+            bullets.remove(b)
 
 
 class BulletMagicWarrior(Bullet):
