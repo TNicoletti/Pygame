@@ -13,3 +13,6 @@ class mapSlice():
         #3 = boss?
         self.visto = 0
         self.doors = doors
+
+    def qtdPorta(self):
+        return sum([int(x) for x in self.doors])

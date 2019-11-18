@@ -100,7 +100,7 @@ def putDoors():
 			doors.append(Door(790, 400, 10, 100, "down"))
 
 lg.map[25][25].visto = 1
-lg.marcarVisto()
+#lg.marcarVisto()
 
 #enemies.append(MagicWarrior1(10, 10, player, obstaculo))
 #enemies.append(MagicWarrior1(790 - 75, 10, player, obstaculo))
@@ -190,6 +190,8 @@ while(run):
 				elif lg.map[i][j].visto == 1:
 					if(lg.map[i][j].tipo == 2):
 						pygame.draw.rect(win, (0, 0, 150), (width-50*5+5*j, height-50*5+5*i, 4, 4))
+					elif(lg.map[i][j].tipo == 3):
+						pygame.draw.rect(win, (255, 150, 0), (width-50*5+5*j, height-50*5+5*i, 4, 4))
 					else:
 						pygame.draw.rect(win, (0, 150, 0), (width-50*5+5*j, height-50*5+5*i, 4, 4))
 				elif lg.map[i][j].visto == 2:

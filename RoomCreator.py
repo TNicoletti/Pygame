@@ -82,3 +82,9 @@ def createShopRoom(haveUp, haveDown, haveLeft, haveRight, player):
              Shop(700, 10, Gun(1500, 5 * 60, player), 3000, player)]
 
     return mapSlice(enemies, obstaculos, shops, 2, str(haveUp)+str(haveDown)+str(haveLeft)+str(haveRight))
+
+def createBossRoom(r,player):
+    obstaculos = generateRoomBounds(r[0]=="1", r[1]=="1", r[2]=="1", r[3]=="1")
+    enemies = []
+    shops = []
+    return mapSlice(enemies,obstaculos,shops,3,r)

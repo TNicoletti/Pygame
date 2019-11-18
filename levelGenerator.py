@@ -73,6 +73,8 @@ class levelGenerator():
         if(i==len(seed)):
             i=0
 
+        boss = False
+
         for s in salas:
             c = s[1:7].split(", ")
             setup = ['0','0','0','0']
@@ -85,6 +87,7 @@ class levelGenerator():
                 setup[2]='1'
             if str([int(c[0]),int(c[1])+1]) in salas:
                 setup[3]='1'
+            qtd = sum([int(x) for x in setup])
 
             #print(setup)
             setup = "".join(setup)
@@ -96,6 +99,9 @@ class levelGenerator():
             elif(shops==0):
                 self.map[int(c[0])][int(c[1])] = createShopRoomFromString(setup,self.player)
                 #print("add shop")
+            elif(qtd==1 and boss==False):
+                boss=True
+                self.map[int(c[0])][int(c[1])] = createBossRoom(setup,self.player)                
             else:
                 self.map[int(c[0])][int(c[1])] = createRoomFromString(setup,self.player)
                 #print("add sala")
