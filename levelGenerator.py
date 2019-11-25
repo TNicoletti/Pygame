@@ -7,15 +7,18 @@ import random
 from RoomCreator import *
 
 class levelGenerator():
-    def __init__(self,player,seed):
+    def __init__(self,player,seed,qtd):
         self.level = 0
+
+        self.qtd = qtd
 
         self.player = player
 
         self.map = 0
         self.tela = [25, 25]
 
-        self.generateFloor(seed)
+        if(seed!=""):
+            self.generateFloor(seed)
 
 
     def generateFloor(self, seed):
@@ -28,17 +31,12 @@ class levelGenerator():
             for j in range(50):
                 self.map[i].append(None)
 
-        numFloors = 15
-        if(self.level == 2):
-            numFloors += 5
-
-
         salas = [[25,25]]
         i = 0
         j = 0
 
         #while(len(salas)<10):
-        for dfadsfsdf in range(10):
+        for dfadsfsdf in range(self.qtd):
             #char to int
             a = ord(seed[i])-ord('a')
             #ordSala = '{:04b}'.format(a % 16)
@@ -73,7 +71,7 @@ class levelGenerator():
         if(i==len(seed)):
             i=0
 
-        boss = False
+        boss = len(salas)-2
 
         for s in salas:
             c = s[1:7].split(", ")
@@ -99,8 +97,7 @@ class levelGenerator():
             elif(shops==0):
                 self.map[int(c[0])][int(c[1])] = createShopRoomFromString(setup,self.player)
                 #print("add shop")
-            elif(qtd==1 and boss==False):
-                boss=True
+            elif(boss==0):
                 self.map[int(c[0])][int(c[1])] = createBossRoom(setup,self.player)                
             else:
                 self.map[int(c[0])][int(c[1])] = createRoomFromString(setup,self.player,(ord(seed[i])-ord('a'))%8)
@@ -115,17 +112,8 @@ class levelGenerator():
                 i=0
 
             shops-=1
-        
-        #self.map[25][25] = createInitialRoom(1, 1, 0, 0)
-        #self.map[24][25] = createRoom(0, 1, 0, 0, self.player)
-        #self.map[26][25] = createShopRoom(1, 0, 0, 0, self.player)
-
-        '''for i in range(numFloors - 1):
-            if(random.randInt(1, numFloors - i >= 4)):
-                map[25][25] = mapSlice([], [], [Shop(700, 700, Gun(50, 2, self.player), 0, self.player),
-                                            Shop(700, 10, Gun(1500, 5 * 60, self.player), 3000, self.player)])'''
-
-
+            boss -=1
+    
     def getAtualMap(self):
         return self.map[self.tela[0]][self.tela[1]]
 

@@ -55,7 +55,7 @@ def createRoom(haveUp, haveDown, haveLeft, haveRight, player, num):
     #obstaculos.append(Platform(790, 0, 10, 300))
 
     if(num==0):
-        enemies.append(Patocomarmaebandana(400, 400, player, obstaculos))
+        enemies.append(MagicWarrior1(400, 400, player, obstaculos))
     elif(num==1):
         obstaculos.append(Platform(350, 350, 100, 100))
         enemies.append(Enemy(150, 400, player, obstaculos))
@@ -93,7 +93,7 @@ def createRoom(haveUp, haveDown, haveLeft, haveRight, player, num):
         for i in range(1,8):
             for j in range(1,8):
                 obstaculos.append(Platform(100*i, 100*j, 10, 10))
-        enemies.append(Patocomarma(410, 410, player, obstaculos))
+        enemies.append(MagicWarrior1(410, 410, player, obstaculos))
     elif(num==8):
         pass
     elif(num==9):

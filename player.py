@@ -237,8 +237,11 @@ class Player(object):
         auxX = xo - x
         auxY = yo - y
 
-        sen = (auxY) / (math.sqrt(auxX * auxX + auxY * auxY))
-
+        sen = 0
+        try:
+            sen = (auxY) / (math.sqrt(auxX * auxX + auxY * auxY))
+        except:
+            pass
         #if(auxY < 0):
         #sen = -sen
 

@@ -52,7 +52,9 @@ shops = []
 
 clockTick = 60
 
-lg = levelGenerator(player,seed)
+andar = 0
+
+lg = levelGenerator(player,seed,10)
 enemies = lg.getAtualMap().enemies
 obstaculo = lg.getAtualMap().obstaculos
 player.platforms = obstaculo
@@ -102,8 +104,9 @@ def putDoors():
 			doors.append(Door(790, 400, 10, 100, "down"))
 
 lg.map[25][25].visto = 1
+#lg.map[25][25].tipo = 3
 #lg.marcarVisto()
-
+bg = (122, 48, 72)
 #enemies.append(MagicWarrior1(10, 10, player, obstaculo))
 #enemies.append(MagicWarrior1(790 - 75, 10, player, obstaculo))
 #enemies.append(Patocomarma(10, 10, player, obstaculo))
@@ -119,10 +122,10 @@ while(run):
 
 	keys = pygame.key.get_pressed()
 
-	if(keys[pygame.K_ESCAPE]):
+	if(keys[pygame.K_ESCAPE] or player.life<=0):
 		run = False
 
-	win.fill((122, 48, 72))
+	win.fill(bg)
 
 	for s in shops:
 		s.draw(win)
@@ -150,6 +153,21 @@ while(run):
 		enemies.remove(rm)
 
 	if (len(enemies) == 0):
+		if(lg.getAtualMap().tipo==3):
+			andar +=1
+
+			seed = ''.join(random.choice(string.ascii_lowercase[0:16]) for i in range(10))
+
+			lg = levelGenerator(player,seed,10+(andar*2))
+			enemies = lg.getAtualMap().enemies
+			obstaculo = lg.getAtualMap().obstaculos
+			player.platforms = obstaculo
+			shops = lg.getAtualMap().shops
+
+			bg = ((ord(seed[0])-ord('a'))*17,(ord(seed[1])-ord('a'))*17,(ord(seed[2])-ord('a'))*17)
+
+			player.life = player.MAXLIFE
+
 		for p in doors:
 			p.move()
 		lg.marcarVisto()
