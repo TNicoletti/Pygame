@@ -21,7 +21,7 @@ seed = ''.join(random.choice(string.ascii_lowercase[0:16]) for i in range(10))
 #seed = "abcdefghij"
 #print(seed)
 
-size = 800
+size = 500
 
 x = int(size/16) #50
 y = int(size/16) #50
@@ -183,7 +183,7 @@ while(run):
 		if(i.confereMargem(player)):
 			i.get(player)
 
-	correction = size/80 *10
+	correction = size*10/800 
 
 	if(player.x > size):
 		player.x -= size - correction
@@ -210,16 +210,16 @@ while(run):
 		for j in range(len(lg.map[i])):
 			if lg.map[i][j] != None:
 				if i == lg.tela[0] and j == lg.tela[1]:
-					pygame.draw.rect(win, (150, 0, 0), (size-size/16*5+5*j, size-size/16*5+5*i, size/200, size/200))
+					pygame.draw.rect(win, (150, 0, 0), (size-size*5/16+5*j, size-size/16*5+5*i, size/200, size/200))
 				elif lg.map[i][j].visto == 1:
 					if(lg.map[i][j].tipo == 2):
-						pygame.draw.rect(win, (0, 0, 150), (size-size/16*5+5*j, size-size/16*5+5*i, size/200, size/200))
+						pygame.draw.rect(win, (0, 0, 150), (size-size*5/16+5*j, size-size/16*5+5*i, size/200, size/200))
 					elif(lg.map[i][j].tipo == 3):
-						pygame.draw.rect(win, (255, 150, 0), (size-size/16*5+5*j, size-size/16*5+5*i, size/200, size/200))
+						pygame.draw.rect(win, (255, 150, 0), (size-size*5/16+5*j, size-size/16*5+5*i, size/200, size/200))
 					else:
-						pygame.draw.rect(win, (0, 150, 0), (size-size/16*5+5*j, size-size/16*5+5*i, size/200, size/200))
+						pygame.draw.rect(win, (0, 150, 0), (size-size*5/16+5*j, size-size/16*5+5*i, size/200, size/200))
 				elif lg.map[i][j].visto == 2:
-					pygame.draw.rect(win, (50, 50, 50), (size-size/16*5+5*j, size-size/16*5+5*i, size/200, size/200))
+					pygame.draw.rect(win, (50, 50, 50), (size-size*5/16+5*j, size-size/16*5+5*i, size/200, size/200))
 	pygame.display.flip()
 
 pygame.quit()
