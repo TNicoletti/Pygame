@@ -10,3 +10,7 @@ __pycache__/RoomCreator.cpython-36.pyc
 __pycache__/levelGenerator.cpython-36.pyc
 __pycache__/RoomCreator.cpython-36.pyc
 *.pyc
+*.pyc
+__pycache__/bullet.cpython-36.pyc
+__pycache__/levelGenerator.cpython-36.pyc
+__pycache__/shop.cpython-36.pyc

@@ -68,32 +68,36 @@ def createRoom(haveUp, haveDown, haveLeft, haveRight, player, num):
         enemies.append(Enemy(400, 400, player, obstaculos))
     elif(num==3):
         obstaculos.append(Platform(300, 300, 200, 200))
-        enemies.append(Enemy(100, 100, player, obstaculos))
+        enemies.append(Patocomarmaebandana(100, 100, player, obstaculos))
         enemies.append(Enemy(700, 700, player, obstaculos))
     elif(num==4):
         obstaculos.append(Platform(175, 375, 450, 50))
         obstaculos.append(Platform(375, 175, 50, 450))
         enemies.append(Enemy(250, 550, player, obstaculos))
-        enemies.append(Enemy(250, 250, player, obstaculos))
+        enemies.append(Patocomarma(250, 250, player, obstaculos))
         enemies.append(Enemy(550, 550, player, obstaculos))
         enemies.append(Enemy(550, 250, player, obstaculos))
     elif(num==5):
         enemies.append(Enemy(250, 550, player, obstaculos))
-        enemies.append(Enemy(250, 250, player, obstaculos))
+        enemies.append(Patocomarmaebandana(250, 250, player, obstaculos))
         enemies.append(Enemy(550, 550, player, obstaculos))
-        enemies.append(Enemy(550, 250, player, obstaculos))
+        enemies.append(Patocomarma(550, 250, player, obstaculos))
         enemies.append(Enemy(350, 350, player, obstaculos))
     elif(num==6):
         obstaculos.append(Platform(0, 0, 300, 300))
         obstaculos.append(Platform(500, 0, 300, 300))
         obstaculos.append(Platform(0, 500, 300, 300))
         obstaculos.append(Platform(500, 500, 300, 300))
-        enemies.append(Enemy(350, 350, player, obstaculos))
+        enemies.append(Patocomarma(350, 350, player, obstaculos))
     elif(num==7):
         for i in range(1,8):
             for j in range(1,8):
                 obstaculos.append(Platform(100*i, 100*j, 10, 10))
-        enemies.append(Enemy(410, 410, player, obstaculos))
+        enemies.append(Patocomarma(410, 410, player, obstaculos))
+    elif(num==8):
+        pass
+    elif(num==9):
+        pass
 
 
 
