@@ -17,8 +17,8 @@ from MagicWarrior1 import *
 
 import random
 #print(string.ascii_lowercase[0:16])
-#seed = ''.join(random.choice(string.ascii_lowercase[0:16]) for i in range(10))
-seed = "abcdefghij"
+seed = ''.join(random.choice(string.ascii_lowercase[0:16]) for i in range(10))
+#seed = "abcdefghij"
 #print(seed)
 
 width = 800
