@@ -13,11 +13,21 @@ class TheFirstBoss(Enemy):
     def __init__(self, x, y, player, platforms):
         super().__init__(x, y, player, platforms)
 
-        self.atualAttackCool = 0
+        self.width = 100
+        self.height = 100
+
+        self.atualAttackCool = 7 * 60
+
+        self.meleeCool = 0
+
+        self.aux = 0
 
         self.mode = 0
 
-        self.life = 2000
+        self.life = 4000
+
+        self.DEFAULT_X = x
+        self.DEFAULT_Y = y
 
         self.bullets = []
 
@@ -66,7 +76,7 @@ class TheFirstBoss(Enemy):
         self.IMAGE_ATTACK_11 = pygame.transform.scale(self.IMAGE_ATTACK_11, (self.width, self.height))
 
         self.IMAGE_ATTACK_12 = self.SPRITES.get_image(32, 96, 32, 32)
-        self.IMAGE_ATTACK_12 = pygame.transform.scale(self.IMAGE_ATTACK_11, (self.width, self.height))
+        self.IMAGE_ATTACK_12 = pygame.transform.scale(self.IMAGE_ATTACK_12, (self.width, self.height))
 
 
         self.IMAGE_ATTACK_20 = self.SPRITES.get_image(64, 96, 32, 32)
@@ -88,7 +98,7 @@ class TheFirstBoss(Enemy):
         self.IMAGE_ATTACK_25 = pygame.transform.scale(self.IMAGE_ATTACK_25, (self.width, self.height))
 
     def draw(self, win):  # TODO dinamic
-        image = 0
+        image = self.IMAGE_ATTACK_11
         if(self.mode == 0):
 
             x = self.player.x
@@ -110,16 +120,73 @@ class TheFirstBoss(Enemy):
             if(angle < 0):
                 angle = 360 + angle
 
-            if(angle >= 315 or angle <= 45):
-                image = self.IMAGE_STANDART_R
-            elif(angle >= 45 and angle <= 135):
-                image = self.IMAGE_STANDART_RU
-            elif(angle >= 135 and angle <= 225):
-                image = self.IMAGE_STANDART_L
+            if(self.aux > 0):
+                self.aux += 1
+                if (angle <= 30 or angle >= 330):
+                    image = self.IMAGE_SHOOTING_L
+                elif (angle <= 90):
+                    image = self.IMAGE_SHOOTING_LU
+                elif (angle <= 150):
+                    image = self.IMAGE_SHOOTING_RU
+                elif (angle <= 210):
+                    image = self.IMAGE_SHOOTING_R
+                elif (angle <= 270):
+                    image = self.IMAGE_SHOOTING_RD
+                elif (angle <= 330):
+                    image = self.IMAGE_SHOOTING_LD
+
+                if(self.aux == 20):
+                    self.aux = 0
             else:
-                image = self.IMAGE_STANDART_LD
+                if (angle <= 30 or angle >= 330):
+                    image = self.IMAGE_STANDART_L
+                elif (angle <= 90):
+                    image = self.IMAGE_STANDART_LU
+                elif (angle <= 150):
+                    image = self.IMAGE_STANDART_RU
+                elif (angle <= 210):
+                    image = self.IMAGE_STANDART_R
+                elif (angle <= 270):
+                    image = self.IMAGE_STANDART_RD
+                elif (angle <= 330):
+                    image = self.IMAGE_STANDART_LD
+        elif(self.mode == 2):
+            if(self.tickTime < 20):
+                image = self.IMAGE_ATTACK_20
+            elif(self.tickTime < 40):
+                image = self.IMAGE_ATTACK_21
+            elif(self.tickTime < 60):
+                image = self.IMAGE_ATTACK_22
+            else:
+                if((self.tickTime % 60) < 20 ):
+                    image = self.IMAGE_ATTACK_23
+                    self.x = self.DEFAULT_X + 10
+                    self.y = self.DEFAULT_Y
+                elif((self.tickTime % 60) < 40):
+                    image = self.IMAGE_ATTACK_24
+                    self.x = self.DEFAULT_X - 10
+                    self.y = self.DEFAULT_Y - 2
+                elif((self.tickTime % 60) < 60):
+                    image = self.IMAGE_ATTACK_25
+                    self.x = self.DEFAULT_X - 5
+                    self.y = self.DEFAULT_Y + 5
 
+                r = random.randint(0, 2)
 
+                if(r == 0):
+                    self.x = self.DEFAULT_X + 10
+                    self.y = self.DEFAULT_Y
+                elif(r == 1):
+                    self.x = self.DEFAULT_X - 10
+                    self.y = self.DEFAULT_Y - 2
+                elif(r == 2):
+                    self.x = self.DEFAULT_X - 5
+                    self.y = self.DEFAULT_Y + 5
+        elif(self.mode == 1):
+            if(self.tickTime % 20 < 10):
+                image = self.IMAGE_ATTACK_11
+            else:
+                image = self.IMAGE_ATTACK_12
         win.blit(image, (self.x, self.y))
 
         for x in self.bullets:
@@ -128,8 +195,25 @@ class TheFirstBoss(Enemy):
     def move(self):
         self.tickTime += 1
 
+        for x in self.bullets:
+            x.move()
+
+        toRemove = []
+
+        for x in self.bullets:
+            if(x.x < 0 or x.x > 800 or x.y < 0 or x.y > 800):
+                toRemove.append(x)
+                continue
+            for p in self.platforms:
+                if(p.confereMargem(x)):
+                    toRemove.append(x)
+                    break
+
+        for x in toRemove:
+            self.bullets.remove(x)
+
     def do_attack(self):
-        if(self.tickTime > self.atualAttackCool):
+        '''if(self.tickTime > self.atualAttackCool):
             self.tickTime = 1
             rand = random.randint(0, 2)
 
@@ -141,17 +225,62 @@ class TheFirstBoss(Enemy):
                 self.atualAttackCool = 60 * 5
             elif(rand == 2):
                 self.mode = 2
-                self.atualAttackCool = 60 * 5
+                self.atualAttackCool = 60 * 5'''
 
-        if(self.mode == 0):
+        if(self.life >= 3000):
+            if(self.mode != 0):
+                self.mode = 0
+                self.tickTime = 0
+        elif(self.life >= 1500):
+            if(self.mode != 1):
+                self.mode = 1
+                self.tickTime = 0
+        elif (self.life > 0):
+            if (self.mode != 2):
+                self.mode = 2
+                self.tickTime = 0
 
-            if(self.tickTime % 60):
-                self.bullets.append(BulletTheFirstBoss(self.x, self.y, self.player.x, self.player.y, 10, 10, 10, 1))
+        if (self.tickTime >= 60):
+            if(self.mode == 0):
 
-        elif(self.mode == 1):
-            pass
-        elif(self.mode == 2):
-            pass
+                if(self.tickTime % 30 == 0):
+                    self.bullets.append(BulletTheFirstBoss(self.x + self.width/2, self.y + self.height/2, self.player.getX(), self.player.getY(), 30, 30, 15, 1))
+                    self.aux = 1
+
+            elif(self.mode == 1):
+                if(self.tickTime % 60 == 0):
+                    r = random.randint(10, 800 - 20 - 10)
+                    self.bullets.append(BulletTheFirstBoss(10, r, self.player.x, self.player.y, 20, 20, 6, 1))
+                    self.bullets.append(BulletTheFirstBoss(770, r, self.player.x, self.player.y, 20, 20, 6, 1))
+            elif(self.mode == 2):
+
+                #r = random.randint(0, )
+                if(self.tickTime % (120) == 0):
+                    self.bullets.append(BulletTheFirstBossVariatings(130, 10, 130, 800, 35, 35, random.randrange(1, 5), 1))
+                elif(self.tickTime % (120) == 40):
+                    self.bullets.append(BulletTheFirstBossVariatings(390, 10, 390, 800, 35, 35, random.randrange(1, 5), 1))
+                elif(self.tickTime % 120 == 80):
+                    self.bullets.append(BulletTheFirstBossVariatings(640, 10, 640, 800, 35, 35, random.randrange(1, 5), 1))
+
+                if (self.tickTime % 20 == 0):
+                    self.bullets.append(BulletTheFirstBoss(0 + 10, 750, 10, 0, 35, 35, 5, 1))
+                    self.bullets.append(BulletTheFirstBoss(260 + 10, 750, 260, 0, 35, 35, 5, 1))
+                    self.bullets.append(BulletTheFirstBoss(500 + 10, 750, 500, 0, 35, 35, 5, 1))
+                    self.bullets.append(BulletTheFirstBoss(800 - 10 - 35, 750, 755, 0, 35, 35, 5, 1))
+
+        toRemove = []
+        for b in self.bullets:
+            if (self.player.confereMargem(b)):
+                self.player.takeDamage(b.damage)
+                toRemove.append(b)
+
+        for b in toRemove:
+            self.bullets.remove(b)
+
+        self.meleeCool += 1
+        if (self.confereMargem(self.player) and self.meleeCool >= 60):
+            self.player.takeDamage(1)
+            self.meleeCool = 0
 
 
 
@@ -172,8 +301,6 @@ class BulletTheFirstBoss(Bullet):
         # self.xVel = (self.xT - self.x) / 10
         # self.yVel = (self.yT - self.y) / 10
 
-        self.hitbox = (self.x, self.y, self.width, self.height)
-
         auxX = xo - x
         auxY = yo - y
 
@@ -188,6 +315,9 @@ class BulletTheFirstBoss(Bullet):
             self.xVel = -self.cos * vel
 
         self.yVel = -self.sen * vel
+
+        #print(self.xVel)
+        #print(self.yVel)
 
         self.image = pygame.image.load('./sprites/tiro_2.png')
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
@@ -206,3 +336,32 @@ class BulletTheFirstBoss(Bullet):
             #pygame.draw.rect(win, (255, 0, 0), (self.x, self.y, self.width, self.height))
 
             win.blit(self.image, (self.x, self.y))
+
+class BulletTheFirstBossVariatings(BulletTheFirstBoss):
+    def __init__(self, xo, yo, x, y, width, height, vel, damage):
+        super().__init__(xo, yo, x, y, width, height, vel, damage)
+
+        self.towhere = 0
+
+        self.INITIAL_X = x
+        self.INITIAL_Y = y
+
+    def draw(self, win):
+        if(self.x > 0  and self.y > 0 and self.x <= 800 and self.y <= 800):
+            #pygame.draw.rect(win, (255, 0, 0), (self.x, self.y, self.width, self.height))
+
+            win.blit(self.image, (self.x, self.y))
+
+    def move(self):
+        super().move()
+
+        if(self.towhere == 0):
+            self.x += self.vel
+            if(self.x - self.INITIAL_X >=  60):
+                #print("a")
+                self.towhere = 1
+        elif(self.towhere == 1):
+            self.x -= self.vel
+            if (self.INITIAL_X - self.x >= 60):
+                #print("b")
+                self.towhere = 0

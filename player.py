@@ -25,7 +25,7 @@ class Player(object):
         self.jumpped = False
 
         self.gun = Gun(20, 12, self)
-        self.gun = Gun(20, 2, self)
+        #self.gun = Gun(20, 2, self)
 
         self.moving = False
 
@@ -310,3 +310,9 @@ class Player(object):
 
     def clearBullets(self):
         self.bullets = []
+
+    def getX(self):
+        return self.x + self.width / 2
+
+    def getY(self):
+        return self.y + self.height / 2

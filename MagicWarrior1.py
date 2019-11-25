@@ -30,6 +30,8 @@ class MagicWarrior1(Enemy):
 
         self.platforms = platforms
 
+        self.bullets = []
+
         # self.g = gravity
 
         # self.hitbox = (self.x, self.y, self.width, self.height)
@@ -106,7 +108,7 @@ class MagicWarrior1(Enemy):
 
         win.blit(image, (self.x, self.y))
 
-        for x in bullets:
+        for x in self.bullets:
             x.draw(win)
 
     def move(self):
@@ -155,12 +157,12 @@ class MagicWarrior1(Enemy):
                         self.y += self.xVel
                         break
 
-        for x in bullets:
+        for x in self.bullets:
             x.move()
 
         toRemove = []
 
-        for x in bullets:
+        for x in self.bullets:
             if(x.x < 0 or x.x > 800 or x.y < 0 or x.y > 800):
                 toRemove.append(x)
                 continue
@@ -170,38 +172,38 @@ class MagicWarrior1(Enemy):
                     break
 
         for x in toRemove:
-            bullets.remove(x)
+            self.bullets.remove(x)
 
     def do_attack(self):
         if(self.mode == "run"):
             if(self.tickTime % 30 == 0):
-                bullets.append(
+                self.bullets.append(
                 BulletMagicWarrior(self.x + self.width / 2, self.y + self.height / 2, self.player.x, self.player.y, 30, 30, 8, 1, "blue"))
                 #self.tickTime = 0
         else:
 
             if(self.tickTime % 60 == 0):
-                bullets.append(
-                    BulletMagicWarrior2(self.x + self.width/2 - 50, self.y + self.height/2 - 50, self.player.x,
-                                       self.player.y, 30, 30, 20, 1, "red"))
-                bullets.append(
-                    BulletMagicWarrior2(self.x + self.width/2 + 50, self.y + self.height/2 - 50, self.player.x,
-                                       self.player.y, 30, 30, 20, 1, "red"))
-                bullets.append(
-                    BulletMagicWarrior2(self.x + self.width/2 - 50, self.y + self.height/2 + 50, self.player.x,
-                                       self.player.y, 30, 30, 20, 1, "red"))
-                bullets.append(
-                    BulletMagicWarrior2(self.x + self.width/2 + 50, self.y + self.height/2 + 50, self.player.x,
-                                       self.player.y, 30, 30, 20, 1, "red"))
+                self.bullets.append(
+                    BulletMagicWarrior2(self.x + self.width/2 - 50, self.y + self.height/2 - 50,
+                                       self.player, 30, 30, 20, 1, "red"))
+                self.bullets.append(
+                    BulletMagicWarrior2(self.x + self.width/2 + 50, self.y + self.height/2 - 50,
+                                       self.player, 30, 30, 20, 1, "red"))
+                self.bullets.append(
+                    BulletMagicWarrior2(self.x + self.width/2 - 50, self.y + self.height/2 + 50,
+                                       self.player, 30, 30, 20, 1, "red"))
+                self.bullets.append(
+                    BulletMagicWarrior2(self.x + self.width/2 + 50, self.y + self.height/2 + 50,
+                                       self.player, 30, 30, 20, 1, "red"))
 
         toRemove = []
-        for b in bullets:
+        for b in self.bullets:
             if(self.player.confereMargem(b)):
                 self.player.takeDamage(b.damage)
                 toRemove.append(b)
 
         for b in toRemove:
-            bullets.remove(b)
+            self.bullets.remove(b)
 
 
 class BulletMagicWarrior(Bullet):
@@ -239,10 +241,10 @@ class BulletMagicWarrior(Bullet):
         self.yVel = -self.sen * vel
 
         if(color == "red"):
-            self.image = pygame.image.load('./sprites/tiro_2.png')
+            self.IMAGE = pygame.image.load('./sprites/tiro_2.png')
         elif(color == "blue"):
-            self.image = pygame.image.load('./sprites/tiro_4.png')
-        self.image = pygame.transform.scale(self.image, (self.width, self.height))
+            self.IMAGE = pygame.image.load('./sprites/tiro_4.png')
+        self.IMAGE = pygame.transform.scale(self.IMAGE, (self.width, self.height))
         d = degrees(asin(self.sen))
 
         if (auxX > 0):
@@ -251,7 +253,7 @@ class BulletMagicWarrior(Bullet):
 
         '''if(d > 360):'''
 
-        self.image = pygame.transform.rotate(self.image, d)
+        self.image = pygame.transform.rotate(self.IMAGE, d)
 
     def draw(self, win):
         if(self.x > 0  and self.y > 0 and self.x <= 800 and self.y <= 800):
@@ -260,7 +262,7 @@ class BulletMagicWarrior(Bullet):
             win.blit(self.image, (self.x, self.y))
 
 class BulletMagicWarrior2(Bullet):
-    def __init__(self, xo, yo, x, y, width, height, vel, damage, color):
+    def __init__(self, xo, yo, player, width, height, vel, damage, color):
         self.x = xo
         self.y = yo
         # self.xT = x
@@ -268,6 +270,8 @@ class BulletMagicWarrior2(Bullet):
         # self.m = (yo - y)/(xo - x)
         self.width = width
         self.height = height
+
+        self.player = player
 
         self.damage = damage
 
@@ -280,8 +284,8 @@ class BulletMagicWarrior2(Bullet):
 
         self.hitbox = (self.x, self.y, self.width, self.height)
 
-        auxX = xo - x
-        auxY = yo - y
+        auxX = xo - self.player.x
+        auxY = yo - self.player.y
 
         self.sen = (auxY) / (math.sqrt(auxX * auxX + auxY * auxY))
         self.cos = math.sqrt(1 - self.sen * self.sen)
@@ -295,11 +299,11 @@ class BulletMagicWarrior2(Bullet):
 
         self.yVel = -self.sen * vel
 
-        if(color == "red"):
-            self.image = pygame.image.load('./sprites/tiro_2.png')
-        elif(color == "blue"):
-            self.image = pygame.image.load('./sprites/tiro_4.png')
-        self.image = pygame.transform.scale(self.image, (self.width, self.height))
+        if (color == "red"):
+            self.IMAGE = pygame.image.load('./sprites/tiro_2.png')
+        elif (color == "blue"):
+            self.IMAGE = pygame.image.load('./sprites/tiro_4.png')
+        self.IMAGE = pygame.transform.scale(self.IMAGE, (self.width, self.height))
         d = degrees(asin(self.sen))
 
         if (auxX > 0):
@@ -308,7 +312,7 @@ class BulletMagicWarrior2(Bullet):
 
         '''if(d > 360):'''
 
-        self.image = pygame.transform.rotate(self.image, d)
+        self.image = pygame.transform.rotate(self.IMAGE, d)
 
     def draw(self, win):
         if(self.x > 0  and self.y > 0 and self.x <= 800 and self.y <= 800):
@@ -318,6 +322,30 @@ class BulletMagicWarrior2(Bullet):
 
     def move(self):
         self.cont += 1
-        if(self.cont >= 60):
+
+        if(self.cont <= 60):
+            auxX = self.x - self.player.x
+            auxY = self.y - self.player.y
+
+            self.sen = (auxY) / (math.sqrt(auxX * auxX + auxY * auxY))
+            self.cos = math.sqrt(1 - self.sen * self.sen)
+            # print("sen:", self.sen)
+            # print("cos:", self.cos)
+
+            if (auxX < 0):
+                self.xVel = self.cos * self.vel
+            else:
+                self.xVel = -self.cos * self.vel
+
+            self.yVel = -self.sen * self.vel
+
+            d = degrees(asin(self.sen))
+
+            if (auxX > 0):
+                d = 180 - d
+
+            self.image = pygame.transform.rotate(self.IMAGE, d)
+
+        if(self.cont > 60):
             self.x += self.xVel
             self.y += self.yVel
