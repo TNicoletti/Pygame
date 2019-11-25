@@ -121,8 +121,8 @@ def createShopRoom(haveUp, haveDown, haveLeft, haveRight, player):
 
     enemies = []
 
-    shops = [Shop(700, 700, Gun(50, 2, player), 0, player),
-             Shop(700, 10, Gun(1500, 5 * 60, player), 3000, player)]
+    shops = [Shop(700, 700, Gun(5, 2, player, "minigum"), 2000, player),
+             Shop(700, 10, Gun(500, 2 * 60, player, "exploder"), 3000, player)]
 
     return mapSlice(enemies, obstaculos, shops, 2, str(haveUp)+str(haveDown)+str(haveLeft)+str(haveRight))
 

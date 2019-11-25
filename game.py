@@ -73,6 +73,7 @@ def changeSlice(nmap):
 	enemies = nmap.enemies
 	obstaculo = nmap.obstaculos
 	player.platforms = obstaculo
+	player.items = []
 	shops = nmap.shops
 	putDoors()
 	player.doors = doors
@@ -159,6 +160,11 @@ while(run):
 
 	for p in doors:
 		p.draw(win)
+
+	for i in player.items:
+		i.draw(win)
+		if(i.confereMargem(player)):
+			i.get(player)
 
 	correction = 10
 

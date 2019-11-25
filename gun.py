@@ -2,7 +2,7 @@ import pygame
 from bullet import *
 
 class Gun(object):
-    def __init__(self, damage, rateOfFire, shooter):
+    def __init__(self, damage, rateOfFire, shooter, name):
         self.damage = damage
         self.rateOfFire = rateOfFire
 
@@ -12,6 +12,8 @@ class Gun(object):
 
         self.tickTime = 0
         self.clockTick = 60
+
+        self.name = name
 
 
     def shot(self, bullets, x, y):

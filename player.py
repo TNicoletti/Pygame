@@ -15,6 +15,8 @@ class Player(object):
         self.platforms = []
         self.doors = []
 
+        self.gunBuffROF = 1
+
         self.holdShot = False
 
         self.MAXLIFE = 20 #TODO dinamic
@@ -24,8 +26,8 @@ class Player(object):
 
         self.jumpped = False
 
-        self.gun = Gun(20, 12, self)
-        #self.gun = Gun(20, 2, self)
+        self.gun = Gun(20, 12, self, "default")
+        #self.gun = Gun(20, 2, self, "default")
 
         self.moving = False
 
@@ -35,6 +37,8 @@ class Player(object):
         self.tickTime = 0
         self.clockTick = 60
 
+        self.items = []
+
         self.bullets = []
 
         self.angle = 0
@@ -43,6 +47,7 @@ class Player(object):
 
         self.lifeCool = 0
 
+        self.segurado = False
 
         self.shooting = False
         self.shootCool  = 0
@@ -210,8 +215,12 @@ class Player(object):
                     break
 
         if (keys[pygame.K_i]):
-            self.holdShot = not self.holdShot
-            #print(self.holdShot)
+            if(not self.segurado):
+                self.holdShot = not self.holdShot
+                self.segurado = True
+                #print(self.holdShot)
+        else:
+            self.segurado = False
 
         #self.y += self.yVel
 
@@ -316,3 +325,9 @@ class Player(object):
 
     def getY(self):
         return self.y + self.height / 2
+
+    def changeGun(self, nGun):
+        self.gun = nGun
+
+    def buffGun(self):
+        self.gun.rateOfFire *= self.gunBuffROF

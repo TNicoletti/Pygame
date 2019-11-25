@@ -7,6 +7,8 @@ from math import sqrt, degrees, asin
 
 from bullet import *
 
+from items import *
+
 import random
 
 class TheFirstBoss(Enemy):
@@ -282,6 +284,9 @@ class TheFirstBoss(Enemy):
             self.player.takeDamage(1)
             self.meleeCool = 0
 
+    def onDeath(self):
+        self.player.items.append(firstItem(self.x, self.y, self.player))
+
 
 
 class BulletTheFirstBoss(Bullet):
@@ -365,3 +370,10 @@ class BulletTheFirstBossVariatings(BulletTheFirstBoss):
             if (self.INITIAL_X - self.x >= 60):
                 #print("b")
                 self.towhere = 0
+
+class firstItem(Item):
+    def get(self, player):
+        player.gunBuffROF = player.gunBuffROF/2
+        player.buffGun()
+
+        self.selfDestroy(player)

@@ -106,6 +106,7 @@ class Enemy(object):
         self.life -= damage
         if(self.life <= 0):
             self.player.points += self.scoreBonus
+            self.onDeath()
         else:
             self.player.points += 10
 
@@ -114,3 +115,6 @@ class Enemy(object):
         if(self.confereMargem(self.player) and self.attackCool >= 1):
             self.player.takeDamage(1)
             self.attackCool = 0
+
+    def onDeath(self):
+        pass
