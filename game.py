@@ -21,19 +21,18 @@ seed = ''.join(random.choice(string.ascii_lowercase[0:16]) for i in range(10))
 #seed = "abcdefghij"
 #print(seed)
 
-width = 800
-height = 800
+size = 800
 
-x = 50
-y = 50
-vel = 5
+x = int(size/16) #50
+y = int(size/16) #50
+vel = int(size/160) #5
 
 pygame.init()
 
 clock = pygame.time.Clock()
 
 
-win = pygame.display.set_mode((width, height))
+win = pygame.display.set_mode((size, size))
 
 pygame.display.set_caption("GAYME")
 
@@ -45,7 +44,7 @@ run = True
 
 obstaculo = []
 
-player    = Player(250, 250)
+player    = Player(size/4, size/4, size)
 enemies   = []
 
 shops = []
@@ -54,16 +53,16 @@ clockTick = 60
 
 andar = 0
 
-lg = levelGenerator(player,seed,10)
+lg = levelGenerator(player,seed,10,size)
 enemies = lg.getAtualMap().enemies
 obstaculo = lg.getAtualMap().obstaculos
 player.platforms = obstaculo
 shops = lg.getAtualMap().shops
 
-doors = [Door(300, 0, 100, 10, "left"), Door(400, 0, 100, 10, "right"),
-		 Door(300, 790, 100, 10, "left"), Door(400, 790, 100, 10, "right"),
-		 Door(0, 300, 10, 100, "up"), Door(0, 400, 10, 100, "down"),
-		 Door(790, 300, 10, 100, "up"), Door(790, 400, 10, 100, "down")]
+doors = [Door(int(size*3/8), 0, int(size/8), int(size/80), "left"), Door(int(size*4/8), 0, int(size/8), int(size/80), "right"),
+		 Door(int(size*3/8), int(size-size/80), int(size/8), int(size/80), "left"), Door(int(size*4/8), int(size-size/80), int(size/8), int(size/80), "right"),
+		 Door(0, int(size*3/8), int(size/80), int(size/8), "up"), Door(0, int(size*4/8), 10, int(size/8), "down"),
+		 Door(int(size-size/80), int(size*3/8), int(size/80), int(size/8), "up"), Door(int(size-size/80), int(size*4/8), 10, int(size/8), "down")]
 player.doors = doors
 
 def changeSlice(nmap):
@@ -88,20 +87,20 @@ def putDoors():
 
 	if(not len(enemies) == 0):
 		if(lg.map[lg.tela[0] - 1][lg.tela[1]] != 0):
-			doors.append(Door(300, 0, 100, 10, "left"))
-			doors.append(Door(400, 0, 100, 10, "right"))
+			doors.append(Door(int(size*3/8), 0, int(size/8), int(size/80), "left"))
+			doors.append(Door(int(size*4/8), 0, int(size/8), int(size/80), "right"))
 
 		if((lg.map[lg.tela[0] + 1][lg.tela[1] + 1] != 0)):
-			doors.append(Door(300, 790, 100, 10, "left"))
-			doors.append(Door(400, 790, 100, 10, "right"))
+			doors.append(Door(int(size*3/8), int(size-size/80), int(size/8), int(size/80), "left"))
+			doors.append(Door(int(size*4/8), int(size-size/80), int(size/8), int(size/80), "right"))
 
 		if ((lg.map[lg.tela[0]][lg.tela[1] - 1] != 0)):
-			doors.append(Door(0, 300, 10, 100, "up"))
-			doors.append(Door(0, 400, 10, 100, "down"))
+			doors.append(Door(0, int(size*3/8), int(size/80), int(size/8), "up"))
+			doors.append(Door(0, int(size*4/8), int(size/80), int(size/8), "down"))
 
 		if ((lg.map[lg.tela[0]][lg.tela[1] + 1] != 0)):
-			doors.append(Door(790, 300, 10, 100, "up"))
-			doors.append(Door(790, 400, 10, 100, "down"))
+			doors.append(Door(int(size-size/80), int(size*3/8), int(size/80), int(size/8), "up"))
+			doors.append(Door(int(size-size/80), int(size*4/8), int(size/80), int(size/8), "down"))
 
 lg.map[25][25].visto = 1
 #lg.map[25][25].tipo = 3
@@ -134,9 +133,9 @@ while(run):
 		p.move()
 		p.draw(win)
 
-	player.move(keys)
-	player.draw(win)
-	player.damage(enemies)
+	player.move(keys,size)
+	player.draw(win,size)
+	player.damage(enemies,size)
 
 	toRemove = []
 
@@ -149,9 +148,9 @@ while(run):
 			toRemove.append(e)
 			continue
 
-		e.move()
-		e.draw(win)
-		e.do_attack()
+		e.move(size)
+		e.draw(win,size)
+		e.do_attack(size)
 
 	for rm in toRemove:
 		enemies.remove(rm)
@@ -162,7 +161,7 @@ while(run):
 
 			seed = ''.join(random.choice(string.ascii_lowercase[0:16]) for i in range(10))
 
-			lg = levelGenerator(player,seed,10+(andar*2))
+			lg = levelGenerator(player,seed,10+(andar*2),size)
 			enemies = lg.getAtualMap().enemies
 			obstaculo = lg.getAtualMap().obstaculos
 			player.platforms = obstaculo
@@ -173,37 +172,37 @@ while(run):
 			player.life = player.MAXLIFE
 
 		for p in doors:
-			p.move()
+			p.move(size)
 		lg.marcarVisto()
 
 	for p in doors:
 		p.draw(win)
 
 	for i in player.items:
-		i.draw(win)
+		i.draw(win,size)
 		if(i.confereMargem(player)):
 			i.get(player)
 
-	correction = 10
+	correction = size/80 *10
 
-	if(player.x > width):
-		player.x -= width - correction
+	if(player.x > size):
+		player.x -= size - correction
 		player.clearBullets()
 		changeSlice(lg.changeSlice("r"))
 
 	if(player.x < -player.width):
-		player.x += width  - correction
+		player.x += size  - correction
 		player.clearBullets()
 		changeSlice(lg.changeSlice("l"))
 
 
-	if (player.y > height):
-		player.y -= height - correction
+	if (player.y > size):
+		player.y -= size - correction
 		player.clearBullets()
 		changeSlice(lg.changeSlice("d"))
 
 	if (player.y < -player.height):
-		player.y += height - correction
+		player.y += size - correction
 		player.clearBullets()
 		changeSlice(lg.changeSlice("u"))
 
@@ -211,16 +210,16 @@ while(run):
 		for j in range(len(lg.map[i])):
 			if lg.map[i][j] != None:
 				if i == lg.tela[0] and j == lg.tela[1]:
-					pygame.draw.rect(win, (150, 0, 0), (width-50*5+5*j, height-50*5+5*i, 4, 4))
+					pygame.draw.rect(win, (150, 0, 0), (size-size/16*5+5*j, size-size/16*5+5*i, size/200, size/200))
 				elif lg.map[i][j].visto == 1:
 					if(lg.map[i][j].tipo == 2):
-						pygame.draw.rect(win, (0, 0, 150), (width-50*5+5*j, height-50*5+5*i, 4, 4))
+						pygame.draw.rect(win, (0, 0, 150), (size-size/16*5+5*j, size-size/16*5+5*i, size/200, size/200))
 					elif(lg.map[i][j].tipo == 3):
-						pygame.draw.rect(win, (255, 150, 0), (width-50*5+5*j, height-50*5+5*i, 4, 4))
+						pygame.draw.rect(win, (255, 150, 0), (size-size/16*5+5*j, size-size/16*5+5*i, size/200, size/200))
 					else:
-						pygame.draw.rect(win, (0, 150, 0), (width-50*5+5*j, height-50*5+5*i, 4, 4))
+						pygame.draw.rect(win, (0, 150, 0), (size-size/16*5+5*j, size-size/16*5+5*i, size/200, size/200))
 				elif lg.map[i][j].visto == 2:
-					pygame.draw.rect(win, (50, 50, 50), (width-50*5+5*j, height-50*5+5*i, 4, 4))
+					pygame.draw.rect(win, (50, 50, 50), (size-size/16*5+5*j, size-size/16*5+5*i, size/200, size/200))
 	pygame.display.flip()
 
 pygame.quit()

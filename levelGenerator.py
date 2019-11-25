@@ -7,7 +7,7 @@ import random
 from RoomCreator import *
 
 class levelGenerator():
-    def __init__(self,player,seed,qtd):
+    def __init__(self,player,seed,qtd,s):
         self.level = 0
 
         self.qtd = qtd
@@ -18,10 +18,10 @@ class levelGenerator():
         self.tela = [25, 25]
 
         if(seed!=""):
-            self.generateFloor(seed)
+            self.generateFloor(seed,s)
 
 
-    def generateFloor(self, seed):
+    def generateFloor(self, seed, sz):
 
         #print("a")
         self.map = []
@@ -92,15 +92,15 @@ class levelGenerator():
             #print(setup)
 
             if(s==str([25,25])):
-                self.map[25][25] = createInitialRoomFromString(setup)
+                self.map[25][25] = createInitialRoomFromString(setup,sz)
                 #print("add sala inici")
             elif(shops==0):
-                self.map[int(c[0])][int(c[1])] = createShopRoomFromString(setup,self.player)
+                self.map[int(c[0])][int(c[1])] = createShopRoomFromString(setup,self.player,sz)
                 #print("add shop")
             elif(boss==0):
-                self.map[int(c[0])][int(c[1])] = createBossRoom(setup,self.player)                
+                self.map[int(c[0])][int(c[1])] = createBossRoom(setup,self.player,sz)                
             else:
-                self.map[int(c[0])][int(c[1])] = createRoomFromString(setup,self.player,(ord(seed[i])-ord('a'))%8)
+                self.map[int(c[0])][int(c[1])] = createRoomFromString(setup,self.player,(ord(seed[i])-ord('a'))%8,sz)
                 #print("add sala")
             
             if(ord(seed[i])-ord('a')<15):

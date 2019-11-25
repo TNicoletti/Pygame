@@ -2,16 +2,16 @@ import pygame
 
 
 class Item(object):
-    def __init__(self, x, y, player):
+    def __init__(self, x, y, player, s):
         self.x = x
         self.y = y
-        self.width = 50
-        self.height = 70
-        self.vel = 3
+        self.width = int(s/16) #50
+        self.height = int(s*7/80) #70
+        self.vel = int(s*3/800) #3
 
         self.player = player
 
-    def draw(self, win):
+    def draw(self, win, s):
         pygame.draw.rect(win, (50, 50, 50), (self.x, self.y, self.width, self.height))
 
     def confereMargem(self, *args):

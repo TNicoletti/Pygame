@@ -7,12 +7,12 @@ from math import sqrt, degrees, asin
 from bullet import *
 
 class Patocomarmaebandana(Enemy):
-    def __init__(self, x, y, player, platforms):
+    def __init__(self, x, y, player, platforms, s):
         self.x = x
         self.y = y
-        self.width = 50  # TODO dinamic
-        self.height = 50  # TODO dinamic
-        self.xVel = 2  # TODO dinamic
+        self.width = int(s/16) #50  # TODO dinamic
+        self.height = int(s/16)  # TODO dinamic
+        self.xVel = int(s/400)  # TODO dinamic
         self.yVel = 0  # TODO dinamic
 
         self.tickTime = 0
@@ -46,7 +46,7 @@ class Patocomarmaebandana(Enemy):
         self.PATO_IMAGE = pygame.image.load('./sprites/patocomumaarmaebandana.png')
         self.PATO_IMAGE = pygame.transform.scale(self.PATO_IMAGE, (self.width, self.height))
 
-    def draw(self, win):  # TODO dinamic
+    def draw(self, win, s):  # TODO dinamic
         image = self.PATO_IMAGE
 
         auxX = self.player.x - self.x
@@ -74,9 +74,9 @@ class Patocomarmaebandana(Enemy):
         win.blit(image, (self.x, self.y))
 
         for x in self.bullets:
-            x.draw(win)
+            x.draw(win,s)
 
-    def move(self):
+    def move(self,s):
 
         self.tickTime += 1
         normalTime = self.tickTime / self.clockTick
@@ -127,7 +127,7 @@ class Patocomarmaebandana(Enemy):
         toRemove = []
 
         for x in self.bullets:
-            if(x.x < 0 or x.x > 800 or x.y < 0 or x.y > 800):
+            if(x.x < 0 or x.x > s or x.y < 0 or x.y > s):
                 toRemove.append(x)
                 continue
             for p in self.platforms:
@@ -138,19 +138,19 @@ class Patocomarmaebandana(Enemy):
         for x in toRemove:
             self.bullets.remove(x)
 
-    def do_attack(self):
+    def do_attack(self,s):
         if(self.tickTime > self.ATTACK_COOL):
             self.bullets.append(
-                BulletPatoComArma(self.x + self.width / 2, self.y + self.height / 2, self.player.x + 50, self.player.y + 50, 15,
-                                  15, 10, 1))
+                BulletPatoComArma(self.x + self.width / 2, self.y + self.height / 2, self.player.x + int(s/16), self.player.y + int(s/16), int(s*15/800),
+                                  int(s*15/800), int(s/80), int(s/800)))
 
             self.bullets.append(
-                BulletPatoComArma(self.x + self.width / 2, self.y + self.height / 2, self.player.x, self.player.y, 15,
-                                  15, 10, 1))
+                BulletPatoComArma(self.x + self.width / 2, self.y + self.height / 2, self.player.x, self.player.y, int(s*15/800),
+                                  int(s*15/800), int(s/80), int(s/800)))
 
             self.bullets.append(
-                BulletPatoComArma(self.x + self.width / 2, self.y + self.height / 2, self.player.x - 50, self.player.y - 50, 15,
-                                  15, 10, 1))
+                BulletPatoComArma(self.x + self.width / 2, self.y + self.height / 2, self.player.x - int(s/16), self.player.y - int(s/16), int(s*15/800),
+                                  int(s*15/800), int(s/80), int(s/800)))
 
             self.tickTime = 0
 
@@ -213,8 +213,8 @@ class BulletPatoComArma(Bullet):
 
         self.image = pygame.transform.rotate(self.image, d)
 
-    def draw(self, win):
-        if(self.x > 0  and self.y > 0 and self.x <= 800 and self.y <= 800):
+    def draw(self, win, s):
+        if(self.x > 0  and self.y > 0 and self.x <= s and self.y <= s):
             #pygame.draw.rect(win, (255, 0, 0), (self.x, self.y, self.width, self.height))
 
             win.blit(self.image, (self.x, self.y))

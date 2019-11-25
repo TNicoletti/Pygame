@@ -9,10 +9,10 @@ class Door(Platform):
 
         super().__init__(x, y, width, height)
 
-    def move(self):
+    def move(self,s):
         vel = 1
 
-        walkHowMuch = 250
+        walkHowMuch = int(s*25/80)
 
         if(self.ori == "right"):
             if(self.x <= self.iX + walkHowMuch ):

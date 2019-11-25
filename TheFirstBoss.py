@@ -12,11 +12,11 @@ from items import *
 import random
 
 class TheFirstBoss(Enemy):
-    def __init__(self, x, y, player, platforms):
-        super().__init__(x, y, player, platforms)
+    def __init__(self, x, y, player, platforms,s):
+        super().__init__(x, y, player, platforms,s)
 
-        self.width = 100
-        self.height = 100
+        self.width = int(s/8)
+        self.height = int(s/8)
 
         self.atualAttackCool = 7 * 60
 
@@ -99,7 +99,7 @@ class TheFirstBoss(Enemy):
         self.IMAGE_ATTACK_25 = self.SPRITES.get_image(96, 128, 32, 32)
         self.IMAGE_ATTACK_25 = pygame.transform.scale(self.IMAGE_ATTACK_25, (self.width, self.height))
 
-    def draw(self, win):  # TODO dinamic
+    def draw(self, win, s):  # TODO dinamic
         image = self.IMAGE_ATTACK_11
         if(self.mode == 0):
 
@@ -194,7 +194,7 @@ class TheFirstBoss(Enemy):
         for x in self.bullets:
             x.draw(win)
 
-    def move(self):
+    def move(self, s):
         self.tickTime += 1
 
         for x in self.bullets:
@@ -203,7 +203,7 @@ class TheFirstBoss(Enemy):
         toRemove = []
 
         for x in self.bullets:
-            if(x.x < 0 or x.x > 800 or x.y < 0 or x.y > 800):
+            if(x.x < 0 or x.x > s or x.y < 0 or x.y > s):
                 toRemove.append(x)
                 continue
             for p in self.platforms:
@@ -214,7 +214,7 @@ class TheFirstBoss(Enemy):
         for x in toRemove:
             self.bullets.remove(x)
 
-    def do_attack(self):
+    def do_attack(self, s):
         '''if(self.tickTime > self.atualAttackCool):
             self.tickTime = 1
             rand = random.randint(0, 2)
@@ -246,29 +246,29 @@ class TheFirstBoss(Enemy):
             if(self.mode == 0):
 
                 if(self.tickTime % 30 == 0):
-                    self.bullets.append(BulletTheFirstBoss(self.x + self.width/2, self.y + self.height/2, self.player.getX(), self.player.getY(), 30, 30, 15, 1))
+                    self.bullets.append(BulletTheFirstBoss(self.x + self.width/2, self.y + self.height/2, self.player.getX(), self.player.getY(), int(s*3/80), int(s*3/80), int(s*15/800), int(s/800)))
                     self.aux = 1
 
             elif(self.mode == 1):
                 if(self.tickTime % 60 == 0):
-                    r = random.randint(10, 800 - 20 - 10)
-                    self.bullets.append(BulletTheFirstBoss(10, r, self.player.x, self.player.y, 20, 20, 6, 1))
-                    self.bullets.append(BulletTheFirstBoss(770, r, self.player.x, self.player.y, 20, 20, 6, 1))
+                    r = random.randint(int(s/80), int(s*73/80))
+                    self.bullets.append(BulletTheFirstBoss(int(s/80), r, self.player.x, self.player.y, int(s*2/80), int(s*2/80), int(s*6/800), int(s/800)))
+                    self.bullets.append(BulletTheFirstBoss(int(s*77/80), r, self.player.x, self.player.y, int(s*2/80), int(s*2/80), int(s*6/800), int(s/800)))
             elif(self.mode == 2):
 
                 #r = random.randint(0, )
                 if(self.tickTime % (120) == 0):
-                    self.bullets.append(BulletTheFirstBossVariatings(130, 10, 130, 800, 35, 35, random.randrange(1, 5), 1))
+                    self.bullets.append(BulletTheFirstBossVariatings(int(s*13/80), int(s/80), int(s*13/80), s, int(s*35/800), int(s*35/800), random.randrange(1, 5), 1))
                 elif(self.tickTime % (120) == 40):
-                    self.bullets.append(BulletTheFirstBossVariatings(390, 10, 390, 800, 35, 35, random.randrange(1, 5), 1))
+                    self.bullets.append(BulletTheFirstBossVariatings(int(s*39/80), int(s/80), int(s*39/80), s, int(s*35/800), int(s*35/800), random.randrange(1, 5), 1))
                 elif(self.tickTime % 120 == 80):
-                    self.bullets.append(BulletTheFirstBossVariatings(640, 10, 640, 800, 35, 35, random.randrange(1, 5), 1))
+                    self.bullets.append(BulletTheFirstBossVariatings(int(s*64/80), int(s/80), int(s*64/80), s, int(s*35/800), int(s*35/800), random.randrange(1, 5), 1))
 
                 if (self.tickTime % 20 == 0):
-                    self.bullets.append(BulletTheFirstBoss(0 + 10, 750, 10, 0, 35, 35, 5, 1))
-                    self.bullets.append(BulletTheFirstBoss(260 + 10, 750, 260, 0, 35, 35, 5, 1))
-                    self.bullets.append(BulletTheFirstBoss(500 + 10, 750, 500, 0, 35, 35, 5, 1))
-                    self.bullets.append(BulletTheFirstBoss(800 - 10 - 35, 750, 755, 0, 35, 35, 5, 1))
+                    self.bullets.append(BulletTheFirstBoss(int(s/80), int(s*75/80), int(s/80), 0, int(s*35/800), int(s*35/800), int(s*5/800), int(s/800)))
+                    self.bullets.append(BulletTheFirstBoss(int(s*27/80), int(s*75/80), int(s*26/80), 0, int(s*35/800), int(s*35/800), int(s*5/800), int(s/800)))
+                    self.bullets.append(BulletTheFirstBoss(int(s*51/80), int(s*75/80), int(s*5/8), 0, int(s*35/800), int(s*35/800), int(s*5/800), int(s/800)))
+                    self.bullets.append(BulletTheFirstBoss(int(s*755/800), int(s*75/80), int(s*755/800), 0, int(s*35/800), int(s*35/800), int(s*5/800), int(s/800)))
 
         toRemove = []
         for b in self.bullets:
@@ -284,8 +284,8 @@ class TheFirstBoss(Enemy):
             self.player.takeDamage(1)
             self.meleeCool = 0
 
-    def onDeath(self):
-        self.player.items.append(firstItem(self.x, self.y, self.player))
+    def onDeath(self,s):
+        self.player.items.append(firstItem(self.x, self.y, self.player,s))
 
 
 

@@ -1,12 +1,12 @@
 import pygame
 
 class Enemy(object):
-    def __init__(self, x, y, player, platforms):
+    def __init__(self, x, y, player, platforms, s):
         self.x = x
         self.y = y
-        self.width  = 50 #TODO dinamic
-        self.height = 50 #TODO dinamic
-        self.xVel = 3    #TODO dinamic
+        self.width  = int(s/16) #50 #TODO dinamic
+        self.height = int(s/16) #50 #TODO dinamic
+        self.xVel = int(s*3/800) #TODO dinamic
         self.yVel = 0    #TODO dinamic
 
         self.tickTime = 0
@@ -33,10 +33,10 @@ class Enemy(object):
 
         self.attackCool = 0
 
-    def draw(self, win):      #TODO dinamic
+    def draw(self, win, s):      #TODO dinamic
         pygame.draw.rect(win, (68, 117, 72), (self.x, self.y, self.width, self.height))
 
-    def move(self):
+    def move(self,s):
 
         self.tickTime += 1
         normalTime = self.tickTime / self.clockTick
@@ -99,22 +99,22 @@ class Enemy(object):
 
         return False
 
-    def takeDamage(self, damage):
+    def takeDamage(self, damage,s):
         if(self.life <= 0):
             return
 
         self.life -= damage
         if(self.life <= 0):
             self.player.points += self.scoreBonus
-            self.onDeath()
+            self.onDeath(s)
         else:
             self.player.points += 10
 
-    def do_attack(self):
+    def do_attack(self,s):
 
         if(self.confereMargem(self.player) and self.attackCool >= 1):
             self.player.takeDamage(1)
             self.attackCool = 0
 
-    def onDeath(self):
+    def onDeath(self,s):
         pass

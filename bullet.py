@@ -48,8 +48,8 @@ class Bullet(object):
 
         self.image = pygame.transform.rotate(self.image, d)
 
-    def draw(self, win):
-        if(self.x > 0  and self.y > 0 and self.x <= 800 and self.y <= 800):
+    def draw(self, win, s):
+        if(self.x > 0  and self.y > 0 and self.x <= s and self.y <= s):
             #pygame.draw.rect(win, (255, 0, 0), (self.x, self.y, self.width, self.height))
 
             win.blit(self.image, (self.x, self.y))

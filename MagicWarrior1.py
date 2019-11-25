@@ -8,12 +8,12 @@ from math import sqrt, degrees, asin
 from bullet import *
 
 class MagicWarrior1(Enemy):
-    def __init__(self, x, y, player, platforms):
+    def __init__(self, x, y, player, platforms, s):
         self.x = x
         self.y = y
-        self.width = 75  # TODO dinamic
-        self.height = 75  # TODO dinamic
-        self.xVel = 2  # TODO dinamic
+        self.width = int(s*75/800) #75  # TODO dinamic
+        self.height = int(s*75/800) #75  # TODO dinamic
+        self.xVel = int(s/400) #2  # TODO dinamic
         self.yVel = 0  # TODO dinamic
 
         self.tickTime = 0
@@ -66,7 +66,7 @@ class MagicWarrior1(Enemy):
 
         self.scoreBonus = 70
 
-    def draw(self, win):  # TODO dinamic
+    def draw(self, win, s):  # TODO dinamic
         if(self.tickTime > 60 * 6):
             self.mode = "attack"
             if(self.tickTime % 60 < 10):
@@ -109,9 +109,9 @@ class MagicWarrior1(Enemy):
         win.blit(image, (self.x, self.y))
 
         for x in self.bullets:
-            x.draw(win)
+            x.draw(win,s)
 
-    def move(self):
+    def move(self,s):
 
         self.tickTime += 1
         normalTime = self.tickTime / self.clockTick
@@ -163,7 +163,7 @@ class MagicWarrior1(Enemy):
         toRemove = []
 
         for x in self.bullets:
-            if(x.x < 0 or x.x > 800 or x.y < 0 or x.y > 800):
+            if(x.x < 0 or x.x > s or x.y < 0 or x.y > s):
                 toRemove.append(x)
                 continue
             for p in self.platforms:
@@ -174,7 +174,7 @@ class MagicWarrior1(Enemy):
         for x in toRemove:
             self.bullets.remove(x)
 
-    def do_attack(self):
+    def do_attack(self,s):
         if(self.mode == "run"):
             if(self.tickTime % 30 == 0):
                 self.bullets.append(
@@ -185,16 +185,16 @@ class MagicWarrior1(Enemy):
             if(self.tickTime % 60 == 0):
                 self.bullets.append(
                     BulletMagicWarrior2(self.x + self.width/2 - 50, self.y + self.height/2 - 50,
-                                       self.player, 30, 30, 20, 1, "red"))
+                                       self.player, int(s*3/80), int(s*3/80), int(s*2/80), int(s/800), "red"))
                 self.bullets.append(
                     BulletMagicWarrior2(self.x + self.width/2 + 50, self.y + self.height/2 - 50,
-                                       self.player, 30, 30, 20, 1, "red"))
+                                       self.player, int(s*3/80), int(s*3/80), int(s*2/80), int(s/800), "red"))
                 self.bullets.append(
                     BulletMagicWarrior2(self.x + self.width/2 - 50, self.y + self.height/2 + 50,
-                                       self.player, 30, 30, 20, 1, "red"))
+                                       self.player, int(s*3/80), int(s*3/80), int(s*2/80), int(s/800), "red"))
                 self.bullets.append(
                     BulletMagicWarrior2(self.x + self.width/2 + 50, self.y + self.height/2 + 50,
-                                       self.player, 30, 30, 20, 1, "red"))
+                                       self.player, int(s*3/80), int(s*3/80), int(s*2/80), int(s/800), "red"))
 
         toRemove = []
         for b in self.bullets:
@@ -255,8 +255,8 @@ class BulletMagicWarrior(Bullet):
 
         self.image = pygame.transform.rotate(self.IMAGE, d)
 
-    def draw(self, win):
-        if(self.x > 0  and self.y > 0 and self.x <= 800 and self.y <= 800):
+    def draw(self, win, s):
+        if(self.x > 0  and self.y > 0 and self.x <= s and self.y <= s):
             #pygame.draw.rect(win, (255, 0, 0), (self.x, self.y, self.width, self.height))
 
             win.blit(self.image, (self.x, self.y))
@@ -314,8 +314,8 @@ class BulletMagicWarrior2(Bullet):
 
         self.image = pygame.transform.rotate(self.IMAGE, d)
 
-    def draw(self, win):
-        if(self.x > 0  and self.y > 0 and self.x <= 800 and self.y <= 800):
+    def draw(self, win, s):
+        if(self.x > 0  and self.y > 0 and self.x <= s and self.y <= s):
             #pygame.draw.rect(win, (255, 0, 0), (self.x, self.y, self.width, self.height))
 
             win.blit(self.image, (self.x, self.y))

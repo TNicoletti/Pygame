@@ -4,13 +4,12 @@ from gun import *
 from math import asin, degrees
 
 class Player(object):
-    def __init__(self, x, y):
+    def __init__(self, x, y, s):
         self.x = x
         self.y = y
-        self.width  = 64 #TODO dinamic
-        self.height = 64 #TODO dinamic
-        self.vel = 5 #TODO dinamic
-        self.jumpForce = -15 #TODO dinamic
+        self.width  = int(s*8/100) #64 #TODO dinamic
+        self.height = int(s*8/100) #TODO dinamic
+        self.vel = int(s/160)#5 #TODO dinamic
 
         self.platforms = []
         self.doors = []
@@ -32,7 +31,7 @@ class Player(object):
         self.moving = False
 
         #self.g = gravity
-        self.yVel = 0
+        #self.yVel = 0
 
         self.tickTime = 0
         self.clockTick = 60
@@ -80,7 +79,7 @@ class Player(object):
 
         
 
-    def draw(self, win):
+    def draw(self, win, s):
 
         frameChange = 8
 
@@ -142,21 +141,21 @@ class Player(object):
         #pygame.draw.rect(win, (124, 220, 234), (self.x, self.y, self.width, self.height))
 
         for x in self.bullets:
-            x.draw(win)
+            x.draw(win,s)
 
         font = pygame.font.Font('freesansbold.ttf', 32)
         text = font.render(str(self.life) + "/" + str(self.MAXLIFE), True, (255, 255, 255), (0, 0, 0))
         textRect = text.get_rect()
-        textRect.center = (60, 50)
+        textRect.center = (int(s*7/100),int(s/16)) #(60, 50)
         win.blit(text, textRect)
 
         text = font.render(str(self.points), True, (255, 255, 255), (0, 0, 0))
        	textRect = text.get_rect()
-       	textRect.center = (400, 50)
+       	textRect.center = (int(s/2), int(s/16))
         win.blit(text, textRect)
 
 
-    def move(self, keys):
+    def move(self, keys,s):
         self.tickTime += 1
         self.lifeCool -= 1
 
@@ -272,7 +271,7 @@ class Player(object):
         toRemove = []
 
         for x in self.bullets:
-            if(x.x < 0 or x.x > 800 or x.y < 0 or x.y > 800):
+            if(x.x < 0 or x.x > s or x.y < 0 or x.y > s):
                 toRemove.append(x)
                 continue
             for p in self.platforms:
@@ -285,13 +284,13 @@ class Player(object):
 
 
 
-    def damage(self, enemies):
+    def damage(self, enemies, s):
 
         for e in enemies:
             toRemove = []
             for b in self.bullets:
                 if(e.confereMargem(b)):
-                    e.takeDamage(b.damage)
+                    e.takeDamage(b.damage,s)
                     toRemove.append(b)
             for rm in toRemove:
                 self.bullets.remove(rm)

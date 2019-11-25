@@ -11,43 +11,45 @@ from patocomarmaebandana import *
 
 from patocomarma import *
 
-def generateRoomBoundsFromString(r):
-    return generateRoomBounds(int(r[0]),int(r[1]),int(r[2]),int(r[3]))
+def generateRoomBoundsFromString(r, s):
+    return generateRoomBounds(int(r[0]),int(r[1]),int(r[2]),int(r[3]),s)
 
-def generateRoomBounds(haveUp, haveDown, haveLeft, haveRight):
+def generateRoomBounds(haveUp, haveDown, haveLeft, haveRight, s):
     obstaculos = []
 
+    s = int(s)
+
     if (haveUp == 0):
-        obstaculos.append(Platform(0, 0, 800, 10))
+        obstaculos.append(Platform(0, 0, int(s), int(s/80)))
     else:
-        obstaculos.append(Platform(0, 0, 300, 10))
-        obstaculos.append(Platform(500, 0, 300, 10))
+        obstaculos.append(Platform(0, 0, int(s*3/8), int(s/80)))
+        obstaculos.append(Platform(int(s*5/8), 0, int(s*3/8), int(s/80)))
 
     if (haveDown == 0):
-        obstaculos.append(Platform(0, 790, 800, 10))
+        obstaculos.append(Platform(0, int(s-s/80), int(s), int(s/80)))
     else:
-        obstaculos.append(Platform(0, 790, 300, 10))
-        obstaculos.append(Platform(500, 790, 300, 10))
+        obstaculos.append(Platform(0, int(s-s/80), int(s*3/8), int(s/80)))
+        obstaculos.append(Platform(int(s*5/8), int(s-s/80), int(s*3/8), int(s/80)))
 
     if (haveLeft == 0):
-        obstaculos.append(Platform(0, 0, 10, 800))
+        obstaculos.append(Platform(0, 0, int(s/80), int(s)))
     else:
-        obstaculos.append(Platform(0, 0, 10, 300))
-        obstaculos.append(Platform(0, 500, 10, 300))
+        obstaculos.append(Platform(0, 0, int(s/80), int(s*3/8)))
+        obstaculos.append(Platform(0, int(s*5/8), int(s/80), int(s*3/8)))
 
     if (haveRight == 0):
-        obstaculos.append(Platform(790, 0, 10, 800))
+        obstaculos.append(Platform(int(s-s/80), 0, int(s/80), int(s)))
     else:
-        obstaculos.append(Platform(790, 0, 10, 300))
-        obstaculos.append(Platform(790, 500, 10, 300))
+        obstaculos.append(Platform(int(s-s/80), 0, int(s/80), int(s*3/8)))
+        obstaculos.append(Platform(int(s-s/80), int(s*5/8), int(s/80), int(s*3/8)))
 
     return obstaculos
 
-def createRoomFromString(r,player,num):
-    return createRoom(int(r[0]),int(r[1]),int(r[2]),int(r[3]),player,num)
+def createRoomFromString(r,player,num,s):
+    return createRoom(int(r[0]),int(r[1]),int(r[2]),int(r[3]),player,num,s)
 
-def createRoom(haveUp, haveDown, haveLeft, haveRight, player, num):
-    obstaculos = generateRoomBounds(haveUp, haveDown, haveLeft, haveRight)
+def createRoom(haveUp, haveDown, haveLeft, haveRight, player, num,s):
+    obstaculos = generateRoomBounds(haveUp, haveDown, haveLeft, haveRight,s)
 
     enemies = []
 
@@ -55,45 +57,45 @@ def createRoom(haveUp, haveDown, haveLeft, haveRight, player, num):
     #obstaculos.append(Platform(790, 0, 10, 300))
 
     if(num==0):
-        enemies.append(MagicWarrior1(400, 400, player, obstaculos))
+        enemies.append(MagicWarrior1(int(s*4/8), int(s*4/8), player, obstaculos,s))
     elif(num==1):
-        obstaculos.append(Platform(350, 350, 100, 100))
-        enemies.append(Enemy(150, 400, player, obstaculos))
-        enemies.append(Enemy(550, 400, player, obstaculos))
+        obstaculos.append(Platform(int(s*350/800), int(s*350/800), int(s/8), int(s/8)))
+        enemies.append(Enemy(int(s*150/800), int(s*4/8), player, obstaculos,s))
+        enemies.append(Enemy(int(s*550/800), int(s*4/8), player, obstaculos,s))
     elif(num==2):
-        obstaculos.append(Platform(50, 50, 50, 50))
-        obstaculos.append(Platform(50, 700, 50, 50))
-        obstaculos.append(Platform(700, 50, 50, 50))
-        obstaculos.append(Platform(700, 700, 50, 50))
-        enemies.append(Enemy(400, 400, player, obstaculos))
+        obstaculos.append(Platform(int(s/16), int(s/16), int(s/16), int(s/16)))
+        obstaculos.append(Platform(int(s/16), int(s*7/8), int(s/16), int(s/16)))
+        obstaculos.append(Platform(int(s*7/8), int(s/16), int(s/16), int(s/16)))
+        obstaculos.append(Platform(int(s*7/8), int(s*7/8), int(s/16), int(s/16)))
+        enemies.append(Enemy(int(s*4/8), int(s*4/8), player, obstaculos,s))
     elif(num==3):
-        obstaculos.append(Platform(300, 300, 200, 200))
-        enemies.append(Patocomarmaebandana(100, 100, player, obstaculos))
-        enemies.append(Enemy(700, 700, player, obstaculos))
+        obstaculos.append(Platform(int(s*3/8), int(s*3/8), int(s*200/800), int(s*200/800)))
+        enemies.append(Patocomarmaebandana(int(s/8), int(s/8), player, obstaculos,s))
+        enemies.append(Enemy(int(s*7/8), int(s*7/8), player, obstaculos,s))
     elif(num==4):
-        obstaculos.append(Platform(175, 375, 450, 50))
-        obstaculos.append(Platform(375, 175, 50, 450))
-        enemies.append(Enemy(250, 550, player, obstaculos))
-        enemies.append(Patocomarma(250, 250, player, obstaculos))
-        enemies.append(Enemy(550, 550, player, obstaculos))
-        enemies.append(Enemy(550, 250, player, obstaculos))
+        obstaculos.append(Platform(int(s*175/800), int(s*375/800), int(s*450/800), int(s/16)))
+        obstaculos.append(Platform(int(s*375/800), int(s*175/800), int(s/16), int(s*450/800)))
+        enemies.append(Enemy(int(s*250/800), int(s*550/800), player, obstaculos,s))
+        enemies.append(Patocomarma(int(s*250/800), int(s*250/800), player, obstaculos,s))
+        enemies.append(Enemy(int(s*550/800), int(s*550/800), player, obstaculos,s))
+        enemies.append(Enemy(int(s*550/800), int(s*250/800), player, obstaculos,s))
     elif(num==5):
-        enemies.append(Enemy(250, 550, player, obstaculos))
-        enemies.append(Patocomarmaebandana(250, 250, player, obstaculos))
-        enemies.append(Enemy(550, 550, player, obstaculos))
-        enemies.append(Patocomarma(550, 250, player, obstaculos))
-        enemies.append(Enemy(350, 350, player, obstaculos))
+        enemies.append(Enemy(int(s*250/800), int(s*550/800), player, obstaculos,s))
+        enemies.append(Patocomarmaebandana(int(s*250/800), int(s*250/800), player, obstaculos,s))
+        enemies.append(Enemy(int(s*550/800), int(s*550/800), player, obstaculos,s))
+        enemies.append(Patocomarma(int(s*550/800), int(s*250/800), player, obstaculos,s))
+        enemies.append(Enemy(int(s*350/800), int(s*350/800), player, obstaculos,s))
     elif(num==6):
-        obstaculos.append(Platform(0, 0, 300, 300))
-        obstaculos.append(Platform(500, 0, 300, 300))
-        obstaculos.append(Platform(0, 500, 300, 300))
-        obstaculos.append(Platform(500, 500, 300, 300))
-        enemies.append(Patocomarma(350, 350, player, obstaculos))
+        obstaculos.append(Platform(0, 0, int(s*3/8), int(s*3/8)))
+        obstaculos.append(Platform(int(s*5/8), 0, int(s*3/8), int(s*3/8)))
+        obstaculos.append(Platform(0, int(s*5/8), int(s*3/8), int(s*3/8)))
+        obstaculos.append(Platform(int(s*5/8), int(s*5/8), int(s*3/8), int(s*3/8)))
+        enemies.append(Patocomarma(int(s*350/800), int(s*350/800), player, obstaculos,s))
     elif(num==7):
         for i in range(1,8):
             for j in range(1,8):
-                obstaculos.append(Platform(100*i, 100*j, 10, 10))
-        enemies.append(MagicWarrior1(410, 410, player, obstaculos))
+                obstaculos.append(Platform(int(s/8)*i, int(s/8)*j, int(s/80), int(s/80)))
+        enemies.append(MagicWarrior1(int(s*41/80), int(s*41/80), player, obstaculos,s))
     elif(num==8):
         pass
     elif(num==9):
@@ -105,11 +107,11 @@ def createRoom(haveUp, haveDown, haveLeft, haveRight, player, num):
 
     return mapSlice(enemies, obstaculos, shops, 1, str(haveUp)+str(haveDown)+str(haveLeft)+str(haveRight))
 
-def createInitialRoomFromString(r):
-    return createInitialRoom(int(r[0]),int(r[1]),int(r[2]),int(r[3]))
+def createInitialRoomFromString(r,s):
+    return createInitialRoom(int(r[0]),int(r[1]),int(r[2]),int(r[3]),s)
 
-def createInitialRoom(haveUp, haveDown, haveLeft, haveRight):
-    obstaculos = generateRoomBounds(haveUp, haveDown, haveLeft, haveRight)
+def createInitialRoom(haveUp, haveDown, haveLeft, haveRight,s):
+    obstaculos = generateRoomBounds(haveUp, haveDown, haveLeft, haveRight,s)
 
     enemies = []
 
@@ -117,21 +119,21 @@ def createInitialRoom(haveUp, haveDown, haveLeft, haveRight):
 
     return mapSlice(enemies, obstaculos, shops, 0, str(haveUp)+str(haveDown)+str(haveLeft)+str(haveRight))
 
-def createShopRoomFromString(r,player):
-    return createShopRoom(int(r[0]),int(r[1]),int(r[2]),int(r[3]),player)
+def createShopRoomFromString(r,player,s):
+    return createShopRoom(int(r[0]),int(r[1]),int(r[2]),int(r[3]),player,s)
 
-def createShopRoom(haveUp, haveDown, haveLeft, haveRight, player):
-    obstaculos = generateRoomBounds(haveUp, haveDown, haveLeft, haveRight)
+def createShopRoom(haveUp, haveDown, haveLeft, haveRight, player,s):
+    obstaculos = generateRoomBounds(haveUp, haveDown, haveLeft, haveRight,s)
 
     enemies = []
 
-    shops = [Shop(700, 700, Gun(5, 2, player, "minigum"), 2000, player),
-             Shop(700, 10, Gun(500, 2 * 60, player, "exploder"), 3000, player)]
+    shops = [Shop(int(s*7/8), int(s*7/8), Gun(5, 2, player, "minigum"), 2000, player),
+             Shop(int(s*7/8), int(s/80), Gun(500, 2 * 60, player, "exploder"), 3000, player)]
 
     return mapSlice(enemies, obstaculos, shops, 2, str(haveUp)+str(haveDown)+str(haveLeft)+str(haveRight))
 
-def createBossRoom(r,player):
-    obstaculos = generateRoomBounds(r[0]=="1", r[1]=="1", r[2]=="1", r[3]=="1")
-    enemies = [TheFirstBoss(50,50,player,obstaculos)]
+def createBossRoom(r,player,s):
+    obstaculos = generateRoomBounds(r[0]=="1", r[1]=="1", r[2]=="1", r[3]=="1",s)
+    enemies = [TheFirstBoss(int(s/16),int(s/16),player,obstaculos,s)]
     shops = []
     return mapSlice(enemies,obstaculos,shops,3,r)
