@@ -331,6 +331,7 @@ class Player(object):
 
     def changeGun(self, nGun):
         self.gun = nGun
+        self.buffGun()
 
     def buffGun(self):
         self.gun.rateOfFire *= self.gunBuffROF
