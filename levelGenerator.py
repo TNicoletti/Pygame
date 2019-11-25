@@ -103,9 +103,17 @@ class levelGenerator():
                 boss=True
                 self.map[int(c[0])][int(c[1])] = createBossRoom(setup,self.player)                
             else:
-                self.map[int(c[0])][int(c[1])] = createRoomFromString(setup,self.player)
+                self.map[int(c[0])][int(c[1])] = createRoomFromString(setup,self.player,(ord(seed[i])-ord('a'))%8)
                 #print("add sala")
             
+            if(ord(seed[i])-ord('a')<15):
+                seed = seed[:i]+chr(ord(seed[i])+1)+seed[i+1:]
+            else:
+                seed = seed[:i-1]+'a'+seed[i:]
+            i+=1
+            if(i==len(seed)):
+                i=0
+
             shops-=1
         
         #self.map[25][25] = createInitialRoom(1, 1, 0, 0)
