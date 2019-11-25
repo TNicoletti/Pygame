@@ -15,6 +15,8 @@ class Player(object):
         self.platforms = []
         self.doors = []
 
+        self.gunBuffROF = 1
+
         self.holdShot = False
 
         self.MAXLIFE = 20 #TODO dinamic
@@ -24,7 +26,8 @@ class Player(object):
 
         self.jumpped = False
 
-        self.gun = Gun(20, 12, self)
+        self.gun = Gun(20, 12, self, "default")
+        #self.gun = Gun(20, 2, self, "default")
 
         self.moving = False
 
@@ -34,25 +37,29 @@ class Player(object):
         self.tickTime = 0
         self.clockTick = 60
 
+        self.items = []
+
         self.bullets = []
 
         self.angle = 0
 
         self.hitbox = (self.x, self.y, self.width, self.height)
 
+        self.lifeCool = 0
+
+        self.segurado = False
 
         self.shooting = False
         self.shootCool  = 0
 
         self.mFrame = 0
-
-	    self.BACK_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_00.png')
+        self.BACK_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_00.png')
         self.BACK_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_01.png')
 
-	    self.RIGHT_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_10.png')
+        self.RIGHT_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_10.png')
         self.RIGHT_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_11.png')
 
-	    self.FRONT_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_20.png')
+        self.FRONT_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_20.png')
         self.FRONT_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_21.png')
 
         self.LEFT_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_30.png')
@@ -62,7 +69,7 @@ class Player(object):
         self.BACK_MAGIC_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_02.png')
         self.BACK_MAGIC_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_03.png')
 
-	    self.RIGHT_MAGIC_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_12.png')
+        self.RIGHT_MAGIC_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_12.png')
         self.RIGHT_MAGIC_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_13.png')
 
         self.FRONT_MAGIC_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_22.png')
@@ -75,17 +82,19 @@ class Player(object):
 
     def draw(self, win):
 
+        frameChange = 8
+
         if(self.moving):
             self.mFrame += 1
 
-            if(self.mFrame > 10):
+            if(self.mFrame > 2 * frameChange):
                 self.mFrame = 0
 
         image = 0
 
         if(self.shooting):
 
-            if(self.mFrame < 5):
+            if(self.mFrame < frameChange):
                 if (self.angle >= 315 or self.angle <= 45):
                     image = self.RIGHT_MAGIC_IMAGE_1
                 elif(self.angle >= 45 and self.angle <= 135):
@@ -107,7 +116,7 @@ class Player(object):
             if(self.shootCool >= 5):
                 self.shooting = 0
         else:
-            if (self.mFrame < 5):
+            if (self.mFrame < frameChange):
                 if (self.angle >= 315 or self.angle <= 45):
                     image = self.RIGHT_IMAGE_1
                 elif (self.angle >= 45 and self.angle <= 135):
@@ -149,6 +158,7 @@ class Player(object):
 
     def move(self, keys):
         self.tickTime += 1
+        self.lifeCool -= 1
 
         normalTime = self.tickTime / self.clockTick
 
@@ -205,8 +215,12 @@ class Player(object):
                     break
 
         if (keys[pygame.K_i]):
-            self.holdShot = not self.holdShot
-            #print(self.holdShot)
+            if(not self.segurado):
+                self.holdShot = not self.holdShot
+                self.segurado = True
+                #print(self.holdShot)
+        else:
+            self.segurado = False
 
         #self.y += self.yVel
 
@@ -223,8 +237,11 @@ class Player(object):
         auxX = xo - x
         auxY = yo - y
 
-        sen = (auxY) / (math.sqrt(auxX * auxX + auxY * auxY))
-
+        sen = 0
+        try:
+            sen = (auxY) / (math.sqrt(auxX * auxX + auxY * auxY))
+        except:
+            pass
         #if(auxY < 0):
         #sen = -sen
 
@@ -276,10 +293,6 @@ class Player(object):
                 if(e.confereMargem(b)):
                     e.takeDamage(b.damage)
                     toRemove.append(b)
-                    if(e.life <= 0):
-                        self.points += 50
-                    else:
-                        self.points += 10
             for rm in toRemove:
                 self.bullets.remove(rm)
 
@@ -303,8 +316,22 @@ class Player(object):
         return False
 
     def takeDamage(self, damage):
-        self.life -= damage
-        self.healthCoul = 0
+        if(self.lifeCool <= 0):
+            self.life -= damage
+            self.lifeCool = 30
 
     def clearBullets(self):
         self.bullets = []
+
+    def getX(self):
+        return self.x + self.width / 2
+
+    def getY(self):
+        return self.y + self.height / 2
+
+    def changeGun(self, nGun):
+        self.gun = nGun
+        self.buffGun()
+
+    def buffGun(self):
+        self.gun.rateOfFire *= self.gunBuffROF

@@ -12,6 +12,8 @@ class Enemy(object):
         self.tickTime = 0
         self.clockTick = 60
 
+        self.scoreBonus = 50
+
         self.player = player
 
         self.jumped = False
@@ -98,10 +100,21 @@ class Enemy(object):
         return False
 
     def takeDamage(self, damage):
+        if(self.life <= 0):
+            return
+
         self.life -= damage
+        if(self.life <= 0):
+            self.player.points += self.scoreBonus
+            self.onDeath()
+        else:
+            self.player.points += 10
 
     def do_attack(self):
 
         if(self.confereMargem(self.player) and self.attackCool >= 1):
             self.player.takeDamage(1)
             self.attackCool = 0
+
+    def onDeath(self):
+        pass

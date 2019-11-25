@@ -11,10 +11,14 @@ from shop import *
 from gun import *
 from levelGenerator import *
 from Door import *
+from patocomarma import *
+from patocomarmaebandana import *
+from MagicWarrior1 import *
 
 import random
 #print(string.ascii_lowercase[0:16])
 seed = ''.join(random.choice(string.ascii_lowercase[0:16]) for i in range(10))
+#seed = "abcdefghij"
 #print(seed)
 
 width = 800
@@ -48,7 +52,9 @@ shops = []
 
 clockTick = 60
 
-lg = levelGenerator(player,seed)
+andar = 0
+
+lg = levelGenerator(player,seed,10)
 enemies = lg.getAtualMap().enemies
 obstaculo = lg.getAtualMap().obstaculos
 player.platforms = obstaculo
@@ -69,6 +75,7 @@ def changeSlice(nmap):
 	enemies = nmap.enemies
 	obstaculo = nmap.obstaculos
 	player.platforms = obstaculo
+	player.items = []
 	shops = nmap.shops
 	putDoors()
 	player.doors = doors
@@ -96,6 +103,16 @@ def putDoors():
 			doors.append(Door(790, 300, 10, 100, "up"))
 			doors.append(Door(790, 400, 10, 100, "down"))
 
+lg.map[25][25].visto = 1
+#lg.map[25][25].tipo = 3
+#lg.marcarVisto()
+bg = (122, 48, 72)
+#enemies.append(MagicWarrior1(10, 10, player, obstaculo))
+#enemies.append(MagicWarrior1(790 - 75, 10, player, obstaculo))
+#enemies.append(Patocomarma(10, 10, player, obstaculo))
+#enemies.append(Patocomarmaebandana(10, 10, player, obstaculo))
+#enemies.append(TheFirstBoss(400 - 50, 400 - 50, player, obstaculo))
+
 while(run):
 	clock.tick(clockTick)
 
@@ -105,13 +122,17 @@ while(run):
 
 	keys = pygame.key.get_pressed()
 
-	if(keys[pygame.K_ESCAPE]):
+	if(keys[pygame.K_ESCAPE] or player.life<=0):
 		run = False
 
-	win.fill((0, 0, 0))
+	win.fill(bg)
 
 	for s in shops:
 		s.draw(win)
+
+	for p in obstaculo:
+		p.move()
+		p.draw(win)
 
 	player.move(keys)
 	player.draw(win)
@@ -136,15 +157,32 @@ while(run):
 		enemies.remove(rm)
 
 	if (len(enemies) == 0):
+		if(lg.getAtualMap().tipo==3):
+			andar +=1
+
+			seed = ''.join(random.choice(string.ascii_lowercase[0:16]) for i in range(10))
+
+			lg = levelGenerator(player,seed,10+(andar*2))
+			enemies = lg.getAtualMap().enemies
+			obstaculo = lg.getAtualMap().obstaculos
+			player.platforms = obstaculo
+			shops = lg.getAtualMap().shops
+
+			bg = ((ord(seed[0])-ord('a'))*17,(ord(seed[1])-ord('a'))*17,(ord(seed[2])-ord('a'))*17)
+
+			player.life = player.MAXLIFE
+
 		for p in doors:
 			p.move()
-
-	for p in obstaculo:
-		p.move()
-		p.draw(win)
+		lg.marcarVisto()
 
 	for p in doors:
 		p.draw(win)
+
+	for i in player.items:
+		i.draw(win)
+		if(i.confereMargem(player)):
+			i.get(player)
 
 	correction = 10
 
@@ -169,6 +207,20 @@ while(run):
 		player.clearBullets()
 		changeSlice(lg.changeSlice("u"))
 
+	for i in range(len(lg.map)):
+		for j in range(len(lg.map[i])):
+			if lg.map[i][j] != None:
+				if i == lg.tela[0] and j == lg.tela[1]:
+					pygame.draw.rect(win, (150, 0, 0), (width-50*5+5*j, height-50*5+5*i, 4, 4))
+				elif lg.map[i][j].visto == 1:
+					if(lg.map[i][j].tipo == 2):
+						pygame.draw.rect(win, (0, 0, 150), (width-50*5+5*j, height-50*5+5*i, 4, 4))
+					elif(lg.map[i][j].tipo == 3):
+						pygame.draw.rect(win, (255, 150, 0), (width-50*5+5*j, height-50*5+5*i, 4, 4))
+					else:
+						pygame.draw.rect(win, (0, 150, 0), (width-50*5+5*j, height-50*5+5*i, 4, 4))
+				elif lg.map[i][j].visto == 2:
+					pygame.draw.rect(win, (50, 50, 50), (width-50*5+5*j, height-50*5+5*i, 4, 4))
 	pygame.display.flip()
 
 pygame.quit()

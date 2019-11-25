@@ -38,4 +38,4 @@ class Shop(object):
         if(self.confereMargem(self.player)):
             if(self.player.points >= self.price):
                 self.player.points -= self.price
-                self.player.gun = self.gun
+                self.player.changeGun(self.gun)
