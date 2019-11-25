@@ -127,6 +127,10 @@ while(run):
 	for s in shops:
 		s.draw(win)
 
+	for p in obstaculo:
+		p.move()
+		p.draw(win)
+
 	player.move(keys)
 	player.draw(win)
 	player.damage(enemies)
@@ -153,10 +157,6 @@ while(run):
 		for p in doors:
 			p.move()
 		lg.marcarVisto()
-
-	for p in obstaculo:
-		p.move()
-		p.draw(win)
 
 	for p in doors:
 		p.draw(win)

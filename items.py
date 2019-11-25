@@ -12,7 +12,7 @@ class Item(object):
         self.player = player
 
     def draw(self, win):
-        pygame.draw.rect(win, (150, 150, 150), (self.x, self.y, self.width, self.height))
+        pygame.draw.rect(win, (50, 50, 50), (self.x, self.y, self.width, self.height))
 
     def confereMargem(self, *args):
         if (len(args) == 1):
