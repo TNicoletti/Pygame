@@ -246,29 +246,29 @@ class TheFirstBoss(Enemy):
             if(self.mode == 0):
 
                 if(self.tickTime % 30 == 0):
-                    self.bullets.append(BulletTheFirstBoss(self.x + self.width/2, self.y + self.height/2, self.player.getX(), self.player.getY(), int(s*3/80), int(s*3/80), int(s*15/800), int(s/800)))
+                    self.bullets.append(BulletTheFirstBoss(self.x + self.width/2, self.y + self.height/2, self.player.getX(), self.player.getY(), int(s*3/80), int(s*3/80), int(s*15/800)*2, int(s/800)))
                     self.aux = 1
 
             elif(self.mode == 1):
                 if(self.tickTime % 60 == 0):
                     r = random.randint(int(s/80), int(s*73/80))
-                    self.bullets.append(BulletTheFirstBoss(int(s/80), r, self.player.x, self.player.y, int(s*2/80), int(s*2/80), int(s*6/800), int(s/800)))
-                    self.bullets.append(BulletTheFirstBoss(int(s*77/80), r, self.player.x, self.player.y, int(s*2/80), int(s*2/80), int(s*6/800), int(s/800)))
+                    self.bullets.append(BulletTheFirstBoss(int(s/80), r, self.player.x, self.player.y, int(s*2/80), int(s*2/80), int(s*6/800)*2, int(s/800)))
+                    self.bullets.append(BulletTheFirstBoss(int(s*77/80), r, self.player.x, self.player.y, int(s*2/80), int(s*2/80), int(s*6/800)*2, int(s/800)))
             elif(self.mode == 2):
 
                 #r = random.randint(0, )
                 if(self.tickTime % (120) == 0):
-                    self.bullets.append(BulletTheFirstBossVariatings(int(s*13/80), int(s/80), int(s*13/80), s, int(s*35/800), int(s*35/800), random.randrange(1, 5), 1))
+                    self.bullets.append(BulletTheFirstBossVariatings(int(s*13/80), int(s/80), int(s*13/80), s, int(s*35/800), int(s*35/800), random.randrange(1, 5)*2, 1))
                 elif(self.tickTime % (120) == 40):
-                    self.bullets.append(BulletTheFirstBossVariatings(int(s*39/80), int(s/80), int(s*39/80), s, int(s*35/800), int(s*35/800), random.randrange(1, 5), 1))
+                    self.bullets.append(BulletTheFirstBossVariatings(int(s*39/80), int(s/80), int(s*39/80), s, int(s*35/800), int(s*35/800), random.randrange(1, 5)*2, 1))
                 elif(self.tickTime % 120 == 80):
-                    self.bullets.append(BulletTheFirstBossVariatings(int(s*64/80), int(s/80), int(s*64/80), s, int(s*35/800), int(s*35/800), random.randrange(1, 5), 1))
+                    self.bullets.append(BulletTheFirstBossVariatings(int(s*64/80), int(s/80), int(s*64/80), s, int(s*35/800), int(s*35/800), random.randrange(1, 5)*2, 1))
 
                 if (self.tickTime % 20 == 0):
-                    self.bullets.append(BulletTheFirstBoss(int(s/80), int(s*75/80), int(s/80), 0, int(s*35/800), int(s*35/800), int(s*5/800), int(s/800)))
-                    self.bullets.append(BulletTheFirstBoss(int(s*27/80), int(s*75/80), int(s*26/80), 0, int(s*35/800), int(s*35/800), int(s*5/800), int(s/800)))
-                    self.bullets.append(BulletTheFirstBoss(int(s*51/80), int(s*75/80), int(s*5/8), 0, int(s*35/800), int(s*35/800), int(s*5/800), int(s/800)))
-                    self.bullets.append(BulletTheFirstBoss(int(s*755/800), int(s*75/80), int(s*755/800), 0, int(s*35/800), int(s*35/800), int(s*5/800), int(s/800)))
+                    self.bullets.append(BulletTheFirstBoss(int(s/80), int(s*75/80), int(s/80), 0, int(s*35/800), int(s*35/800), int(s*5/800)*2, int(s/800)))
+                    self.bullets.append(BulletTheFirstBoss(int(s*27/80), int(s*75/80), int(s*26/80), 0, int(s*35/800), int(s*35/800), int(s*5/800)*2, int(s/800)))
+                    self.bullets.append(BulletTheFirstBoss(int(s*51/80), int(s*75/80), int(s*5/8), 0, int(s*35/800), int(s*35/800), int(s*5/800)*2, int(s/800)))
+                    self.bullets.append(BulletTheFirstBoss(int(s*755/800), int(s*75/80), int(s*755/800), 0, int(s*35/800), int(s*35/800), int(s*5/800)*2, int(s/800)))
 
         toRemove = []
         for b in self.bullets:

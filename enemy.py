@@ -6,7 +6,7 @@ class Enemy(object):
         self.y = y
         self.width  = int(s/16) #50 #TODO dinamic
         self.height = int(s/16) #50 #TODO dinamic
-        self.xVel = int(s*3/800) #TODO dinamic
+        self.xVel = int(s*3/800)*2 #TODO dinamic
         self.yVel = 0    #TODO dinamic
 
         self.tickTime = 0
