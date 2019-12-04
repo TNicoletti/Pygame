@@ -2,6 +2,7 @@ import pygame
 from bullet import *
 from gun import *
 from math import asin, degrees
+from leds import *
 
 class Player(object):
     def __init__(self, x, y, s):
@@ -77,7 +78,7 @@ class Player(object):
         self.LEFT_MAGIC_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_32.png')
         self.LEFT_MAGIC_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_33.png')
 
-        
+	self.led = leds()
 
     def draw(self, win, s):
 
@@ -158,6 +159,8 @@ class Player(object):
     def move(self, keys,s):
         self.tickTime += 1
         self.lifeCool -= 1
+        if(self.lifeCool <= 0):
+            self.led.desligarTodos()
 
         normalTime = self.tickTime / self.clockTick
 
@@ -316,8 +319,9 @@ class Player(object):
 
     def takeDamage(self, damage):
         if(self.lifeCool <= 0):
+            self.led.ligarTodos()
             self.life -= damage
-            self.lifeCool = 30
+            self.lifeCool = 15
 
     def clearBullets(self):
         self.bullets = []
