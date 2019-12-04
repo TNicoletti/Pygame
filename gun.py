@@ -24,7 +24,7 @@ class Gun(object):
 
         if(self.cont >= self.rateOfFire):
             self.cont = 0
-            bullets.append(Bullet(self.shooter.x + self.shooter.width/2, self.shooter.y  + self.shooter.height/2, x, y, 25, 25, 10 * 2, self.damage))
+            bullets.append(Bullet(self.shooter.x + self.shooter.width/2, self.shooter.y  + self.shooter.height/2, x, y, 25, 25, 10, self.damage))
 
     def cool(self):
         self.tickTime += 1

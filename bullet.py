@@ -24,7 +24,11 @@ class Bullet(object):
         auxX = xo - x
         auxY = yo - y
 
-        self.sen = (auxY) / (math.sqrt(auxX * auxX + auxY * auxY))
+        self.sen = 0
+        try:
+            self.sen = (auxY) / (math.sqrt(auxX * auxX + auxY * auxY))
+        except:
+            pass
         self.cos = math.sqrt(1 - self.sen*self.sen)
         #print("sen:", self.sen)
         #print("cos:", self.cos)

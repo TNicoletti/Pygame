@@ -21,7 +21,7 @@ seed = ''.join(random.choice(string.ascii_lowercase[0:16]) for i in range(10))
 #seed = "abcdefghij"
 #print(seed)
 
-size = 500
+size = 800
 
 x = int(size/16) #50
 y = int(size/16) #50

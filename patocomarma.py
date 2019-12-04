@@ -12,7 +12,7 @@ class Patocomarma(Enemy):
         self.y = y
         self.width = int(s/16) #50  # TODO dinamic
         self.height = int(s/16)  # TODO dinamic
-        self.xVel = int(s/400) * 2 #2  # TODO dinamic
+        self.xVel = int(s/400)  #2  # TODO dinamic
         self.yVel = 0  # TODO dinamic
 
         self.tickTime = 0
@@ -166,7 +166,7 @@ class BulletPatoComArma(Bullet):
 
         self.damage = damage
 
-        self.vel = vel * 2
+        self.vel = vel
         vel = self.vel
 
         # self.xVel = (self.xT - self.x) / 10

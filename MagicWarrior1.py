@@ -13,7 +13,7 @@ class MagicWarrior1(Enemy):
         self.y = y
         self.width = int(s*75/800) #75  # TODO dinamic
         self.height = int(s*75/800) #75  # TODO dinamic
-        self.xVel = int(s/400) * 2 #2  # TODO dinamic
+        self.xVel = int(s/400) #2  # TODO dinamic
         self.yVel = 0  # TODO dinamic
 
         self.tickTime = 0
@@ -218,7 +218,7 @@ class BulletMagicWarrior(Bullet):
 
         self.damage = damage
 
-        self.vel = vel *2
+        self.vel = vel
 
         # self.xVel = (self.xT - self.x) / 10
         # self.yVel = (self.yT - self.y) / 10
@@ -275,7 +275,7 @@ class BulletMagicWarrior2(Bullet):
 
         self.damage = damage
 
-        self.vel = vel * 2
+        self.vel = vel
 
         self.cont = 0
 

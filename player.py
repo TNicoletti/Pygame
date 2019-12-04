@@ -9,7 +9,7 @@ class Player(object):
         self.y = y
         self.width  = int(s*8/100) #64 #TODO dinamic
         self.height = int(s*8/100) #TODO dinamic
-        self.vel = int(s/160)*2#5 #TODO dinamic
+        self.vel = int(s/160)#*2#5 #TODO dinamic
 
         self.platforms = []
         self.doors = []
