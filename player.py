@@ -78,7 +78,7 @@ class Player(object):
         self.LEFT_MAGIC_IMAGE_1 = pygame.image.load('./sprites/cat_wizard_32.png')
         self.LEFT_MAGIC_IMAGE_2 = pygame.image.load('./sprites/cat_wizard_33.png')
 
-	self.led = leds()
+        self.led = leds()
 
     def draw(self, win, s):
 
