@@ -109,7 +109,7 @@ bg = (122, 48, 72)
 #enemies.append(MagicWarrior1(10, 10, player, obstaculo))
 #enemies.append(MagicWarrior1(790 - 75, 10, player, obstaculo))
 #enemies.append(Patocomarma(10, 10, player, obstaculo))
-#enemies.append(Patocomarmaebandana(10, 10, player, obstaculo))
+enemies.append(Patocomarmaebandana(10, 10, player, obstaculo, size))
 #enemies.append(TheFirstBoss(400 - 50, 400 - 50, player, obstaculo))
 
 while(run):

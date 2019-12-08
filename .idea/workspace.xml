@@ -2,8 +2,53 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9f7a7cf0-1b80-4fd3-a1d0-05abbf7f03ba" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leds.py" beforeDir="false" afterPath="$PROJECT_DIR$/leds.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/.vs/leds/v14/.atsuo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds.atsln" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/Debug/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/Debug/leds.eep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/Debug/leds.elf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/Debug/leds.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/Debug/leds.lss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/Debug/leds.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/Debug/leds.srec" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/Debug/makedep.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/Debug/src/ASF/common/boards/user_board/init.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/Debug/src/ASF/common/boards/user_board/init.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/Debug/src/funcoes.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/Debug/src/funcoes.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/Debug/src/lcd_usb.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/Debug/src/lcd_usb.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/Debug/src/main.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/Debug/src/main.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/leds.componentinfo.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/leds.cproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/src/ASF/common/boards/board.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/src/ASF/common/boards/user_board/init.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/src/ASF/common/boards/user_board/user_board.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/src/ASF/common/utils/interrupt.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/src/ASF/common/utils/interrupt/interrupt_avr8.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/src/ASF/common/utils/make/Makefile.avr.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/src/ASF/common/utils/parts.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/src/ASF/mega/utils/assembler.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/src/ASF/mega/utils/assembler/gas.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/src/ASF/mega/utils/compiler.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/src/ASF/mega/utils/preprocessor/mrepeat.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/src/ASF/mega/utils/preprocessor/preprocessor.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/src/ASF/mega/utils/preprocessor/stringz.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/src/ASF/mega/utils/preprocessor/tpaste.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/src/ASF/mega/utils/progmem.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/src/ASF/mega/utils/status_codes.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/src/asf.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/src/config/conf_board.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/src/funcoes.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/src/funcoes.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/src/lab_uino.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/src/lcd_usb.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/src/lcd_usb.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LedsLabuino/leds/src/main.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/leds.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/patocomarmaebandana.py" beforeDir="false" afterPath="$PROJECT_DIR$/patocomarmaebandana.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,19 +62,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/player.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="77" column="82" lean-forward="true" selection-start-line="77" selection-start-column="82" selection-end-line="77" selection-end-column="82" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/leds.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="32" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+            <state relative-caret-position="475">
+              <caret line="315" column="31" selection-start-line="315" selection-start-column="31" selection-end-line="315" selection-end-column="31" />
               <folding>
-                <element signature="e#0#23#0" expanded="true" />
+                <element signature="e#0#13#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -47,8 +83,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/enemy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="32" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
+            <state relative-caret-position="484">
+              <caret line="102" column="27" lean-forward="true" selection-start-line="102" selection-start-column="27" selection-end-line="102" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -68,8 +104,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2142">
-              <caret line="141" column="9" selection-start-line="141" selection-start-column="9" selection-end-line="141" selection-end-column="9" />
+            <state relative-caret-position="306">
+              <caret line="118" column="38" lean-forward="true" selection-start-line="118" selection-start-column="38" selection-end-line="118" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -77,7 +113,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bullet.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
+            <state relative-caret-position="221">
               <caret line="34" selection-start-line="34" selection-end-line="34" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
@@ -86,11 +122,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/patocomarmaebandana.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
+            <state relative-caret-position="476">
+              <caret line="164" column="25" selection-start-line="164" selection-start-column="25" selection-end-line="164" selection-end-column="25" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/levelGenerator.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-578">
+              <caret line="26" column="21" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -101,7 +149,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MagicWarrior1.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3621">
+            <state relative-caret-position="203">
               <caret line="220" column="22" selection-start-line="220" selection-start-column="22" selection-end-line="220" selection-end-column="22" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
@@ -147,6 +195,7 @@
       <find>bullets.ap</find>
       <find>bullets.appe</find>
       <find>leds</find>
+      <find>pi</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -159,16 +208,16 @@
         <option value="$PROJECT_DIR$/RoomCreator.py" />
         <option value="$PROJECT_DIR$/shop.py" />
         <option value="$PROJECT_DIR$/items.py" />
-        <option value="$PROJECT_DIR$/game.py" />
         <option value="$PROJECT_DIR$/gun.py" />
         <option value="$PROJECT_DIR$/enemy.py" />
-        <option value="$PROJECT_DIR$/patocomarmaebandana.py" />
         <option value="$PROJECT_DIR$/patocomarma.py" />
         <option value="$PROJECT_DIR$/MagicWarrior1.py" />
         <option value="$PROJECT_DIR$/TheFirstBoss.py" />
         <option value="$PROJECT_DIR$/bullet.py" />
-        <option value="$PROJECT_DIR$/player.py" />
         <option value="$PROJECT_DIR$/leds.py" />
+        <option value="$PROJECT_DIR$/player.py" />
+        <option value="$PROJECT_DIR$/game.py" />
+        <option value="$PROJECT_DIR$/patocomarmaebandana.py" />
       </list>
     </option>
   </component>
@@ -260,12 +309,12 @@
       <workItem from="1574677962498" duration="1435000" />
       <workItem from="1574688458236" duration="2099000" />
       <workItem from="1575283187601" duration="1999000" />
-      <workItem from="1575771848917" duration="161000" />
+      <workItem from="1575771848917" duration="4662000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31773000" />
+    <option name="totallyTimeSpent" value="36274000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -334,16 +383,6 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/objects.py" />
-    <entry file="file://$PROJECT_DIR$/levelGenerator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="26" column="21" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/items.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -372,44 +411,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/enemy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="32" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/patocomarma.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2754">
           <caret line="168" column="22" selection-start-line="168" selection-start-column="22" selection-end-line="168" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2142">
-          <caret line="141" column="9" selection-start-line="141" selection-start-column="9" selection-end-line="141" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/patocomarmaebandana.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MagicWarrior1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3621">
-          <caret line="220" column="22" selection-start-line="220" selection-start-column="22" selection-end-line="220" selection-end-column="22" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
@@ -423,9 +428,63 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/leds.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="26" lean-forward="true" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enemy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="102" column="27" lean-forward="true" selection-start-line="102" selection-start-column="27" selection-end-line="102" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/player.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="315" column="31" selection-start-line="315" selection-start-column="31" selection-end-line="315" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MagicWarrior1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="220" column="22" selection-start-line="220" selection-start-column="22" selection-end-line="220" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/levelGenerator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-578">
+          <caret line="26" column="21" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="118" column="38" lean-forward="true" selection-start-line="118" selection-start-column="38" selection-end-line="118" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/bullet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
+        <state relative-caret-position="221">
           <caret line="34" selection-start-line="34" selection-end-line="34" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
@@ -433,19 +492,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/player.py">
+    <entry file="file://$PROJECT_DIR$/patocomarmaebandana.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="77" column="82" lean-forward="true" selection-start-line="77" selection-start-column="82" selection-end-line="77" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/leds.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="32" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+        <state relative-caret-position="476">
+          <caret line="164" column="25" selection-start-line="164" selection-start-column="25" selection-end-line="164" selection-end-column="25" />
           <folding>
-            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>

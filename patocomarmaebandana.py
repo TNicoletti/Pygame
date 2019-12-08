@@ -2,7 +2,7 @@ import pygame
 
 from enemy import *
 
-from math import sqrt, degrees, asin
+from math import sqrt, degrees, radians, sin, cos, hypot, pi
 
 from bullet import *
 
@@ -140,17 +140,50 @@ class Patocomarmaebandana(Enemy):
 
     def do_attack(self,s):
         if(self.tickTime > self.ATTACK_COOL):
-            self.bullets.append(
-                BulletPatoComArma(self.x + self.width / 2, self.y + self.height / 2, self.player.x + int(s/16), self.player.y + int(s/16), int(s*15/800),
-                                  int(s*15/800), int(s/80), int(s/800)))
+            auxX = (self.x + self.width / 2) - (self.player.x + int(s/16))
+            auxY = (self.y + self.height / 2) - (self.player.y + int(s/16))
+
+            sen = (auxY) / (math.sqrt(auxX * auxX + auxY * auxY))
+
+            if (sen > 1):
+                sen -= 1
+            elif (sen < -1):
+                sen += 1
+
+            vel = int(s / 80)
+
+            d = asin(sen)
+            cosd = cos(d)*vel
+            send = -sin(d)*vel
+
+            d1 = d + pi/8
+            if(d1 > 2*pi):
+                d1 -= 2 * pi
+            cosd1 = cos(d1) * vel
+            send1 = -sin(d1) * vel
+
+            d2 = d - pi/8
+            if(d2 < 0):
+                d2 += 2 * pi
+            cosd2 = cos(d2) * vel
+            send2 = -sin(d2) * vel
+
+            if (auxX > 0):
+                cosd = -cosd
+                cosd1 = -cosd1
+                cosd2 = -cosd2
 
             self.bullets.append(
-                BulletPatoComArma(self.x + self.width / 2, self.y + self.height / 2, self.player.x, self.player.y, int(s*15/800),
-                                  int(s*15/800), int(s/80), int(s/800)))
+                BulletPatoComArma(self.x + self.width / 2, self.y + self.height / 2, d, cosd, send, int(s*15/800),
+                                  int(s*15/800), int(s/800)))
 
             self.bullets.append(
-                BulletPatoComArma(self.x + self.width / 2, self.y + self.height / 2, self.player.x - int(s/16), self.player.y - int(s/16), int(s*15/800),
-                                  int(s*15/800), int(s/80), int(s/800)))
+                BulletPatoComArma(self.x + self.width / 2, self.y + self.height / 2, d1,cosd1, send1, int(s*15/800),
+                                  int(s*15/800), int(s/800)))
+
+            self.bullets.append(
+                BulletPatoComArma(self.x + self.width / 2, self.y + self.height / 2, d2,cosd2, send2, int(s*15/800),
+                                  int(s*15/800), int(s/800)))
 
             self.tickTime = 0
 
@@ -165,7 +198,7 @@ class Patocomarmaebandana(Enemy):
 
 
 class BulletPatoComArma(Bullet):
-    def __init__(self, xo, yo, x, y, width, height, vel, damage):
+    def __init__(self, xo, yo, d, xVel, yVel, width, height, damage):
         self.x = xo
         self.y = yo
         # self.xT = x
@@ -175,42 +208,20 @@ class BulletPatoComArma(Bullet):
         self.height = height
 
         self.damage = damage
-
-        self.vel = vel
-        vel = self.vel
-
         # self.xVel = (self.xT - self.x) / 10
         # self.yVel = (self.yT - self.y) / 10
 
         self.hitbox = (self.x, self.y, self.width, self.height)
 
-        auxX = xo - x
-        auxY = yo - y
-
-        self.sen = (auxY) / (math.sqrt(auxX * auxX + auxY * auxY))
-
-        if(self.sen > 1):
-            self.sen -= 1
-        elif (self.sen < -1):
-            self.sen += 1
-
-        self.cos = math.sqrt(1 - self.sen * self.sen)
         # print("sen:", self.sen)
         # print("cos:", self.cos)
 
-        if (auxX < 0):
-            self.xVel = self.cos * vel
-        else:
-            self.xVel = -self.cos * vel
+        self.xVel = xVel
 
-        self.yVel = -self.sen * vel
+        self.yVel = yVel
 
         self.image = pygame.image.load('./sprites/tiro_2.png')
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
-        d = degrees(asin(self.sen))
-
-        if (auxX > 0):
-            d = 180 - d
 
         self.image = pygame.transform.rotate(self.image, d)
 
