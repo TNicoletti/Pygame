@@ -7,7 +7,7 @@ from math import sqrt, degrees, asin
 from bullet import *
 
 class Patocomarma(Enemy):
-    def __init__(self, x, y, player, platforms, s):
+    def __init__(self, x, y, player, platforms, s, bullets):
         self.x = x
         self.y = y
         self.width = int(s/16) #50  # TODO dinamic
@@ -37,7 +37,7 @@ class Patocomarma(Enemy):
 
         self.attackCool = 0
 
-        self.bullets = []
+        self.bullets = bullets
 
         self.ATTACK_COOL = 60
 
@@ -72,9 +72,6 @@ class Patocomarma(Enemy):
             image = pygame.transform.flip(image, True, False)'''
 
         win.blit(image, (self.x, self.y))
-
-        for x in self.bullets:
-            x.draw(win,s)
 
     def move(self, s):
 
@@ -124,35 +121,11 @@ class Patocomarma(Enemy):
         for x in self.bullets:
             x.move()
 
-        toRemove = []
-
-        for x in self.bullets:
-            if(x.x < 0 or x.x > s or x.y < 0 or x.y > s):
-                toRemove.append(x)
-                continue
-            for p in self.platforms:
-                if(p.confereMargem(x)):
-                    toRemove.append(x)
-                    break
-
-        for x in toRemove:
-            self.bullets.remove(x)
-
     def do_attack(self,s):
         if(self.tickTime > self.ATTACK_COOL):
             self.bullets.append(
             BulletPatoComArma(self.x + self.width / 2, self.y + self.height / 2, self.player.x, self.player.y, int(s*15/800), int(s*15/800), int(s/80), int(s/800)))
             self.tickTime = 0
-
-        toRemove = []
-        for b in self.bullets:
-            if(self.player.confereMargem(b)):
-                self.player.takeDamage(b.damage)
-                toRemove.append(b)
-
-        for b in toRemove:
-            self.bullets.remove(b)
-
 
 class BulletPatoComArma(Bullet):
     def __init__(self, xo, yo, x, y, width, height, vel, damage):

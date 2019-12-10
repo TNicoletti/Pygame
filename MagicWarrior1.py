@@ -8,7 +8,7 @@ from math import sqrt, degrees, asin
 from bullet import *
 
 class MagicWarrior1(Enemy):
-    def __init__(self, x, y, player, platforms, s):
+    def __init__(self, x, y, player, platforms, s, bullets):
         self.x = x
         self.y = y
         self.width = int(s*75/800) #75  # TODO dinamic
@@ -30,7 +30,7 @@ class MagicWarrior1(Enemy):
 
         self.platforms = platforms
 
-        self.bullets = []
+        self.bullets = bullets
 
         # self.g = gravity
 
@@ -41,8 +41,6 @@ class MagicWarrior1(Enemy):
         self.life = 750
 
         self.attackCool = 0
-
-        bullets = []
 
         self.SPRITES = SpriteSheet('./sprites/MAGIC_WARRIOR_1.png')
 
@@ -108,9 +106,6 @@ class MagicWarrior1(Enemy):
 
         win.blit(image, (self.x, self.y))
 
-        for x in self.bullets:
-            x.draw(win,s)
-
     def move(self,s):
 
         self.tickTime += 1
@@ -157,23 +152,6 @@ class MagicWarrior1(Enemy):
                         self.y += self.xVel
                         break
 
-        for x in self.bullets:
-            x.move()
-
-        toRemove = []
-
-        for x in self.bullets:
-            if(x.x < 0 or x.x > s or x.y < 0 or x.y > s):
-                toRemove.append(x)
-                continue
-            for p in self.platforms:
-                if(p.confereMargem(x)):
-                    toRemove.append(x)
-                    break
-
-        for x in toRemove:
-            self.bullets.remove(x)
-
     def do_attack(self,s):
         if(self.mode == "run"):
             if(self.tickTime % 30 == 0):
@@ -195,15 +173,6 @@ class MagicWarrior1(Enemy):
                 self.bullets.append(
                     BulletMagicWarrior2(self.x + self.width/2 + 50, self.y + self.height/2 + 50,
                                        self.player, int(s*3/80), int(s*3/80), int(s*2/80), int(s/800), "red"))
-
-        toRemove = []
-        for b in self.bullets:
-            if(self.player.confereMargem(b)):
-                self.player.takeDamage(b.damage)
-                toRemove.append(b)
-
-        for b in toRemove:
-            self.bullets.remove(b)
 
 
 class BulletMagicWarrior(Bullet):

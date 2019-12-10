@@ -1,7 +1,9 @@
 import pygame
+import math
+import random
 
 class Enemy(object):
-    def __init__(self, x, y, player, platforms, s):
+    def __init__(self, x, y, player, platforms, s, bullets):
         self.x = x
         self.y = y
         self.width  = int(s/16) #50 #TODO dinamic
@@ -15,6 +17,8 @@ class Enemy(object):
         self.scoreBonus = 50
 
         self.player = player
+
+        self.bullets = bullets
 
         self.jumped = False
         self.jumpForce = -15 #TODO dinamic
@@ -34,7 +38,52 @@ class Enemy(object):
         self.attackCool = 0
 
     def draw(self, win, s):      #TODO dinamic
-        pygame.draw.rect(win, (68, 117, 72), (self.x, self.y, self.width, self.height))
+        try:
+            self.tickTime += 1
+            if(self.tickTime % 30 < 15):
+                image = self.IMAGE_0
+            else:
+                image = self.IMAGE_1
+        except:
+            self.tickTime = 0
+            if(random.randint(0, 9) < 5):
+                self.IMAGE_0 = pygame.transform.scale(pygame.image.load('./sprites/koi_azul_20.png'), (self.width, self.height))
+                self.IMAGE_1 = pygame.transform.scale(pygame.image.load('./sprites/koi_azul_21.png'), (self.width, self.height))
+            else:
+                self.IMAGE_0 = pygame.transform.scale(pygame.image.load('./sprites/koi_vermelho_20.png'), (self.width, self.height))
+                self.IMAGE_1 = pygame.transform.scale(pygame.image.load('./sprites/koi_vermelho_21.png'), (self.width, self.height))
+
+            image = self.IMAGE_0
+            self.tickTime = 0
+
+
+        auxX = self.player.x - self.x
+        auxY = self.player.y - self.y
+
+        sen = 0
+        try:
+            sen = (auxY) / (math.sqrt(auxX * auxX + auxY * auxY))
+        except:
+            pass
+
+        angle = math.degrees(math.asin(sen))
+
+        if (auxX > 0):
+            angle = 180 - angle
+
+        if (angle < 0):
+            angle = 360 + angle
+
+        if(angle < 90 or angle > 270):
+            image = pygame.transform.flip(image, 1, 0)
+
+        '''if(self.ori == "right"):
+            image = pygame.transform.flip(image, True, False)'''
+
+        win.blit(image, (self.x, self.y))
+
+        for x in self.bullets:
+            x.draw(win, s)
 
     def move(self,s):
 

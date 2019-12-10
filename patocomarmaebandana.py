@@ -7,7 +7,7 @@ from math import sqrt, degrees, radians, sin, cos, hypot, pi
 from bullet import *
 
 class Patocomarmaebandana(Enemy):
-    def __init__(self, x, y, player, platforms, s):
+    def __init__(self, x, y, player, platforms, s, bullets):
         self.x = x
         self.y = y
         self.width = int(s/16) #50  # TODO dinamic
@@ -37,7 +37,7 @@ class Patocomarmaebandana(Enemy):
 
         self.attackCool = 0
 
-        self.bullets = []
+        self.bullets = bullets
 
         self.ATTACK_COOL = 120
 
@@ -72,9 +72,6 @@ class Patocomarmaebandana(Enemy):
             image = pygame.transform.flip(image, True, False)'''
 
         win.blit(image, (self.x, self.y))
-
-        for x in self.bullets:
-            x.draw(win,s)
 
     def move(self,s):
 
@@ -120,23 +117,6 @@ class Patocomarmaebandana(Enemy):
 
         if (normalTime % 1 == 0):
             self.attackCool += 1
-
-        for x in self.bullets:
-            x.move()
-
-        toRemove = []
-
-        for x in self.bullets:
-            if(x.x < 0 or x.x > s or x.y < 0 or x.y > s):
-                toRemove.append(x)
-                continue
-            for p in self.platforms:
-                if(p.confereMargem(x)):
-                    toRemove.append(x)
-                    break
-
-        for x in toRemove:
-            self.bullets.remove(x)
 
     def do_attack(self,s):
         if(self.tickTime > self.ATTACK_COOL):

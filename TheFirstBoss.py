@@ -12,8 +12,8 @@ from items import *
 import random
 
 class TheFirstBoss(Enemy):
-    def __init__(self, x, y, player, platforms,s):
-        super().__init__(x, y, player, platforms,s)
+    def __init__(self, x, y, player, platforms,s, bullets):
+        super().__init__(x, y, player, platforms,s, bullets)
 
         self.width = int(s/8)
         self.height = int(s/8)
@@ -31,7 +31,7 @@ class TheFirstBoss(Enemy):
         self.DEFAULT_X = x
         self.DEFAULT_Y = y
 
-        self.bullets = []
+        self.bullets = bullets
 
         self.SPRITES = SpriteSheet('./sprites/TheFirstBoss.png')
 
@@ -191,28 +191,8 @@ class TheFirstBoss(Enemy):
                 image = self.IMAGE_ATTACK_12
         win.blit(image, (self.x, self.y))
 
-        for x in self.bullets:
-            x.draw(win)
-
     def move(self, s):
         self.tickTime += 1
-
-        for x in self.bullets:
-            x.move()
-
-        toRemove = []
-
-        for x in self.bullets:
-            if(x.x < 0 or x.x > s or x.y < 0 or x.y > s):
-                toRemove.append(x)
-                continue
-            for p in self.platforms:
-                if(p.confereMargem(x)):
-                    toRemove.append(x)
-                    break
-
-        for x in toRemove:
-            self.bullets.remove(x)
 
     def do_attack(self, s):
         '''if(self.tickTime > self.atualAttackCool):
@@ -233,7 +213,7 @@ class TheFirstBoss(Enemy):
             if(self.mode != 0):
                 self.mode = 0
                 self.tickTime = 0
-        elif(self.life >= 1500):
+        elif(self.life >= 2000):
             if(self.mode != 1):
                 self.mode = 1
                 self.tickTime = 0
@@ -269,15 +249,6 @@ class TheFirstBoss(Enemy):
                     self.bullets.append(BulletTheFirstBoss(int(s*27/80), int(s*75/80), int(s*26/80), 0, int(s*35/800), int(s*35/800), int(s*5/800), int(s/800)))
                     self.bullets.append(BulletTheFirstBoss(int(s*51/80), int(s*75/80), int(s*5/8), 0, int(s*35/800), int(s*35/800), int(s*5/800), int(s/800)))
                     self.bullets.append(BulletTheFirstBoss(int(s*755/800), int(s*75/80), int(s*755/800), 0, int(s*35/800), int(s*35/800), int(s*5/800), int(s/800)))
-
-        toRemove = []
-        for b in self.bullets:
-            if (self.player.confereMargem(b)):
-                self.player.takeDamage(b.damage)
-                toRemove.append(b)
-
-        for b in toRemove:
-            self.bullets.remove(b)
 
         self.meleeCool += 1
         if (self.confereMargem(self.player) and self.meleeCool >= 60):
@@ -336,8 +307,8 @@ class BulletTheFirstBoss(Bullet):
 
         self.image = pygame.transform.rotate(self.image, d)
 
-    def draw(self, win):
-        if(self.x > 0  and self.y > 0 and self.x <= 800 and self.y <= 800):
+    def draw(self, win, s):
+        if(self.x > 0  and self.y > 0 and self.x <= s and self.y <= s):
             #pygame.draw.rect(win, (255, 0, 0), (self.x, self.y, self.width, self.height))
 
             win.blit(self.image, (self.x, self.y))
@@ -350,12 +321,6 @@ class BulletTheFirstBossVariatings(BulletTheFirstBoss):
 
         self.INITIAL_X = x
         self.INITIAL_Y = y
-
-    def draw(self, win):
-        if(self.x > 0  and self.y > 0 and self.x <= 800 and self.y <= 800):
-            #pygame.draw.rect(win, (255, 0, 0), (self.x, self.y, self.width, self.height))
-
-            win.blit(self.image, (self.x, self.y))
 
     def move(self):
         super().move()

@@ -26,7 +26,7 @@ class Player(object):
         self.jumpped = False
 
         self.gun = Gun(20, 12, self, "default")
-        #self.gun = Gun(20, 2, self, "default")
+        self.gun = Gun(20, 2, self, "default")
 
         self.moving = False
 

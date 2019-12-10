@@ -45,10 +45,10 @@ def generateRoomBounds(haveUp, haveDown, haveLeft, haveRight, s):
 
     return obstaculos
 
-def createRoomFromString(r,player,num,s):
-    return createRoom(int(r[0]),int(r[1]),int(r[2]),int(r[3]),player,num,s)
+def createRoomFromString(r,player,num,s, bullets):
+    return createRoom(int(r[0]),int(r[1]),int(r[2]),int(r[3]),player,num,s, bullets)
 
-def createRoom(haveUp, haveDown, haveLeft, haveRight, player, num,s):
+def createRoom(haveUp, haveDown, haveLeft, haveRight, player, num,s, bullets):
     obstaculos = generateRoomBounds(haveUp, haveDown, haveLeft, haveRight,s)
 
     enemies = []
@@ -57,45 +57,45 @@ def createRoom(haveUp, haveDown, haveLeft, haveRight, player, num,s):
     #obstaculos.append(Platform(790, 0, 10, 300))
 
     if(num==0):
-        enemies.append(MagicWarrior1(int(s*4/8), int(s*4/8), player, obstaculos,s))
+        enemies.append(MagicWarrior1(int(s*4/8), int(s*4/8), player, obstaculos,s, bullets))
     elif(num==1):
         obstaculos.append(Platform(int(s*350/800), int(s*350/800), int(s/8), int(s/8)))
-        enemies.append(Enemy(int(s*150/800), int(s*4/8), player, obstaculos,s))
-        enemies.append(Enemy(int(s*550/800), int(s*4/8), player, obstaculos,s))
+        enemies.append(Enemy(int(s*150/800), int(s*4/8), player, obstaculos,s, bullets))
+        enemies.append(Enemy(int(s*550/800), int(s*4/8), player, obstaculos,s, bullets))
     elif(num==2):
         obstaculos.append(Platform(int(s/16), int(s/16), int(s/16), int(s/16)))
         obstaculos.append(Platform(int(s/16), int(s*7/8), int(s/16), int(s/16)))
         obstaculos.append(Platform(int(s*7/8), int(s/16), int(s/16), int(s/16)))
         obstaculos.append(Platform(int(s*7/8), int(s*7/8), int(s/16), int(s/16)))
-        enemies.append(Enemy(int(s*4/8), int(s*4/8), player, obstaculos,s))
+        enemies.append(Enemy(int(s*4/8), int(s*4/8), player, obstaculos,s, bullets))
     elif(num==3):
         obstaculos.append(Platform(int(s*3/8), int(s*3/8), int(s*200/800), int(s*200/800)))
-        enemies.append(Patocomarmaebandana(int(s/8), int(s/8), player, obstaculos,s))
-        enemies.append(Enemy(int(s*7/8), int(s*7/8), player, obstaculos,s))
+        enemies.append(Patocomarmaebandana(int(s/8), int(s/8), player, obstaculos,s, bullets))
+        enemies.append(Enemy(int(s*7/8), int(s*7/8), player, obstaculos,s, bullets))
     elif(num==4):
         obstaculos.append(Platform(int(s*175/800), int(s*375/800), int(s*450/800), int(s/16)))
         obstaculos.append(Platform(int(s*375/800), int(s*175/800), int(s/16), int(s*450/800)))
-        enemies.append(Enemy(int(s*250/800), int(s*550/800), player, obstaculos,s))
-        enemies.append(Patocomarma(int(s*250/800), int(s*250/800), player, obstaculos,s))
-        enemies.append(Enemy(int(s*550/800), int(s*550/800), player, obstaculos,s))
-        enemies.append(Enemy(int(s*550/800), int(s*250/800), player, obstaculos,s))
+        enemies.append(Enemy(int(s*250/800), int(s*550/800), player, obstaculos,s, bullets))
+        enemies.append(Patocomarma(int(s*250/800), int(s*250/800), player, obstaculos,s, bullets))
+        enemies.append(Enemy(int(s*550/800), int(s*550/800), player, obstaculos,s, bullets))
+        enemies.append(Enemy(int(s*550/800), int(s*250/800), player, obstaculos,s, bullets))
     elif(num==5):
-        enemies.append(Enemy(int(s*250/800), int(s*550/800), player, obstaculos,s))
-        enemies.append(Patocomarmaebandana(int(s*250/800), int(s*250/800), player, obstaculos,s))
-        enemies.append(Enemy(int(s*550/800), int(s*550/800), player, obstaculos,s))
-        enemies.append(Patocomarma(int(s*550/800), int(s*250/800), player, obstaculos,s))
-        enemies.append(Enemy(int(s*350/800), int(s*350/800), player, obstaculos,s))
+        enemies.append(Enemy(int(s*250/800), int(s*550/800), player, obstaculos,s, bullets))
+        enemies.append(Patocomarmaebandana(int(s*250/800), int(s*250/800), player, obstaculos,s, bullets))
+        enemies.append(Enemy(int(s*550/800), int(s*550/800), player, obstaculos,s, bullets))
+        enemies.append(Patocomarma(int(s*550/800), int(s*250/800), player, obstaculos,s, bullets))
+        enemies.append(Enemy(int(s*350/800), int(s*350/800), player, obstaculos,s, bullets))
     elif(num==6):
         obstaculos.append(Platform(0, 0, int(s*3/8), int(s*3/8)))
         obstaculos.append(Platform(int(s*5/8), 0, int(s*3/8), int(s*3/8)))
         obstaculos.append(Platform(0, int(s*5/8), int(s*3/8), int(s*3/8)))
         obstaculos.append(Platform(int(s*5/8), int(s*5/8), int(s*3/8), int(s*3/8)))
-        enemies.append(Patocomarma(int(s*350/800), int(s*350/800), player, obstaculos,s))
+        enemies.append(Patocomarma(int(s*350/800), int(s*350/800), player, obstaculos,s, bullets))
     elif(num==7):
         for i in range(1,8):
             for j in range(1,8):
                 obstaculos.append(Platform(int(s/8)*i, int(s/8)*j, int(s/80), int(s/80)))
-        enemies.append(MagicWarrior1(int(s*41/80), int(s*41/80), player, obstaculos,s))
+        enemies.append(MagicWarrior1(int(s*41/80), int(s*41/80), player, obstaculos,s, bullets))
     elif(num==8):
         pass
     elif(num==9):
@@ -128,12 +128,12 @@ def createShopRoom(haveUp, haveDown, haveLeft, haveRight, player,s):
     enemies = []
 
     shops = [Shop(int(s*7/8), int(s*7/8), Gun(5, 2, player, "minigum"), 2000, player),
-             Shop(int(s*7/8), int(s/80), Gun(500, 2 * 60, player, "exploder"), 3000, player)]
+             Shop(int(s*7/8), int(s/80), Gun(250, 2 * 60, player, "exploder"), 3000, player)]
 
     return mapSlice(enemies, obstaculos, shops, 2, str(haveUp)+str(haveDown)+str(haveLeft)+str(haveRight))
 
-def createBossRoom(r,player,s):
+def createBossRoom(r,player,s, bullets):
     obstaculos = generateRoomBounds(r[0]=="1", r[1]=="1", r[2]=="1", r[3]=="1",s)
-    enemies = [TheFirstBoss(int(s/16),int(s/16),player,obstaculos,s)]
+    enemies = [TheFirstBoss(int(s/16),int(s/16),player,obstaculos,s, bullets)]
     shops = []
     return mapSlice(enemies,obstaculos,shops,3,r)
